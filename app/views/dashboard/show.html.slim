@@ -12,9 +12,12 @@
         .row.align-items-center
           .col-8
             h3.mb-0
-              | Main
+              | My Story Booklet
           .col-4.text-right
             span.btn.btn-sm.btn-primary
-              | Settings
+              | English
       .card-body
-        textarea.form-control.form-control-alternative.js-my-story-textarea
+        textarea.form-control.form-control-alternative.js-my-story-textarea placeholder="Tell your story..."
+
+javascript:
+    autosize($('.js-my-story-textarea'));
