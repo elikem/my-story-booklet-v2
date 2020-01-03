@@ -1,15 +1,24 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>MyStoryBooklet</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+doctype html
+html
+  head
+    title
+      = page_title
+    = csrf_meta_tags
+    = csp_meta_tag
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+    = favicon_link_tag asset_path('argon-dashboard/brand/favicon')
 
-  <body>
-    <%= yield %>
-  </body>
-</html>
+    = stylesheet_link_tag '//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700'
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+
+  body[class=body_class]
+    = render "shared/mobile_navigation"
+
+    .main-content
+      = render "shared/navigation"
+
+      .container-fluid.mt--7
+        = yield
+        = render "shared/footer"

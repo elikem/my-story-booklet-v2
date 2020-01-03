@@ -1,0 +1,81 @@
+nav#sidenav-main.navbar.navbar-vertical.fixed-left.navbar-expand-md.navbar-light.bg-white
+  .container-fluid
+    /! Toggler
+    button.navbar-toggler aria-controls="sidenav-main" aria-expanded="false" aria-label=("Toggle navigation") data-target="#sidenav-collapse-main" data-toggle="collapse" type="button"
+      span.navbar-toggler-icon
+
+    /! Brand
+    a.navbar-brand.pt-0 href="#"
+      = image_tag("argon-dashboard/brand/blue", class: "navbar-brand-img")
+
+    /! User
+    ul.nav.align-items-center.d-md-none
+      li.nav-item.dropdown
+        a.nav-link.nav-link-icon aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button"
+          i.ni.ni-bell-55
+        .dropdown-menu.dropdown-menu-arrow.dropdown-menu-right aria-labelledby="navbar-default_dropdown_1"
+          a.dropdown-item href="#"  Notification 1
+          a.dropdown-item href="#"  Notification 2
+          .dropdown-divider
+          a.dropdown-item href="#"  View Notifications
+      li.nav-item.dropdown
+        a.nav-link aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button"
+          .media.align-items-center
+            span.avatar.avatar-sm.rounded-circle
+              = image_tag("argon-dashboard/theme/team-1-800x800")
+        .dropdown-menu.dropdown-menu-arrow.dropdown-menu-right
+          a.dropdown-item href="#"
+            i.ni.ni-single-02
+            span Profile
+          a.dropdown-item href="#"
+            i.ni.ni-settings-gear-65
+            span Settings
+          a.dropdown-item href="#"
+            i.ni.ni-calendar-grid-58
+            span Activity
+          a.dropdown-item href="#"
+            i.ni.ni-support-16
+            span Support
+          .dropdown-divider
+          a.dropdown-item href="#"
+            i.ni.ni-user-run
+            span Logout
+
+    /! Collapse
+    #sidenav-collapse-main.collapse.navbar-collapse
+      /! Collapse header
+      .navbar-collapse-header.d-md-none
+        .row
+          .col-6.collapse-brand
+            a href="#"
+              = image_tag("argon-dashboard/brand/blue")
+          .col-6.collapse-close
+            button.navbar-toggler aria-controls="sidenav-main" aria-expanded="false" aria-label=("Toggle sidenav") data-target="#sidenav-collapse-main" data-toggle="collapse" type="button"
+              span
+              span
+
+      /! Form
+      form.mt-4.mb-3.d-md-none
+        .input-group.input-group-rounded.input-group-merge
+          input.form-control.form-control-rounded.form-control-prepended aria-label="Search" placeholder="Search" type="search"
+            .input-group-prepend
+              .input-group-text
+                span.fa.fa-search
+
+      /! Navigation
+      ul.navbar-nav
+        li.nav-item class="active"
+        a.nav-link.active href="#"
+          i.ni.ni-tv-2.text-primary
+          | Dashboard
+
+      /! Divider
+      hr.my-3
+      /! Heading
+      h6.navbar-heading.text-muted Dashboard
+      /! Navigation
+      ul.navbar-nav.mb-md-3
+        li.nav-item
+          a.nav-link href="https://demos.creative-tim.com/argon-dashboard/docs/getting-started/overview.html"
+            i.ni.ni-spaceship
+            | Your Story

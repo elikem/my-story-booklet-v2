@@ -1,0 +1,55 @@
+/! Navbar
+nav#navbar-main.navbar.navbar-top.navbar-expand-md.navbar-dark
+  .container-fluid
+    /! Brand
+    a.h4.mb-0.text-white.text-uppercase.d-none.d-lg-inline-block href="./index.html"  Dashboard
+    /! Form
+    form.navbar-search.navbar-search-dark.form-inline.mr-3.d-none.d-md-flex.ml-lg-auto
+      .form-group.mb-0
+        .input-group.input-group-alternative
+          .input-group-prepend
+            span.input-group-text
+              i.fas.fa-search
+          input.form-control placeholder="Search" type="text" /
+
+    /! User
+    ul.navbar-nav.align-items-center.d-none.d-md-flex
+      li.nav-item.dropdown
+        a.nav-link.pr-0 aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button"
+          .media.align-items-center
+            span.avatar.avatar-sm.rounded-circle
+              = image_tag("argon-dashboard/theme/team-4-800x800")
+            .media-body.ml-2.d-none.d-lg-block
+              span.mb-0.text-sm.font-weight-bold Jessica Jones
+        .dropdown-menu.dropdown-menu-arrow.dropdown-menu-right
+          a.dropdown-item href="#"
+            i.ni.ni-single-02
+            span Profile
+          a.dropdown-item href="#"
+            i.ni.ni-settings-gear-65
+            span Settings
+          a.dropdown-item href="#"
+            i.ni.ni-calendar-grid-58
+            span Activity
+          a.dropdown-item href="#"
+            i.ni.ni-support-16
+            span Support
+          .dropdown-divider
+          a.dropdown-item href="#"
+            i.ni.ni-user-run
+            span Logout
+/! End Navbar
+
+/! Header
+.header.bg-gradient-primary.pb-0.pt-5.pt-md-8
+  .container-fluid
+    .header-body
+      .row
+        .col
+          .btn-group.d-flex
+            button(type="button" class="font-weight-normal text-white btn btn-link border-bottom border-top-0 border-left-0 border-right-0 rounded-0" style="border-width: 3px !important")
+              | Your Story
+            button(type="button" class="font-weight-normal text-white-50 btn btn-link ml-auto")
+              | Download
+            button(type="button" class="font-weight-normal text-white-50 btn btn-link")
+              | Share

@@ -18,6 +18,7 @@ gem "pundit"
 gem "high_voltage", "~> 3.1"
 gem "slim-rails"
 gem "pagy"
+gem "bootstrap", "~> 4.3.1"
 gem "friendly_id"
 gem "excon"
 gem "activerecord-import"
@@ -26,6 +27,7 @@ gem "flutie"
 gem "fog-aws"
 gem "csv" # Use to write to CSV
 gem "devise"
+gem "jquery-rails"
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
