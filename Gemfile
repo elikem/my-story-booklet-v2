@@ -28,6 +28,7 @@ gem "fog-aws"
 gem "csv" # Use to write to CSV
 gem "devise"
 gem "jquery-rails"
+gem "gon"
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

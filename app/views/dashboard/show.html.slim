@@ -17,7 +17,23 @@
             span.btn.btn-sm.btn-primary
               | English
       .card-body
-        textarea.form-control.form-control-alternative.js-my-story-textarea placeholder="Tell your story..."
+        = form_for Story.new, url: stories_path, remote: true do |f|
+          = f.hidden_field :user_id, value: current_user.id
+          .form-group
+            = f.text_area :content, class: "form-control form-control-alternative js-my-story-textarea", maxlength: "200"
+            span.text-muted.small.js-my-short-and-sweet-counter.d-block.mt-2
+
+          .row.mt-4
+            .col-8
+              = f.submit "Save", class: "btn btn-primary"
+              = link_to "Cancel", "", class: "btn btn-secondary"
+            .col-4.text-right
+              = link_to "Publish Story", "", class: "btn btn-default"
+
+= show_user_story
 
 javascript:
     autosize($('.js-my-story-textarea'));
+    shortAndSweet('textarea', {
+        counterClassName: 'js-my-short-and-sweet-counter'
+    });

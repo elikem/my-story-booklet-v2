@@ -3668,6 +3668,11 @@ shell-quote@^1.4.3, shell-quote@^1.6.1:
   resolved "https://registry.yarnpkg.com/shell-quote/-/shell-quote-1.7.2.tgz#67a7d02c76c9da24f99d20808fcaded0e0e04be2"
   integrity sha512-mRz/m/JVscCrkMyPqHc/bczi3OQHkLTqXHEFu0zDhK/qfv3UcOA4SVmRCLmos4bhjr9ekVQubj/R7waKapmiQg==
 
+short-and-sweet@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/short-and-sweet/-/short-and-sweet-1.0.2.tgz#ca84b1cc12423b639ae68e95c405d596329a9eb7"
+  integrity sha512-uGGsxoTZvFHlrWo9OySSiK2og6qgSYkXLfcgziA5OvHBtsCsU+Yi7mnxN3KOEytYPzC0RyiWv+iZg/zzAqU6YA==
+
 simple-concat@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/simple-concat/-/simple-concat-1.0.0.tgz#7344cbb8b6e26fb27d66b2fc86f9f6d5997521c6"
