@@ -28,6 +28,7 @@ class StoriesController < ApplicationController
           redirect_to action: "new"
           flash[:alert] = "Your story was not saved."
         }
+
         format.js
       end
     end
