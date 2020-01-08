@@ -37,7 +37,7 @@ nav#sidenav-main.navbar.navbar-vertical.fixed-left.navbar-expand-md.navbar-light
             i.ni.ni-support-16
             span Support
           .dropdown-divider
-          a.dropdown-item href="#"
+          = link_to destroy_user_session_path, class: "dropdown-item", method: :delete do
             i.ni.ni-user-run
             span Logout
 

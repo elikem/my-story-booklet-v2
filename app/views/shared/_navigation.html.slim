@@ -20,7 +20,8 @@ nav#navbar-main.navbar.navbar-top.navbar-expand-md.navbar-dark
             span.avatar.avatar-sm.rounded-circle
               = image_tag("argon-dashboard/theme/team-4-800x800")
             .media-body.ml-2.d-none.d-lg-block
-              span.mb-0.text-sm.font-weight-bold Jessica Jones
+              span.mb-0.text-sm.font-weight-bold
+                = display_full_name
         .dropdown-menu.dropdown-menu-arrow.dropdown-menu-right
           a.dropdown-item href="#"
             i.ni.ni-single-02
@@ -35,7 +36,7 @@ nav#navbar-main.navbar.navbar-top.navbar-expand-md.navbar-dark
             i.ni.ni-support-16
             span Support
           .dropdown-divider
-          a.dropdown-item href="#"
+          = link_to destroy_user_session_path, class: "dropdown-item", method: :delete do
             i.ni.ni-user-run
             span Logout
 /! End Navbar

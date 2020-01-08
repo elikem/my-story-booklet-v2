@@ -24,12 +24,14 @@ class StoriesController < ApplicationController
 
         format.js {}
       else
+        puts @story.errors.full_messages
+
         format.html {
           redirect_to action: "new"
           flash[:alert] = "Your story was not saved."
         }
 
-        format.js
+        format.js {}
       end
     end
   end
