@@ -1,0 +1,10 @@
+#story-list
+  - @stories.each do |story|
+    .story-item.readmore-js
+      .story-content
+        = story.content
+      .story-actions
+        = link_to "Edit Story", edit_story_path(story), class: "btn btn-primary mt-3"
+
+javascript:
+  $('li.readmore-js').readmore({speed: 75, lessLink: '<a href="#">Read less</a>'});

@@ -1,0 +1,19 @@
+- @navigation_page_title = "Storyboard"
+- content_for :navigation_header do
+  = render 'stories/navigation_header'
+
+.row.mt-9
+  .col-xl-12.order-xl-1
+    .card.bg-secondary.shadow
+      .card-header.bg-white.border-0
+        .row.align-items-center
+          .col-8
+            i.ni.ni-single-copy-04.mr-2
+            h3.mb-0.d-inline-block.mr-2
+              | My Story Booklet
+          .col-4.text-right
+            span.btn.btn-sm.btn-primary
+              | English
+
+      .card-body
+        = render partial: 'stories/form', locals: {story: @story}

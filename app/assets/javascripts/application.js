@@ -20,3 +20,4 @@
 //= require argon-dashboard/argon-dashboard
 //= require autosize/dist/autosize
 //= require short-and-sweet/dist/short-and-sweet.min
+//= require readmore-js

@@ -14,13 +14,13 @@ html
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
 
   body[class=body_class]
-    = render "shared/mobile_navigation"
+    = render "shared/main_navigation"
 
     .main-content
-      = render "shared/navigation"
+      = render "shared/top_navigation"
 
       .container-fluid.mt--7
         = yield
         = render "shared/footer"
 
-    = console
+    / = console

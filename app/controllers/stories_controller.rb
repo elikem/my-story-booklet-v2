@@ -1,9 +1,9 @@
 class StoriesController < ApplicationController
+  before_action :authenticate_user!
   before_action :validate_current_user_as_submitter, only: [:create, :update]
 
   def index
-    @stories = Story.all
-    @story = Story.new
+    redirect_to new_story_path
   end
 
   def show
@@ -19,20 +19,10 @@ class StoriesController < ApplicationController
 
     respond_to do |format|
       if @story.save
-        format.html {
-          redirect_to action: "show", id: @story.id
-          flash[:success] = "Your story was saved."
-        }
-
+        format.html { redirect_to action: "show", id: @story.id }
         format.js
       else
-        puts @story.errors.full_messages
-
-        format.html {
-          redirect_to action: "new"
-          flash[:alert] = "Your story was not saved."
-        }
-
+        format.html { render "new" }
         format.js
       end
     end
@@ -45,10 +35,15 @@ class StoriesController < ApplicationController
   def update
     @story = Story.find(params[:id])
 
-    if @story.update_attributes(story_params)
-      redirect_to action: "show", id: @story
-    else
-      render action: "edit"
+    respond_to do |format|
+      if @story.update_attributes(story_params)
+        format.html { redirect_to controller: "dashboard", action: "show" }
+        format.js
+      else
+        format.html { render action: "edit" }
+        format.js
+        @story.errors.full_message
+      end
     end
   end
 
@@ -63,9 +58,10 @@ class StoriesController < ApplicationController
     params.require(:story).permit(:content, :language, :status, :user_id)
   end
 
+  # Ensures that the user story being saved belongs to the authenticated user. If not, redirect to new_story_path.
   def validate_current_user_as_submitter
-    unless current_user == params[:user_id]
-      flash[:error] = "User ID does not match the current user"
+    if current_user.id.to_s != story_params[:user_id]
+      redirect_to new_story_path
     end
   end
 end

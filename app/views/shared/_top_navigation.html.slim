@@ -2,7 +2,8 @@
 nav#navbar-main.navbar.navbar-top.navbar-expand-md.navbar-dark
   .container-fluid
     /! Brand
-    a.h4.mb-0.text-white.text-uppercase.d-none.d-lg-inline-block href="./index.html"  Dashboard
+    a.h4.mb-0.text-white.text-uppercase.d-none.d-lg-inline-block href="./index.html"
+      = @navigation_page_title
     /! Form
     form.navbar-search.navbar-search-dark.form-inline.mr-3.d-none.d-md-flex.ml-lg-auto
       .form-group.mb-0
@@ -21,7 +22,7 @@ nav#navbar-main.navbar.navbar-top.navbar-expand-md.navbar-dark
               = image_tag("argon-dashboard/theme/team-4-800x800")
             .media-body.ml-2.d-none.d-lg-block
               span.mb-0.text-sm.font-weight-bold
-                = display_full_name
+                = display_users_full_name
         .dropdown-menu.dropdown-menu-arrow.dropdown-menu-right
           a.dropdown-item href="#"
             i.ni.ni-single-02
@@ -41,16 +42,4 @@ nav#navbar-main.navbar.navbar-top.navbar-expand-md.navbar-dark
             span Logout
 /! End Navbar
 
-/! Header
-.header.bg-gradient-primary.pb-0.pt-5.pt-md-8
-  .container-fluid
-    .header-body
-      .row
-        .col
-          .btn-group.d-flex
-            button(type="button" class="font-weight-normal text-white btn btn-link border-bottom border-top-0 border-left-0 border-right-0 rounded-0" style="border-width: 3px !important")
-              | Your Story
-            button(type="button" class="font-weight-normal text-white-50 btn btn-link ml-auto")
-              | Download
-            button(type="button" class="font-weight-normal text-white-50 btn btn-link")
-              | Share
+= yield :navigation_header

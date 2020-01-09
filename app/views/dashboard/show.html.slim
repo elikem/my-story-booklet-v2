@@ -1,87 +1,9 @@
-/ .row.mt-9
-  .col-8
-    .dropdown.d-flex.justify-content-end
-      /! Button trigger modal
-      button.btn.btn-primary data-target="#booklet-dropdown-selection" data-toggle="modal" type="button"
-        | Select Booklet
+- @navigation_page_title = "Dashboard"
+- content_for :navigation_header do
+  = render 'dashboard/navigation_header'
 
 .row.mt-9
-  .col-xl-4.order-xl-2.mb-5.mb-xl-0
-    .card.border-0.bg-transparent
-      .card-header.bg-transparent
-        h3.mb-0
-          | Sidebar
-      .card-body
-        | Card Body
-  .col-xl-8.order-xl-1
-    .card.bg-secondary.shadow
-      .card-header.bg-white.border-0
-        .row.align-items-center
-          .col-8
-            i.ni.ni-single-copy-04.mr-2
-            h3.mb-0.d-inline-block
-              | My Story Booklet
+  .col-xl-12.order-xl-1
+    = show_dashboard_story_content
 
-          .col-4.text-right
-            span.btn.btn-sm.btn-primary
-              | English
-      .card-body
-        = form_for Story.new, url: stories_path, remote: true do |f|
-          = f.hidden_field :user_id, value: current_user.id
-
-          / Default booklet and language selection should come from the user's profile and stored in a cookie. We might want to consider getting this information
-            from the browser's localization.
-          = f.hidden_field :language, value: "english"
-
-          / A story's status is always set to draft when it is saved via a new/edited form.
-          / This status is altered by the publish story button/process.
-          = f.hidden_field :status, value: "draft"
-
-          .form-group
-            = f.text_area :content, class: "form-control form-control-alternative js-my-story-textarea", maxlength: "200"
-            p.js-my-short-and-sweet-counter
-
-          .row.mt-4
-            .col-8
-              = f.submit "Save", class: "btn btn-primary"
-              = link_to "Cancel", "", class: "btn btn-secondary"
-            / .col-4.text-right
-              = link_to "Publish Story", "", class: "btn btn-default"
-
-= show_user_story
-
-/! Modal
-#booklet-dropdown-selection.modal.fade aria-hidden="true" aria-labelledby="exampleModalLabel" role="dialog" tabindex="-1"
-  .modal-dialog.modal-dialog-centered role="document"
-    .modal-content
-      .modal-header
-        h5#booklet-dropdown-selection.modal-title Select Booklet
-        button.close aria-label="Close" data-dismiss="modal" type="button"
-          span aria-hidden="true"  &times;
-      .modal-body
-        .row
-          .col-auto
-            select name="booklet-selection" id="js-booklet-selection"
-              option value="my_story_booklet" My Story Booklet
-          .col-auto
-            select name="booklet-language-selection" id="js-booklet-language-selection"
-              option value="english" English
-
-      .modal-footer
-        button.btn.btn-secondary data-dismiss="modal" type="button"  Close
-        button.btn.btn-primary type="button" onclick="saveBookletSelection()"  Save changes
-
-javascript:
-    autosize($('.js-my-story-textarea'));
-    shortAndSweet('textarea', {
-        counterClassName: 'js-my-short-and-sweet-counter'
-    });
-
-    // Modal save script
-    function saveBookletSelection() {
-        var languageSelection = $('#js-booklet-language-selection').val();
-        var bookletSelection = $('#js-booklet-selection').val();
-
-        // Change default language in the my story booklet form with value from the booklet and language selection modal
-        $("#new_story input#story_language").val(languageSelection)
-    }
+  / = render 'dashboard/sidebar'

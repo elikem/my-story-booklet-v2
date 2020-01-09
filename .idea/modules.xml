@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/MyStoryBooklet.iml" filepath="$PROJECT_DIR$/MyStoryBooklet.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Rails.iml" filepath="$PROJECT_DIR$/Rails.iml" />
     </modules>
   </component>
 </project>

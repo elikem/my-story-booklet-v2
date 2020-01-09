@@ -1,0 +1,32 @@
+= form_with model: story, id: "story" do |f|
+  = f.hidden_field :user_id, value: current_user.id
+
+  / Default booklet and language selection should come from the user's profile and stored in a cookie. We might want to consider getting this information
+                    from the browser's localization.
+  = f.hidden_field :language, value: "english"
+
+  / A story's status is always set to draft when it is saved via a new/edited form.
+  / This status is altered by the publish story button/process.
+  = f.hidden_field :status, value: "draft"
+
+  .form-group
+    = f.text_area :content, class: "form-control form-control-alternative js-my-story-textarea", maxlength: "3000", oninput: "enableSaveButton();"
+    p.js-my-short-and-sweet-counter
+
+  .row.mt-4
+    .col-8.actions
+      span
+        = f.submit "Save", id: "save", class: "btn btn-primary", tabindex: "-1", disabled: true
+        = link_to "Cancel", "/", id: "cancel", class: "btn btn-secondary"
+
+javascript:
+    autosize($('.js-my-story-textarea'));
+    shortAndSweet('textarea', {
+        counterClassName: 'js-my-short-and-sweet-counter'
+    });
+
+    function enableSaveButton() {
+        if ($("form#story #save").attr("disabled") == "disabled") {
+            $("form#story #save").removeAttr("disabled");
+        }
+    };
