@@ -1,4 +1,6 @@
 class StoriesController < ApplicationController
+  before_action :validate_current_user_as_submitter, only: [:create, :update]
+
   def index
     @stories = Story.all
     @story = Story.new
@@ -22,7 +24,7 @@ class StoriesController < ApplicationController
           flash[:success] = "Your story was saved."
         }
 
-        format.js {}
+        format.js
       else
         puts @story.errors.full_messages
 
@@ -31,7 +33,7 @@ class StoriesController < ApplicationController
           flash[:alert] = "Your story was not saved."
         }
 
-        format.js {}
+        format.js
       end
     end
   end
@@ -59,5 +61,11 @@ class StoriesController < ApplicationController
 
   def story_params
     params.require(:story).permit(:content, :language, :status, :user_id)
+  end
+
+  def validate_current_user_as_submitter
+    unless current_user == params[:user_id]
+      flash[:error] = "User ID does not match the current user"
+    end
   end
 end
