@@ -2,16 +2,8 @@
 nav#navbar-main.navbar.navbar-top.navbar-expand-md.navbar-dark
   .container-fluid
     /! Brand
-    a.h4.mb-0.text-white.text-uppercase.d-none.d-lg-inline-block href="./index.html"
+    a.h4.mb-0.text-white.text-uppercase.d-none.d-lg-inline-block.disable-hover href="/" style="cursor: default;"
       = @navigation_page_title
-    /! Form
-    form.navbar-search.navbar-search-dark.form-inline.mr-3.d-none.d-md-flex.ml-lg-auto
-      .form-group.mb-0
-        .input-group.input-group-alternative
-          .input-group-prepend
-            span.input-group-text
-              i.fas.fa-search
-          input.form-control placeholder="Search" type="text" /
 
     /! User
     ul.navbar-nav.align-items-center.d-none.d-md-flex
@@ -27,15 +19,6 @@ nav#navbar-main.navbar.navbar-top.navbar-expand-md.navbar-dark
           a.dropdown-item href="#"
             i.ni.ni-single-02
             span Profile
-          a.dropdown-item href="#"
-            i.ni.ni-settings-gear-65
-            span Settings
-          a.dropdown-item href="#"
-            i.ni.ni-calendar-grid-58
-            span Activity
-          a.dropdown-item href="#"
-            i.ni.ni-support-16
-            span Support
           .dropdown-divider
           = link_to destroy_user_session_path, class: "dropdown-item", method: :delete do
             i.ni.ni-user-run
