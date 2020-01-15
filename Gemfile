@@ -52,7 +52,7 @@ group :development do
   gem "rails-erd"
   gem "rufo"
   gem "smusher"
-  # gem "xray-rails" # Not working right now
+  gem "xray-rails" # Not working right now
   gem "better_errors"
   gem "binding_of_caller"
   gem "bullet"
@@ -60,10 +60,6 @@ group :development do
   gem "guard-shell"
   gem "guard-bundler"
   gem "terminal-notifier-guard"
-  gem "web-console", ">= 3.3.0"
-  gem "listen", ">= 3.0.5", "< 3.2"
-  gem "spring"
-  gem "spring-watcher-listen", "~> 2.0.0"
   gem "mailcatcher", require: false
   gem "foreman", require: false
 end

@@ -5,8 +5,9 @@ nav#sidenav-main.navbar.navbar-vertical.fixed-left.navbar-expand-md.navbar-light
       span.navbar-toggler-icon
 
     /! Brand
-    a.navbar-brand.pt-0 href="#"
-      = image_tag("argon-dashboard/brand/blue", class: "navbar-brand-img")
+    a.navbar-brand.pt-0.text-lg href="#"
+      | My Story Booklet
+      / = image_tag("argon-dashboard/brand/blue.png", class: "navbar-brand-img")
 
     /! User
     ul.nav.align-items-center.d-md-none
@@ -14,7 +15,7 @@ nav#sidenav-main.navbar.navbar-vertical.fixed-left.navbar-expand-md.navbar-light
         a.nav-link aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button"
           .media.align-items-center
             span.avatar.avatar-sm.rounded-circle
-              = image_tag("argon-dashboard/theme/team-1-800x800")
+              = image_tag("argon-dashboard/theme/team-1-800x800.jpg")
         .dropdown-menu.dropdown-menu-arrow.dropdown-menu-right
           a.dropdown-item href="#"
             i.ni.ni-single-02
@@ -30,8 +31,9 @@ nav#sidenav-main.navbar.navbar-vertical.fixed-left.navbar-expand-md.navbar-light
       .navbar-collapse-header.d-md-none
         .row
           .col-6.collapse-brand
-            a href="#"
-              = image_tag("argon-dashboard/brand/blue")
+            a.text-lg href="#"
+              | My Story Booklet
+              / = image_tag("argon-dashboard/brand/blue.png")
           .col-6.collapse-close
             button.navbar-toggler aria-controls="sidenav-main" aria-expanded="false" aria-label=("Toggle sidenav") data-target="#sidenav-collapse-main" data-toggle="collapse" type="button"
               span

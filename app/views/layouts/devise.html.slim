@@ -6,7 +6,7 @@ html
     = csrf_meta_tags
     = csp_meta_tag
 
-    = favicon_link_tag asset_path('argon-dashboard/brand/favicon')
+    = favicon_link_tag asset_path('argon-dashboard/brand/favicon.png')
 
     = stylesheet_link_tag '//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700'
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
@@ -22,8 +22,9 @@ html
       /! Navbar
       nav.navbar.navbar-top.navbar-horizontal.navbar-expand-md.navbar-light
         .container.px-4
-          a.navbar-brand href="#"
-            = image_tag("argon-dashboard/brand/blue")
+          a.navbar-brand.text-lg href="#"
+            | My Story Booklet
+            / = image_tag("argon-dashboard/brand/blue.png")
           button.navbar-toggler aria-controls="navbarSupportedContent" aria-expanded="false" aria-label=("Toggle navigation") data-target="#navbar-collapse-main" data-toggle="collapse" type="button"
             span.navbar-toggler-icon
           #navbar-collapse-main.collapse.navbar-collapse
@@ -31,8 +32,9 @@ html
             .navbar-collapse-header.d-md-none
               .row
                 .col-6.collapse-brand
-                  a href="#"
-                    = image_tag("argon-dashboard/brand/blue")
+                  a.text-lg href="#"
+                    | My Story Booklet
+                    / = image_tag("argon-dashboard/brand/blue.png")
                 .col-6.collapse-close
                   button.navbar-toggler aria-controls="sidenav-main" aria-expanded="false" aria-label=("Toggle sidenav") data-target="#navbar-collapse-main" data-toggle="collapse" type="button"
                     span
