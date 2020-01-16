@@ -1,6 +1,10 @@
 module ApplicationHelper
   def display_users_full_name
-    "Jessica Jones"
+    if current_user.first_name.present? || current_user.last_name.present?
+      current_user.first_name + " " + current_user.last_name
+    else
+      ""
+    end
   end
 
   def user_stories?(user_id)

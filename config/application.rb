@@ -25,5 +25,7 @@ module MyStoryBooklet
       g.view_specs false
       g.helper_specs false
     end
+
+    config.eager_load_paths << Rails.root.join('lib')
   end
 end

@@ -8,15 +8,17 @@ nav#navbar-main.navbar.navbar-top.navbar-expand-md.navbar-dark
     /! User
     ul.navbar-nav.align-items-center.d-none.d-md-flex
       li.nav-item.dropdown
-        a.nav-link.pr-0 aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button"
+        a.nav-link.pr-0 aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="" role="button"
           .media.align-items-center
-            span.avatar.avatar-sm.rounded-circle
+            i.ni.ni-circle-08.text-lg
+            / span.avatar.avatar-sm.rounded-circle
               = image_tag("argon-dashboard/theme/team-4-800x800.jpg")
             .media-body.ml-2.d-none.d-lg-block
               span.mb-0.text-sm.font-weight-bold
                 = display_users_full_name
         .dropdown-menu.dropdown-menu-arrow.dropdown-menu-right
-          a.dropdown-item href="#"
+          / a.dropdown-item href="/users/edit"
+          = link_to edit_user_registration_path, class: "dropdown-item" do
             i.ni.ni-single-02
             span Profile
           .dropdown-divider
