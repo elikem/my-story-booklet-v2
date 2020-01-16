@@ -27,4 +27,7 @@ html
         = yield
         = render "shared/footer"
 
+        - if Rails.env.production?
+          = render "shared/google_analytics"
+
     / = console

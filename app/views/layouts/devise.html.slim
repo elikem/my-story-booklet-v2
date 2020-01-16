@@ -22,7 +22,7 @@ html
       /! Navbar
       nav.navbar.navbar-top.navbar-horizontal.navbar-expand-md.navbar-light
         .container.px-4
-          a.navbar-brand.text-lg href="#"
+          a.navbar-brand.text-lg href="/"
             | My Story Booklet
             / = image_tag("argon-dashboard/brand/blue.png")
           button.navbar-toggler aria-controls="navbarSupportedContent" aria-expanded="false" aria-label=("Toggle navigation") data-target="#navbar-collapse-main" data-toggle="collapse" type="button"
@@ -32,7 +32,7 @@ html
             .navbar-collapse-header.d-md-none
               .row
                 .col-6.collapse-brand
-                  a.text-lg href="#"
+                  a.text-lg href="/"
                     | My Story Booklet
                     / = image_tag("argon-dashboard/brand/blue.png")
                 .col-6.collapse-close
@@ -62,4 +62,7 @@ html
               .copyright.text-center.text-xl-left.text-muted
                 | © &nbsp;
                 = Time.new.year
-                a.font-weight-bold.ml-1 href="#"  My Story Booklet
+                a.font-weight-bold.ml-1 href="/"  My Story Booklet
+
+      - if Rails.env.production?
+        = render "shared/google_analytics"
