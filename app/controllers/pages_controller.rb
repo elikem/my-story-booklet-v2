@@ -7,7 +7,11 @@ class PagesController < ApplicationController
   def layout_for_page
     case params[:id]
     when "landing"
-      "landing"
+      "plain"
+    when "test"
+      "plain"
+    when "sign-in"
+      "plain"
     else
       "application"
     end

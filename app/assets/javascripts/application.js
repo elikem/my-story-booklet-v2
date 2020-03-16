@@ -15,9 +15,11 @@
 //= require popper
 //= require turbolinks
 //= require jquery
-//= require bootstrap
 
-//= require argon-dashboard/argon-dashboard
-//= require autosize/dist/autosize
-//= require short-and-sweet/dist/short-and-sweet.min
-//= require readmore-js
+//= require cork/bootstrap
+//= require feather-icons/dist/feather
+
+
+document.addEventListener("turbolinks:load", function() {
+    feather.replace();
+});

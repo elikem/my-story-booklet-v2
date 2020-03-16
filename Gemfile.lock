@@ -126,11 +126,12 @@ GEM
     eventmachine (1.2.7-x86-mingw32)
     excon (0.71.1)
     execjs (2.7.0)
+    feathericon-rails (1.0.0)
+      rails (>= 4.0.0)
     ffi (1.11.3)
     ffi (1.11.3-java)
     ffi (1.11.3-x64-mingw32)
     ffi (1.11.3-x86-mingw32)
-    flutie (2.2.0)
     fog-aws (3.5.2)
       fog-core (~> 2.1)
       fog-json (~> 1.1)
@@ -459,7 +460,7 @@ DEPENDENCIES
   csv
   devise
   excon
-  flutie
+  feathericon-rails
   fog-aws
   foreman
   forgery

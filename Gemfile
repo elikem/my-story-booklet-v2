@@ -23,7 +23,6 @@ gem "friendly_id"
 gem "excon"
 gem "activerecord-import"
 gem "active_link_to"
-gem "flutie"
 gem "fog-aws"
 gem "csv" # Use to write to CSV
 gem "devise"

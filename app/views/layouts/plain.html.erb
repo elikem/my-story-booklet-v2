@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
+
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <!--  TODO: Use Flutie to manage page title -->
+  <title>My Story Booklet <%= "| " + content_for(:page_title) if content_for?(:page_title) %></title>
+
+  <%= favicon_link_tag asset_path("favicon.ico") %>
+
+  <!-- BEGIN GLOBAL STYLES AND SCRIPTS -->
+  <%= stylesheet_link_tag("application", media: "all", "data-turbolinks-track": "reload") %>
+  <%= stylesheet_link_tag("//fonts.googleapis.com/css?family=Quicksand:400,500,600,700&display=swap") %>
+  <%= javascript_include_tag("application", "data-turbolinks-track": "reload") %>
+  <!-- END GLOBAL STYLES AND SCRIPTS -->
+</head>
+<body class="<%= controller_name %> <%= action_name %> alt-menu sidebar-noneoverflow">
+  <%= render partial: 'shared/header' %>
+  <%= yield %>
+</body>
+</html>
