@@ -18,8 +18,10 @@
 
 //= require cork/bootstrap
 //= require feather-icons/dist/feather
-
+//= require perfect-scrollbar.min
+//= require cork/app
 
 document.addEventListener("turbolinks:load", function() {
+    App.init();
     feather.replace();
 });

@@ -1,0 +1,35 @@
+<div class="topbar-nav header navbar" role="banner">
+  <nav id="topbar">
+    <ul class="navbar-nav theme-brand flex-row  text-center">
+      <li class="nav-item theme-logo">
+        <%= link_to("/") do %>
+          <%image_tag("cork/90x90.jpg", class: "navbar-logo") %>
+        <% end %>
+      </li>
+      <li class="nav-item theme-text">
+        <a href="index.html" class="nav-link"> CORK </a>
+      </li>
+    </ul>
+
+    <ul class="list-unstyled menu-categories" id="topAccordion">
+
+      <li class="menu single-menu active">
+        <a href="#dashboard">
+          <div class="">
+            <i data-feather="home"></i>
+            <span>Dashboard</span>
+          </div>
+        </a>
+      </li>
+
+      <li class="menu single-menu">
+        <a href="#my-story">
+          <div class="">
+            <i data-feather="book-open"></i>
+            <span>My Story</span>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>
