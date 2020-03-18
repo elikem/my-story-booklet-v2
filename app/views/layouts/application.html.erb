@@ -8,6 +8,7 @@
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 
+  <!--  TODO: Use Flutie to manage page title -->
   <title>My Story Booklet <%= "| " + content_for(:page_title) if content_for?(:page_title) %></title>
 
   <%= favicon_link_tag asset_path("favicon.ico") %>
@@ -18,29 +19,29 @@
   <%= javascript_include_tag("application", "data-turbolinks-track": "reload") %>
   <!-- END GLOBAL STYLES AND SCRIPTS -->
 </head>
-<body class="<%= controller_name %> <%= action_name %> alt-menu sidebar-noneoverflow">
-<%= render(partial: "shared/top-navigation") %>
+  <body class="<%= controller_name %> <%= action_name %> alt-menu sidebar-noneoverflow">
+    <%= render(partial: "shared/top-navigation") %>
 
-<!--  BEGIN MAIN CONTAINER  -->
-<div class="main-container" id="container">
+    <!--  BEGIN MAIN CONTAINER  -->
+    <div class="main-container" id="container">
 
-  <div class="overlay"></div>
-  <div class="search-overlay"></div>
+      <div class="overlay"></div>
+      <div class="search-overlay"></div>
 
-  <!--  BEGIN MAIN NAVIGATION  -->
-  <%= render(partial: "shared/main-navigation") %>
-  <!--  END MAIN NAVIGATION  -->
+      <!--  BEGIN MAIN NAVIGATION  -->
+      <%= render(partial: "shared/main-navigation") %>
+      <!--  END MAIN NAVIGATION  -->
 
-  <!--  BEGIN CONTENT PART  -->
-  <div id="content" class="main-content">
-    <div class="layout-px-spacing">
-      <%= yield %>
-      <%= render(partial: "shared/footer") %>
+      <!--  BEGIN CONTENT PART  -->
+      <div id="content" class="main-content">
+        <div class="layout-px-spacing">
+          <%= yield %>
+          <%= render(partial: "shared/footer") %>
+        </div>
+      </div>
+      <!--  END CONTENT PART  -->
+
     </div>
-  </div>
-  <!--  END CONTENT PART  -->
-
-</div>
-<!-- END MAIN CONTAINER -->
-</body>
+    <!-- END MAIN CONTAINER -->
+  </body>
 </html>
