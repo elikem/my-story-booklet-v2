@@ -21,7 +21,7 @@
   </head>
 
   <body class="<%= controller_name %> <%= action_name %> alt-menu sidebar-noneoverflow">
-    <%= render(partial: "shared/top-navigation") %>
+    <%= render(partial: "shared/layout/top-navigation") %>
 
     <!--  BEGIN MAIN CONTAINER  -->
     <div class="main-container" id="container">
@@ -30,14 +30,14 @@
       <div class="search-overlay"></div>
 
       <!--  BEGIN MAIN NAVIGATION  -->
-      <%= render(partial: "shared/main-navigation") %>
+      <%= render(partial: "shared/layout/main-navigation") %>
       <!--  END MAIN NAVIGATION  -->
 
       <!--  BEGIN CONTENT PART  -->
       <div id="content" class="main-content">
         <div class="layout-px-spacing">
           <%= yield %>
-          <%= render(partial: "shared/footer") %>
+          <%= render(partial: "shared/layout/footer") %>
         </div>
       </div>
       <!--  END CONTENT PART  -->
