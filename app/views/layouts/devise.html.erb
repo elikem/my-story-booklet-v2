@@ -19,25 +19,17 @@
     <%= javascript_include_tag("application", "data-turbolinks-track": "reload") %>
     <!-- END GLOBAL STYLES AND SCRIPTS -->
   </head>
-
   <body class="<%= controller_name %> <%= action_name %> alt-menu sidebar-noneoverflow">
-    <%= render(partial: "shared/top-navigation") %>
-
     <!--  BEGIN MAIN CONTAINER  -->
     <div class="main-container" id="container">
 
       <div class="overlay"></div>
       <div class="search-overlay"></div>
 
-      <!--  BEGIN MAIN NAVIGATION  -->
-      <%= render(partial: "shared/main-navigation") %>
-      <!--  END MAIN NAVIGATION  -->
-
       <!--  BEGIN CONTENT PART  -->
       <div id="content" class="main-content">
         <div class="layout-px-spacing">
           <%= yield %>
-          <%= render(partial: "shared/footer") %>
         </div>
       </div>
       <!--  END CONTENT PART  -->
