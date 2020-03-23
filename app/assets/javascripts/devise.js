@@ -18,12 +18,17 @@
 
 //= require cork/bootstrap
 //= require feather-icons/dist/feather
-//= require perfect-scrollbar.min
 //= require bootstrap-select.min
 
 //= require cork/app
 
 document.addEventListener("turbolinks:load", function() {
+    // initialize cork theme js
     App.init();
+
+    // initialize feather
     feather.replace();
+
+    // initialize bootstrap-selectpicker
+    $('.selectpicker').selectpicker();
 });

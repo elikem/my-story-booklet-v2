@@ -53,8 +53,15 @@ var App = function() {
             });
         },
         deactivateScroll: function() {
-            const ps = new PerfectScrollbar('#topbar');
-            ps.destroy();
+            // Check if #topbar is preset before creating new instance of PerfectScrollbar
+            if ($('#topbar').length) {
+                console.log("Topbar is present");
+
+                const ps = new PerfectScrollbar('#topbar');
+                ps.destroy();
+            } else {
+                console.log("Topbar is not present");
+            }
         },
         search: function() {
             $(Selector.searchFull).click(function(event) {
@@ -74,22 +81,37 @@ var App = function() {
 
     var mobileFunctions = {
         activateScroll: function() {
-            const ps = new PerfectScrollbar('#topbar', {
-                wheelSpeed:.5,
-                swipeEasing:!0,
-                minScrollbarLength:40,
-                maxScrollbarLength:300
-            });
+            // Check if #topbar is preset before creating new instance of PerfectScrollbar
+            if ($('#topbar').length) {
+                console.log("Topbar is present");
+
+                const ps = new PerfectScrollbar('#topbar', {
+                    wheelSpeed:.5,
+                    swipeEasing:!0,
+                    minScrollbarLength:40,
+                    maxScrollbarLength:300
+                });
+            } else {
+                console.log("Topbar is not present");
+            }
         },
     }
     var desktopFunctions = {
         activateScroll: function() {
-            const desktopFncScroll = new PerfectScrollbar('.menu-categories li.menu .submenu', {
-                wheelSpeed:.5,
-                swipeEasing:!0,
-                minScrollbarLength:40,
-                maxScrollbarLength:300
-            });
+            // Check if #topbar is preset before creating new instance of PerfectScrollbar
+            if ($('#topbar').length) {
+                console.log("Topbar is present");
+
+                const desktopFncScroll = new PerfectScrollbar('.menu-categories li.menu .submenu', {
+                    wheelSpeed:.5,
+                    swipeEasing:!0,
+                    minScrollbarLength:40,
+                    maxScrollbarLength:300
+                });
+            } else {
+                console.log("Topbar is not present");
+            }
+
         },
         preventAccordionOnClick: function() {
             $('.menu > a[data-toggle="collapse"], .menu.single-menu  a[data-toggle="collapse"]').click(function(e){

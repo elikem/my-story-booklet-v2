@@ -13,5 +13,8 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 # folder are already added.
 # Rails.application.config.assets.precompile += %w( admin.js admin.css )
 
+# this layout has its own unique setup (js/css etc)
+Rails.application.config.assets.precompile += %w( devise.js )
+
 # https://makandracards.com/makandra/29567-managing-vendor-libraries-with-the-rails-asset-pipeline
 Rails.application.config.assets.paths += Dir["#{Rails.root}/vendor/asset-libs/*"].sort_by { |dir| -dir.size }
