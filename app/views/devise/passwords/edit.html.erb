@@ -1,0 +1,50 @@
+<div class="row vh-100">
+  <div class="col-12 align-self-center mr-auto ml-auto" style="max-width: 480px;">
+    <div class="card">
+      <div class="card-body">
+        <div class="text-center mb-5">
+          <h3>Change your password</h3>
+        </div>
+
+        <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+          <div class="mb-4">
+            <%= render "devise/shared/error_messages", resource: resource %>
+          </div>
+
+          <%= f.hidden_field :reset_password_token %>
+
+          <div>
+            <label class="font-weight-bold text-dark small">NEW PASSWORD</label>
+            <% if @minimum_password_length %>
+              <em>(<%= @minimum_password_length %> characters minimum)</em><br />
+            <% end %>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i data-feather="lock"></i></span>
+              </div>
+              <%= f.password_field :password, autofocus: true, placeholder: "Password", class: "form-control" %>
+            </div>
+          </div>
+
+          <div>
+            <label class="font-weight-bold text-dark small">CONFIRM NEW PASSWORD</label>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i data-feather="lock"></i></span>
+              </div>
+              <%= f.password_field :password_confirmation, autofocus: true, placeholder: "Password", class: "form-control" %>
+            </div>
+          </div>
+
+          <div class="mt-4">
+            <%= f.submit("Password", class: "btn btn-primary w-100 py-2", style: "font-size: 16px;") %>
+          </div>
+
+          <div class="mt-5 text-center">
+            <%= render("devise/shared/links") %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

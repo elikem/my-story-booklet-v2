@@ -16,15 +16,32 @@
 @import "cork/bootstrap";
 @import "cork/cork";
 
+// adds padding to both the left and right of a container
+// this might not be a necessary style
 .layout-side-spacing {
   padding-left: 20px;
   padding-right: 20px;
 }
 
+// some links look do not look links and need to be styled accordingly
 a.text-link {
   color: #1b55e2;
 
   &:hover {
     text-decoration: underline;
+  }
+}
+
+// Devise adds this div wrapper around inputs. This wrapper wreaks havoc on the input and label styles for input groups.
+.field_with_errors {
+  position: relative;
+  -webkit-box-flex: 1;
+  flex: 1 1 0;
+  min-width: 0;
+  margin-bottom: 0;
+
+  input {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
   }
 }
