@@ -3,8 +3,12 @@
     <div class="card">
       <div class="card-body">
         <div class="text-center mb-5">
-          <h1>Sign In</h1>
+          <h3>Sign In</h3>
           <p>Log in to your account to continue.</p>
+        </div>
+
+        <div class="mb-4">
+          <%= render(partial: "shared/flash_messages") %>
         </div>
 
         <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
@@ -14,13 +18,17 @@
               <div class="input-group-prepend">
                 <span class="input-group-text"><i data-feather="user"></i></span>
               </div>
-              <%= f.email_field :email, autofocus: true, placeholder: "e.g. Jane Doe", class: "form-control" %>
+              <%= f.email_field :email, autofocus: true, placeholder: "e.g. jane.doe@example.com", class: "form-control" %>
             </div>
             <small class="form-text text-muted">We'll never share your email with another organization.</small>
           </div>
 
           <div class="mt-4">
-            <label class="font-weight-bold text-dark small">PASSWORD</label>
+            <div class="d-flex justify-content-between">
+              <label class="font-weight-bold text-dark small">PASSWORD</label>
+<!--          TODO: Confirm "Forgot Password" path-->
+              <%= link_to("Forgot Password?", new_user_password_path, class: "text-link small", style: "text-decoration: underline;") %>
+            </div>
             <div class="input-group mb-3">
               <div class="input-group-prepend">
                 <span class="input-group-text"><i data-feather="lock"></i></span>

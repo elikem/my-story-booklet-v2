@@ -1,0 +1,32 @@
+<div class="row vh-100">
+  <div class="col-12 align-self-center mr-auto ml-auto" style="max-width: 480px;">
+    <div class="card">
+      <div class="card-body">
+        <div class="text-center mb-5">
+          <h3>Forgot your password?</h3>
+          <p>We'll send password reset instructions.</p>
+        </div>
+
+        <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: {method: :post}) do |f| %>
+          <div>
+            <label class="font-weight-bold text-dark small">EMAIL ADDRESS</label>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i data-feather="user"></i></span>
+              </div>
+              <%= f.email_field :email, autofocus: true, placeholder: "e.g. jane.doe@example.com", class: "form-control" %>
+            </div>
+          </div>
+
+          <div class="mt-4">
+            <%= f.submit("Reset Password", class: "btn btn-primary w-100 py-2", style: "font-size: 16px;") %>
+          </div>
+
+          <div class="mt-5 text-center">
+            <%= render("devise/shared/links") %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
