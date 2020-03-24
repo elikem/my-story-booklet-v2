@@ -1,0 +1,34 @@
+<div class="row vh-100">
+  <div class="col-12 align-self-center mr-auto ml-auto" style="max-width: 480px;">
+    <div class="card">
+      <div class="card-body">
+        <div class="text-center mb-5">
+          <h3>Resend confirmation instructions</h3>
+        </div>
+
+        <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
+          <div class="mb-4">
+            <%= render "devise/shared/error_messages", resource: resource %>
+          </div>
+          <div>
+            <label class="font-weight-bold text-dark small">EMAIL ADDRESS</label>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i data-feather="user"></i></span>
+              </div>
+              <%= f.email_field :email, value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email), autofocus: true, placeholder: "e.g. jane.doe@example.com", class: "form-control" %>
+            </div>
+          </div>
+
+          <div class="mt-4">
+            <%= f.submit("Resend confirmation instructions", class: "btn btn-primary w-100 py-2", style: "font-size: 16px;") %>
+          </div>
+
+          <div class="mt-5 text-center">
+            <%= render("devise/shared/links") %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
