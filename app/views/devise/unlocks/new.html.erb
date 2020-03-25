@@ -3,11 +3,10 @@
     <div class="card">
       <div class="card-body">
         <div class="text-center mb-5">
-          <h3>Forgot your password?</h3>
-          <p>We'll send password reset instructions.</p>
+          <h3>Resend unlock instructions</h3>
         </div>
 
-        <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: {method: :post}) do |f| %>
+        <%= form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }) do |f| %>
           <div class="mb-4">
             <%= render "devise/shared/error_messages", resource: resource %>
           </div>
@@ -23,7 +22,7 @@
           </div>
 
           <div class="mt-4">
-            <%= f.submit("Reset Password", class: "btn btn-primary w-100 py-2", style: "font-size: 16px;") %>
+            <%= f.submit("Resend unlock instructions", class: "btn btn-primary w-100 py-2", style: "font-size: 16px;") %>
           </div>
 
           <div class="mt-5 text-center">
