@@ -7,17 +7,17 @@ module ApplicationHelper
     end
   end
 
+  # show number of stories for a given user
   def story_count_for(user_id)
     User.find_by_id(user_id).stories.count
   end
 
-  # the top navigation uses this to determine whether to show links for a logged in user or for an unauthenticated
-  # user.
-  def show_link_to_sign_in_page_or_logged_in_user_links
+  # show user links in top navigation based on user sign state
+  def display_top_navigation_user_links
     if user_signed_in?
-      render(partial: "shared/top-navigation/logged_in_user_links")
+      render(partial: "shared/top-navigation/user_signed_in_links")
     else
-      render(partial: "shared/top-navigation/link_to_sign_in_page")
+      render(partial: "shared/top-navigation/user_not_signed_in_links")
     end
   end
 
