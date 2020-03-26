@@ -10,23 +10,25 @@
   = f.hidden_field :status, value: "draft"
 
   .form-group
-    = f.text_area :content, class: "form-control form-control-alternative js-my-story-textarea", maxlength: "3000", oninput: "enableSaveButton();"
-    p.js-my-short-and-sweet-counter
+    = f.text_area :content, class: "form-control", id: "js-my-story-textarea", maxlength: "3000"
 
   .row.mt-4
     .col-8.actions
       span
-        = f.submit "Save", id: "save", class: "btn btn-primary", tabindex: "-1", disabled: true
-        = link_to "Cancel / Take Me Back", "/", id: "cancel", class: "btn btn-secondary"
+        = f.submit "Save", id: "js-froala-save-button", class: "btn btn-primary", tabindex: "-1"
 
 javascript:
-    autosize($('.js-my-story-textarea'));
-    shortAndSweet('textarea', {
-        counterClassName: 'js-my-short-and-sweet-counter'
+    new FroalaEditor('textarea#js-my-story-textarea', {
+        placeholderText: 'Type your story here',
+        toolbarButtons: [''],
+        pastePlain: true,
+        attribution: false,
+        autofocus: true,
+        heightMin: 200,
+        htmlAllowComments: false,
+        htmlAllowedAttrs: [''],
+        htmlAllowedStyleProps: [''],
+        htmlAllowedTags: ['p'],
+        pasteAllowedStyleProps: [''],
+        shortcutsEnabled: [''],
     });
-
-    function enableSaveButton() {
-        if ($("form#story #save").attr("disabled") == "disabled") {
-            $("form#story #save").removeAttr("disabled");
-        }
-    };

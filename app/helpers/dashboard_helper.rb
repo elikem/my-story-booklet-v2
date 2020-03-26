@@ -1,9 +1,9 @@
 module DashboardHelper
-  def show_dashboard_story_content
-    if user_stories?(current_user.id)
-      render 'dashboard/user_with_story'
+  def list_or_create_story
+    if story_count_for(current_user.id) > 0
+      render(partial: "dashboard/story/user_with_story")
     else
-      render 'dashboard/user_without_story'
+      render(partial: "dashboard/story/user_without_story")
     end
   end
 end

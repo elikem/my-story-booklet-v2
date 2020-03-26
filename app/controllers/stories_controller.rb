@@ -16,6 +16,8 @@ class StoriesController < ApplicationController
 
   def create
     @story = Story.new(story_params)
+    puts "===================="
+    puts @story.errors.messages
 
     respond_to do |format|
       if @story.save

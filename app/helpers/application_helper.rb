@@ -7,8 +7,8 @@ module ApplicationHelper
     end
   end
 
-  def user_stories?(user_id)
-    User.find_by_id(user_id).stories.count > 0 ? true : false
+  def story_count_for(user_id)
+    User.find_by_id(user_id).stories.count
   end
 
   # the top navigation uses this to determine whether to show links for a logged in user or for an unauthenticated
