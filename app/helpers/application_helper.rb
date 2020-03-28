@@ -7,11 +7,6 @@ module ApplicationHelper
     end
   end
 
-  # show number of stories for a given user
-  def story_count_for(user_id)
-    User.find_by_id(user_id).stories.count
-  end
-
   # show user links in top navigation based on user sign state
   def display_top_navigation_user_links
     if user_signed_in?

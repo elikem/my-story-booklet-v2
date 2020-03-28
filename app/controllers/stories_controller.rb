@@ -2,10 +2,6 @@ class StoriesController < ApplicationController
   before_action :authenticate_user!
   before_action :validate_current_user_as_submitter, only: [:create, :update]
 
-  def index
-    redirect_to new_story_path
-  end
-
   def show
     @story = Story.find(params[:id])
   end
@@ -16,15 +12,10 @@ class StoriesController < ApplicationController
 
   def create
     @story = Story.new(story_params)
-    puts "===================="
-    puts @story.errors.messages
-
     respond_to do |format|
       if @story.save
-        format.html { redirect_to action: "show", id: @story.id }
         format.js
       else
-        format.html { render "new" }
         format.js
       end
     end
@@ -39,19 +30,16 @@ class StoriesController < ApplicationController
 
     respond_to do |format|
       if @story.update_attributes(story_params)
-        format.html { redirect_to controller: "dashboard", action: "show" }
         format.js
       else
-        format.html { render action: "edit" }
         format.js
-        @story.errors.full_message
       end
     end
   end
 
-  def delete
+  def destroy
     Story.find(params[:id]).destroy
-    redirect_to action: "index"
+    redirect_to controller: "dashboard", action: "show"
   end
 
   private

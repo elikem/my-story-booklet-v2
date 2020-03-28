@@ -8,10 +8,6 @@ class PagesController < ApplicationController
     case params[:id]
     when "landing"
       "plain"
-    when "test"
-      "plain"
-    when "sign-in"
-      "plain"
     else
       "application"
     end
