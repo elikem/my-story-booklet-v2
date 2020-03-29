@@ -1,6 +1,5 @@
 <% if @story.errors.any? %>
-  console.log("Your story was not updated.")
+  console.log("Story was not updated.")
 <% else %>
-  $("form#story .actions span").replaceWith("<a href='/' id='done' class='btn btn-success'>Done</a> <a href='JavaScript:location.reload();' id='continue' class='btn btn-secondary'>Continue Editing</a>");
-  $("form#story textarea").attr("disabled", "disabled");
+  console.log("Story was successfully updated.");
 <% end %>

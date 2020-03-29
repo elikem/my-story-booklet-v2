@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :stories, except: :index
+  resources :stories#, except: :index
 
   devise_for :users
 

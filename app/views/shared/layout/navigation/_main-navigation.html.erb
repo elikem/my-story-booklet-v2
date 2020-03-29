@@ -3,29 +3,22 @@
     <ul class="navbar-nav theme-brand flex-row  text-center">
 
       <li class="nav-item theme-text">
-        <a href="index.html" class="nav-link"> My Story Booklet </a>
+        <a href="/" class="nav-link"> My Story Booklet </a>
       </li>
     </ul>
 
     <ul class="list-unstyled menu-categories" id="topAccordion">
 
       <li class="menu single-menu active">
-        <a href="#dashboard">
-          <div class="">
+        <a href="/">
+          <div>
             <i data-feather="home"></i>
             <span>Dashboard</span>
           </div>
         </a>
       </li>
 
-      <li class="menu single-menu">
-        <a href="#my-story">
-          <div class="">
-            <i data-feather="book-open"></i>
-            <span>My Story</span>
-          </div>
-        </a>
-      </li>
+      <%= display_story_link_for(current_user) %>
     </ul>
   </nav>
 </div>

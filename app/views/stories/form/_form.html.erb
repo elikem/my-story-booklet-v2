@@ -1,0 +1,36 @@
+<%= form_with(model: story, id: "story") do |f| %>
+  <%= f.hidden_field :user_id, value: current_user.id %>
+  <%= f.hidden_field :language, value: "english" %>
+  <%= f.hidden_field :status, value: "draft" %>
+
+  <div class="form-group">
+    <%= f.text_area :content, class: "form-control", id: "js-my-story-textarea", maxlength: "3000" %>
+  </div>
+<% end %>
+
+<script type="text/javascript" charset="utf-8">
+    var froalaTextEditor = new FroalaEditor('textarea#js-my-story-textarea', {
+        toolbarInline: true,
+        placeholderText: 'Type your story here',
+        toolbarButtons: [''],
+        pastePlain: true,
+        attribution: false,
+        autofocus: true,
+        heightMin: 200,
+        htmlAllowComments: false,
+        htmlAllowedAttrs: [''],
+        htmlAllowedStyleProps: [''],
+        htmlAllowedTags: ['p'],
+        pasteAllowedStyleProps: [''],
+        shortcutsEnabled: [''],
+        events: {
+            'contentChanged': function () {
+                if (froalaTextEditor.html.get() !== "") {
+                    $("button#js-froala-save-button").removeAttr("disabled");
+                } else {
+                    $("button#js-froala-save-button").attr("disabled", "disabled");
+                }
+            }
+        }
+    });
+</script>

@@ -1,129 +1,10 @@
-<li class="nav-item dropdown message-dropdown">
-  <%= link_to("javascript:void(0);", class: "nav-link dropdown-toggle", data: {toggle: "dropdown"}) do %>
-    <i data-feather="message-circle"></i>
-    <span class="badge badge-success"></span>
-  <% end %>
-  <div class="dropdown-menu p-0 position-absolute animated fadeInUp">
-    <div>
-      <a class="dropdown-item">
-        <div>
-          <div class="media">
-            <div class="user-img">
-              <div class="avatar avatar-xl">
-                <span class="avatar-title rounded-circle">KY</span>
-              </div>
-            </div>
-            <div class="media-body">
-              <div class="">
-                <h5 class="usr-name">Kara Young</h5>
-                <p class="msg-title">ACCOUNT UPDATE</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </a>
-      <a class="dropdown-item">
-        <div>
-          <div class="media">
-            <div class="user-img">
-              <div class="avatar avatar-xl">
-                <span class="avatar-title rounded-circle">DA</span>
-              </div>
-            </div>
-            <div class="media-body">
-              <div class="">
-                <h5 class="usr-name">Daisy Anderson</h5>
-                <p class="msg-title">ACCOUNT UPDATE</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </a>
-      <a class="dropdown-item">
-        <div>
-          <div class="media">
-            <div class="user-img">
-              <div class="avatar avatar-xl">
-                <span class="avatar-title rounded-circle">OG</span>
-              </div>
-            </div>
-            <div class="media-body">
-              <div class="">
-                <h5 class="usr-name">Oscar Garner</h5>
-                <p class="msg-title">ACCOUNT UPDATE</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </a>
-    </div>
-  </div>
-</li>
-
-<li class="nav-item dropdown notification-dropdown">
-  <a href="javascript:void(0);" class="nav-link dropdown-toggle" data-toggle="dropdown">
-    <i data-feather="bell"></i>
-    <span class="badge badge-success"></span>
-  </a>
-  <div class="dropdown-menu position-absolute animated fadeInUp" aria-labelledby="notificationDropdown">
-    <div class="notification-scroll">
-      <div class="dropdown-item">
-        <div class="media server-log">
-          <i data-feather="server"></i>
-          <div class="media-body">
-            <div class="data-info">
-              <h6>Server Rebooted</h6>
-              <p>45 min ago</p>
-            </div>
-
-            <div class="icon-status">
-              <i data-feather="x"></i>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="dropdown-item">
-        <div class="media">
-          <i data-feather="heart"></i>
-          <div class="media-body">
-            <div class="data-info">
-              <h6>Licence Expiring Soon</h6>
-              <p>8 hrs ago</p>
-            </div>
-
-            <div class="icon-status">
-              <i data-feather="x"></i>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="dropdown-item">
-        <div class="media file-upload">
-          <i data-feather="file-text"></i>
-          <div class="media-body">
-            <div class="data-info">
-              <h6 class="">Kelly Portfolio.pdf</h6>
-              <p class="">670 kb</p>
-            </div>
-
-            <div class="icon-status">
-              <i data-feather="check"></i>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</li>
-
 <li class="nav-item dropdown user-profile-dropdown order-lg-0 order-1">
   <%= link_to("javascript:void(0);", class: "nav-link dropdown-toggle user", id: "user-profile-dropdown", data: {toggle: "dropdown"}) do %>
     <div class="media">
-      <%= image_tag("cork/profile.jpg", class: "img-fluid") %>
+      <%#= image_tag("cork/profile.jpg", class: "img-fluid") %>
+      <i data-feather="user" class="mr-2" style="width: 25px; height: 25px;"></i>
       <div class="media-body align-self-center">
-        <h6><span>Welcome</span> Jane</h6>
+        <h6><span>Welcome</span> <%= display_users_first_name %></h6>
       </div>
     </div>
     <i data-feather="chevron-down"></i>
@@ -145,5 +26,4 @@
       </div>
     </div>
   </div>
-
 </li>

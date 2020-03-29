@@ -7,6 +7,12 @@ module ApplicationHelper
     end
   end
 
+  def display_users_first_name
+    if current_user.first_name.present?
+      current_user.first_name
+    end
+  end
+
   # show user links in top navigation based on user sign state
   def display_top_navigation_user_links
     if user_signed_in?

@@ -14,8 +14,10 @@ class StoriesController < ApplicationController
     @story = Story.new(story_params)
     respond_to do |format|
       if @story.save
+        format.html { redirect_to "/" }
         format.js
       else
+        format.html { render "dashboard/show" }
         format.js
       end
     end
@@ -30,8 +32,10 @@ class StoriesController < ApplicationController
 
     respond_to do |format|
       if @story.update_attributes(story_params)
+        format.html { redirect_to "/" }
         format.js
       else
+        format.html { render "edit" }
         format.js
       end
     end

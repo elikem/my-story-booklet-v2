@@ -1,0 +1,32 @@
+body.pages {
+  #landing-page {
+    #hero-container {
+      background: image_url("landing-bg.svg") no-repeat center right;
+      background-size: contain;
+    }
+
+    @media (min-width: 1200px) {
+      #hero-container {
+        height: 450px;
+      }
+    }
+
+    @media (min-width: 992px) and (max-width: 1199.98px) {
+      #hero-container {
+        height: 400px;
+      }
+    }
+
+    @media (min-width: 768px) and (max-width: 991.8px) {
+      #hero-container {
+        height: 350px;
+      }
+    }
+
+    @media (max-width: 767.8px) {
+      #hero-container {
+        height: 300px;
+      }
+    }
+  }
+}
