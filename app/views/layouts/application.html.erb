@@ -17,6 +17,7 @@
     <%= stylesheet_link_tag("application", media: "all", "data-turbolinks-track": "reload") %>
     <%= stylesheet_link_tag params[:controller] %>
     <%= stylesheet_link_tag("//fonts.googleapis.com/css?family=Quicksand:400,500,600,700&display=swap") %>
+    <%= Gon::Base.render_data %>
     <%= javascript_include_tag("application", "data-turbolinks-track": "reload") %>
     <!-- END GLOBAL STYLES AND SCRIPTS -->
   </head>
