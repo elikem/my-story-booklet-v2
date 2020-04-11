@@ -1,0 +1,4 @@
+exclude_patterns:
+- "vendor/"
+- "app/assets/javascripts/cork/"
+- "app/assets/stylesheets/cork/"
