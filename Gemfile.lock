@@ -430,7 +430,7 @@ DEPENDENCIES
   spring
   spring-watcher-listen (~> 2.0.0)
   terminal-notifier-guard
-  tinymce-rails
+  tinymce-rails (= 5.2.1)
   turbolinks (~> 5)
   tzinfo-data
   uglifier (>= 1.3.0)
