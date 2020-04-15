@@ -24,7 +24,8 @@
 //= require cork/app
 
 // project add-ons
-//= require froala-editor/js/froala_editor.min
+// require froala-editor/js/froala_editor.min
+//= require tinymce/tinymce.min
 
 
 // initializers and quick add-ons

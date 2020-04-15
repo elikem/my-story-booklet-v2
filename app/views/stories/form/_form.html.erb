@@ -9,29 +9,20 @@
 <% end %>
 
 <script type="text/javascript" charset="utf-8">
-    var froalaTextEditor = new FroalaEditor('textarea#js-my-story-textarea', {
-        key: '2F-7nkmuieD-8qpkmgwF4fij==',
-        toolbarInline: true,
-        placeholderText: 'Type your story here',
-        toolbarButtons: [''],
-        pastePlain: true,
-        attribution: false,
-        autofocus: true,
-        heightMin: 200,
-        htmlAllowComments: false,
-        htmlAllowedAttrs: [''],
-        htmlAllowedStyleProps: [''],
-        htmlAllowedTags: ['p'],
-        pasteAllowedStyleProps: [''],
-        shortcutsEnabled: [''],
-        events: {
-            'contentChanged': function () {
-                if (froalaTextEditor.html.get() !== "") {
-                    $("button#js-froala-save-button").removeAttr("disabled");
-                } else {
-                    $("button#js-froala-save-button").attr("disabled", "disabled");
-                }
-            }
-        }
+    tinymce.init({
+        selector: '#js-my-story-textarea',
+        placeholder: 'Tell your story...',
+        paste_as_text: true,
+        plugins: "paste",
+        paste_data_images: true,
+        valid_elements: "p",
+        menubar: '',
+        toolbar: '',
+        allow_conditional_comments: false,
+        allow_html_in_named_anchor: false,
+        convert_fonts_to_spans : false,
     });
 </script>
+
+<!--$("button#js-my-story-save-button").removeAttr("disabled");-->
+<!--$("button#js-my-story-save-button").attr("disabled", "disabled");-->
