@@ -2,8 +2,7 @@
   "name": "MyStoryBooklet",
   "private": true,
   "dependencies": {
-    "feather-icons": "^4.26.0",
-    "tinymce": "^5.2.1"
+    "feather-icons": "^4.26.0"
   }
 
 }

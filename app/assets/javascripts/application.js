@@ -24,9 +24,7 @@
 //= require cork/app
 
 // project add-ons
-//= require tinymce/tinymce.min
-//= require tinymce/themes/silver/theme
-
+//= require tinymce
 
 // initializers and quick add-ons
 document.addEventListener("turbolinks:load", function() {

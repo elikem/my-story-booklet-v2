@@ -24,6 +24,7 @@ gem "devise"
 gem "jquery-rails"
 gem "gon"
 gem "smusher"
+gem "tinymce-rails"
 
 group :development do
   gem 'web-console', '>= 3.3.0'
