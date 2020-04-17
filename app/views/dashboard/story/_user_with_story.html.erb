@@ -4,6 +4,10 @@
 <% list_story_ids_for(current_user).each do |id| %>
   <div class="card mt-4">
     <div class="card-body">
+      <div class="story-title">
+        <div class="mb-3 font-weight-bold lead text-black"><%= display_story_title(id) %></div>
+      </div>
+
       <div class="story-content">
         <%= raw Story.find_by_id(id).content %>
       </div>
