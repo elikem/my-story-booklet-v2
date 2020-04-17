@@ -1,16 +1,20 @@
 <div class="mt-4">
   <div class="row">
     <div class="col-md-9 col-sm-12">
-      <div class="card">
+      <div class="card" style="border: none;">
         <div class="card-body">
-          <div class="story-content">
-            <%= render(partial: "stories/form/form", locals: {story: @story}) %>
-          </div>
-        </div>
+          <div class="card" style="border: none;">
+            <div class="card-body">
+              <div class="story-content">
+                <%= render(partial: "stories/form/form", locals: {story: @story}) %>
+              </div>
+            </div>
 
-        <div class="card-footer">
-          <div class="story-buttons">
-            <%= render(partial: "stories/form/form_buttons") %>
+            <div class="card-footer">
+              <div class="story-buttons">
+                <%= render(partial: "stories/form/form_buttons") %>
+              </div>
+            </div>
           </div>
         </div>
       </div>
