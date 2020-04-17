@@ -49,7 +49,7 @@ class StoriesController < ApplicationController
   private
 
   def story_params
-    params.require(:story).permit(:content, :language, :status, :user_id)
+    params.require(:story).permit(:content, :language, :status, :user_id, :title)
   end
 
   # Ensures that the user story being saved belongs to the authenticated user. If not, redirect to new_story_path.

@@ -25,4 +25,10 @@ module StoriesHelper
 
     render(partial: "shared/layout/navigation/link_for_stories", locals: {story: story, story_link: story_link, link_disability_state: link_disability_state})
   end
+
+  def display_story_title(story_id)
+    unless Story.find_by_id(story_id).title.nil?
+      raw Story.find_by_id(story_id).title
+    end
+  end
 end
