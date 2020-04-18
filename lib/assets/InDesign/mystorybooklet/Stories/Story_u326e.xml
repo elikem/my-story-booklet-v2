@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<idPkg:Story xmlns:idPkg="http://ns.adobe.com/AdobeInDesign/idml/1.0/packaging" DOMVersion="15.0">
+	<Story Self="u326e" UserText="true" IsEndnoteStory="false" AppliedTOCStyle="n" TrackChanges="false" StoryTitle="$ID/" AppliedNamedGrid="n">
+		<StoryPreference OpticalMarginAlignment="false" OpticalMarginSize="12" FrameType="TextFrameType" StoryOrientation="Horizontal" StoryDirection="LeftToRightDirection" />
+		<InCopyExportOption IncludeGraphicProxies="true" IncludeAllResources="false" />
+		<XMLElement Self="di2ic" MarkupTag="XMLTag/story" XMLContent="u326e">
+			<ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/Story Paragraph" Justification="LeftAlign">
+				<CharacterStyleRange AppliedCharacterStyle="CharacterStyle/$ID/[No character style]" FontStyle="Regular" Tracking="0">
+					<Properties>
+						<AppliedFont type="string">EB Garamond</AppliedFont>
+					</Properties>
+					<Content>Ucimint laborecatem deliquiatium eum ulpa ape idebitatem et que nobitatus dolluptatem. Urioreium quis dolore nienien ihilit aut officia voloritio vent, eum hil idel mi, cones providel ipiciur aut in nobit atibus, velendit aut quisqui quiae et quo magniatio. Officima a et etus quam ea voluptiorera sequi consectur, sapidit alitamus, utem quation nihil id mi, cuptatio omni di repudit doles utae molo eatem abo. Us dolorer spidunt reres esecae non nimus.</Content>
+					<Br />
+					<Content>Obiscia es disci il illa doluptas cum fugiatiore prat.</Content>
+					<Br />
+					<Content>Untur a dolorectur, comnim facerumquis ari dis aut laborerum deliquat impostiaspe latia sim quia volorescipic te sunt.</Content>
+					<Br />
+					<Content>Harumquunt quiande mollitatem quam fugiam nuscias est, sin consed eliquiatio. Nam eius, quat quam apitae. Ga. Aquis arum qui con nonsectis que pore perepellent.</Content>
+					<Br />
+					<Content>Alicim velit essitate si ut endaepe llorehenis ium estias endelique dellum nus praepudam dolorem fugiatur?</Content>
+					<Br />
+					<Content>Imolentem simoloribus sit atus ut lacid ut quo dem de as santur reperum quam nonsecus volorer rovitae eaquatque nullanda pre soloreh endanit lant fuga. Et dolorem olorum nossi inctus aut eumqui te sandant.</Content>
+					<Br />
+					<Content>Tem qui cumque dictis eos sitior alitatur?</Content>
+					<Br />
+					<Content>Hendae resci oditectae vel ipsandam estorios ut voluptur, officab orunti quodis eates esecusa sinvel maximus aperum faceria nem dolore sin porepel estiaer atibus evelibus adit, et alia etur? Qui nis adit adiassit persped millique non nempossit que latus culpa sequissequid ma dolorit eatiatin nonecestio. Nequi dolorat.</Content>
+					<Br />
+					<Content>Enda inctecae eum ilit eum harum vent min poritasit qui officabo. Nequidem veliquam, et rerunt et il et volorem nonsequi od et eatem a et, optatemos et et aut vendigentor simporae recto quid quoditi unturenectis eum aut officia musaepe llaborem quo tem imus a nullesed utate maio cusdaec totatur? Qui beataqui vent di ut utem. Hentur audicitium reperchit, num essendi tene peliciendae num veriam eos ad et et ma que paribus dolorerferis aperum aut ipsam landae nonsequid estorum ius.</Content>
+					<Br />
+					<Content>Cae magnam adipictatur, quosam, suntiatem quibusam, a quia sum quo que et quibus remquam rae. Iqui vernam es ium vitat rescipsa provitiorem fuga. Sedisimosae doluptat.</Content>
+					<Br />
+					<Content>Agnis niat. Itasperovid quide pelliciur?</Content>
+					<Br />
+					<Content>Sam fugiatiur molorrovit quid unt eos et latemque</Content>
+				</CharacterStyleRange>
+			</ParagraphStyleRange>
+		</XMLElement>
+	</Story>
+</idPkg:Story>
