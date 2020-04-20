@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :stories#, except: :index
+  resources :stories do
+    member do
+      get "publish"
+    end
+  end
 
   devise_for :users
 
