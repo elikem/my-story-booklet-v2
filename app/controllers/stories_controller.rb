@@ -2,22 +2,13 @@ class StoriesController < ApplicationController
   before_action :authenticate_user!
   before_action :validate_current_user_as_submitter, only: [:create, :update]
 
-  def show
-    @story = Story.find(params[:id])
-  end
-
-  def new
-    @story = Story.new
-  end
-
   def create
     @story = Story.new(story_params)
+
     respond_to do |format|
       if @story.save
-        format.html { redirect_to "/" }
         format.js
       else
-        format.html { render "dashboard/show" }
         format.js
       end
     end
@@ -36,7 +27,7 @@ class StoriesController < ApplicationController
         format.js
       else
         format.html { render "edit" }
-        format.js
+        # format.js
       end
     end
   end
@@ -55,11 +46,11 @@ class StoriesController < ApplicationController
       render "publish"
     end
 
-    # create version numbers
     # create user folder with IDML files
     # output xml files w/ format email-address_version-number_filename.xml
     # replace xml files
     # generate IDML file w/ format email-address_version-number_mystorybooklet.idml
+    # upload to S3
   end
 
   private

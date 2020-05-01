@@ -1,24 +1,25 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### Code lint w/ Rufo 
+`rufo .`
 
-Things you may want to cover:
+### Rails notification and messages
+```js
+// Display a warning toast, with no title
+toastr.warning('My name is Inigo Montoya. You killed my father, prepare to die!')
 
-* Ruby version
+// Display a success toast, with a title
+toastr.success('Have fun storming the castle!', 'Miracle Max Says')
 
-* System dependencies
+// Display an error toast, with a title
+toastr.error('I do not think that word means what you think it means.', 'Inconceivable!')
 
-* Configuration
+// Immediately remove current toasts without using animation
+toastr.remove()
 
-* Database creation
+// Remove current toasts using animation
+toastr.clear()
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+// Override global options
+toastr.success('We do have the Kapua suite available.', 'Turtle Bay Resort', {timeOut: 5000})
+```

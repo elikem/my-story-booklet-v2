@@ -1,5 +1,13 @@
-<% if @story.errors.any? %>
-  console.log("Story was not created.")
+<% if @story.save %>
+  // replace new story form with saved story
+  $(".new-story-card").replaceWith("<%= raw j render partial: "dashboard/story/user_with_story" %>");
+  toastr.success("Your story was successfully saved.");
 <% else %>
-  console.log("Story was successfully create.")
+  <% @error_messages = @story.errors.full_messages %>
+
+  <% if @error_messages.any? %>
+    <% @error_messages.each do |message| %>
+      toastr.error("<%= raw j message %>");
+    <% end %>
+  <% end %>
 <% end %>

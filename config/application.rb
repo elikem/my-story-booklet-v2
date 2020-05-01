@@ -1,6 +1,6 @@
-require_relative 'boot'
+require_relative "boot"
 
-require 'rails/all'
+require "rails/all"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -26,6 +26,6 @@ module MyStoryBooklet
       g.helper_specs false
     end
 
-    config.eager_load_paths << Rails.root.join('lib')
+    config.eager_load_paths << Rails.root.join("lib")
   end
 end

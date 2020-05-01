@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :stories do
+  resources :stories, except: [:index, :new, :show] do
     member do
       get "publish"
     end

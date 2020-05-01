@@ -7,7 +7,7 @@
           <p>We'll send password reset instructions.</p>
         </div>
 
-        <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: {method: :post}) do |f| %>
+        <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
           <div class="mb-4">
             <%= render "devise/shared/error_messages", resource: resource %>
           </div>
