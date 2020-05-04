@@ -21,14 +21,10 @@ class StoriesController < ApplicationController
   def update
     @story = Story.find(params[:id])
 
-    respond_to do |format|
-      if @story.update_attributes(story_params)
-        format.html { redirect_to "/" }
-        format.js
-      else
-        format.html { render "edit" }
-        # format.js
-      end
+    if @story.update_attributes(story_params)
+      redirect_to "/", success: 'Your story was saved'
+    else
+      render "edit"
     end
   end
 
