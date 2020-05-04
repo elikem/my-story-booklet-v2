@@ -22,7 +22,7 @@ class StoriesController < ApplicationController
     @story = Story.find(params[:id])
 
     if @story.update_attributes(story_params)
-      redirect_to "/", success: 'Your story was saved'
+      redirect_to "/", success: "Your story was saved"
     else
       render "edit"
     end
