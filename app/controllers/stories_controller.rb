@@ -39,15 +39,17 @@ class StoriesController < ApplicationController
     @story = Story.find(params[:id])
 
     if @story.update_attribute(:version_number, @story.version_number.to_i + 1)
-      render "publish"
-    else
-      render "publish"
+      render "publish", locals: {story: @story}
     end
 
+    # publication_status => # publication, step-1-create-user-folder, step-2-add-IDML-template-folder,
+    # step-3-modify-IDML-files-with-user-entry, step-4-generate-IDML-file, step-5-upload-IDML-to-S3, step-6-check-S3-for-PDF,
+    # step-7-email-user
+    #
     # create user folder with IDML files
     # output xml files w/ format email-address_version-number_filename.xml
     # replace xml files
-    # generate IDML file w/ format email-address_version-number_mystorybooklet.idml
+    # generate IDML file w/ format user-id_version-number_mystorybooklet.idml
     # upload to S3
   end
 
