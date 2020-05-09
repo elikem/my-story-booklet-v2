@@ -49,15 +49,15 @@ class Story < ApplicationRecord
   # takes story title and adds it to the story template
   def write_story_title_to_template
     title_template = "#{user_folder_path_versioned}/InDesign/Story_u2fc1.xml.erb"
+    # pass template and content to ERB
     story_title_xml_file = parse_erb(title_template, title)
-    File.open("#{title_template}", "w") do |file|
+    # Create an XML file based on template and contents
+    File.open("#{user_folder_path_versioned}/InDesign/Story_u2fc1.xml", "w") do |file|
       file.write(story_title_xml_file)
       file.close
     end
-
-    # raise language
-    # overwrite story title xml file
-    # make story tile upcase on entry using validation
+    # Move file into IDML folder
+    FileUtils.cp("#{user_folder_path_versioned}/InDesign/Story_u2fc1.xml", "#{user_folder_path_versioned}/InDesign/mystorybooklet-#{user_id}-#{version_number}/Stories")
   end
 
   private
