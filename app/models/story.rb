@@ -25,6 +25,7 @@ class Story < ApplicationRecord
     copy_template_to_user_folder
     write_title_to_template
     write_content_to_template
+    create_idml_file
   end
 
   # create folder w/ README.txt containing user's full name, country of residence and email address for a story is published
@@ -114,12 +115,17 @@ class Story < ApplicationRecord
     FileUtils.rm(story_content_template)
   end
 
+  def create_idml_file
+    %x( cd "#{user_folder_path_versioned}/InDesign/mystorybooklet-#{user_id}-#{version_number}" && zip -X0 "mystorybooklet-#{user_id}-#{version_number}.idml" mimetype )
+    %x( cd "#{user_folder_path_versioned}/InDesign/mystorybooklet-#{user_id}-#{version_number}" && zip -rDX9 "mystorybooklet-#{user_id}-#{version_number}.idml" * -x '*.DS_Store' -x mimetype )
+    %x( cd "#{user_folder_path_versioned}/InDesign/mystorybooklet-#{user_id}-#{version_number}" && mv "mystorybooklet-#{user_id}-#{version_number}.idml" ../ )
+  end
+
   private
 
   def format_story_content
     # split content based on newlines while replace p tags with content tags, and a br tag at the end of each element except the
     # first and last element.
-    # story_content = content.split("\n").map { |e| e.remove("<p>").remove("</p>") }
     story_content = content.split("\n").map { |e| e.sub!("<p>", "<Content>"); e.sub!("</p>", "</Content><Br />")}
     story_content[-1].remove!("<Br />")
     story_content
