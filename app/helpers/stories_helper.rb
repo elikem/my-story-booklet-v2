@@ -5,7 +5,7 @@ module StoriesHelper
   end
 
   def list_story_ids_for(user)
-    User.find_by_id(user).stories.map{ |story| story.id }
+    User.find_by_id(user).stories.map { |story| story.id }
   end
 
   def display_story_link_for(user)
@@ -23,7 +23,7 @@ module StoriesHelper
     story_link = story ? edit_story_path(story) : "javascript:void(0)"
     link_disability_state = story ? "" : "disabled"
 
-    render(partial: "shared/layout/navigation/link_for_stories", locals: {story: story, story_link: story_link, link_disability_state: link_disability_state})
+    render(partial: "shared/layout/navigation/link_for_stories", locals: { story: story, story_link: story_link, link_disability_state: link_disability_state })
   end
 
   def display_story_title(story_id)

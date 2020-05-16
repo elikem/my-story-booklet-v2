@@ -6,8 +6,8 @@ class ApplicationController < ActionController::Base
   private
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up) { |u| u.permit(:name, :email, :password, :first_name, :last_name, :country_of_residence)}
-    devise_parameter_sanitizer.permit(:account_update) { |u| u.permit(:name, :email, :password, :current_password, :first_name, :last_name, :country_of_residence)}
+    devise_parameter_sanitizer.permit(:sign_up) { |u| u.permit(:name, :email, :password, :first_name, :last_name, :country_of_residence) }
+    devise_parameter_sanitizer.permit(:account_update) { |u| u.permit(:name, :email, :password, :current_password, :first_name, :last_name, :country_of_residence) }
   end
 
   def layout_by_resource
@@ -17,4 +17,6 @@ class ApplicationController < ActionController::Base
       "application"
     end
   end
+
+  add_flash_types :success, :error, :warning
 end

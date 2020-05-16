@@ -6,7 +6,7 @@
           <h3>Update Account Info</h3>
         </div>
 
-        <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :role => 'form'}) do |f| %>
+        <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :role => "form" }) do |f| %>
           <div class="mb-4">
             <%= render "devise/shared/error_messages", resource: resource %>
           </div>
@@ -71,7 +71,7 @@
           <div class="mt-4">
             <label class="font-weight-bold text-dark small">COUNTRY</label>
             <div class="form-group">
-              <%= f.select :country_of_residence, CountryList.all, {:prompt => "Country of Residence"}, {class: "form-control selectpicker", "data-live-search": "true"} %>
+              <%= f.select :country_of_residence, CountryList.all, { :prompt => "Country of Residence" }, { class: "form-control selectpicker", "data-live-search": "true" } %>
             </div>
           </div>
 

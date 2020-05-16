@@ -13,6 +13,7 @@
 <% end %>
 
 <script type="text/javascript" charset="utf-8">
+    // TinyMCE initialization
     tinymce.init({
         selector: '#js-my-story-textarea',
         placeholder: 'Tell your story...',
@@ -27,25 +28,31 @@
         convert_fonts_to_spans : false,
 
         init_instance_callback: function (editor) {
+            // display save button on textarea change or keyup
             editor.on('Change', function (e) {
-                displaySaveButton();
+                showOrHideSaveButton();
             });
-
             editor.on('keyup', function(e) {
-                displaySaveButton();
+                showOrHideSaveButton();
             });
         }
     });
 
-    function displaySaveButton() {
+    // display save button when there's text in both input fields
+    function showOrHideSaveButton() {
         var saveButton = $("#js-my-story-save-button");
 
         if (saveButton.length) {
-          saveButton.removeAttr("disabled");
+            if (tinymce.get("js-my-story-textarea").getContent().length === 0 || $("#js-my-story-title").val().length ===0) {
+                saveButton.attr("disabled", "disabled")
+            } else {
+              saveButton.removeAttr("disabled");
+            }
         }
     }
 
+    // check for keyup event on story title
     $("#js-my-story-title").keyup(function() {
-        displaySaveButton();
+        showOrHideSaveButton();
     })
 </script>

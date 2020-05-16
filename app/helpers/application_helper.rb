@@ -29,10 +29,10 @@ module ApplicationHelper
     level = level.to_sym
 
     case level
-      when :notice then "alert alert-info"
-      when :success then "alert alert-success"
-      when :alert then "alert alert-danger"
-      when :error then "alert alert-danger"
+    when :notice then "alert alert-info"
+    when :success then "alert alert-success"
+    when :alert then "alert alert-danger"
+    when :error then "alert alert-danger"
     end
   end
 end

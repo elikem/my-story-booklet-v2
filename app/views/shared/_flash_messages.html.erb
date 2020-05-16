@@ -1,3 +1,5 @@
-<% flash.each do |name, msg| -%>
-  <%= content_tag(:div, msg, class: flash_class(name)) %>
-<% end -%>
+<script type="text/javascript" charset="utf-8">
+  <% flash.each do |name, msg| -%>
+    toastr.<%= name %>("<%= raw j msg %>");
+  <% end %>
+</script>

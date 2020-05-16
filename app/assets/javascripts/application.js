@@ -25,6 +25,7 @@
 
 // project add-ons
 //= require tinymce
+//= require toastr
 
 // initializers and quick add-ons
 document.addEventListener("turbolinks:load", function() {

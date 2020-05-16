@@ -1,7 +1,7 @@
 <h3>This is your story, share it.</h3>
-<!--<p>Are you ready? Click here to <a href="">publish your story</a>.</p>-->
 
 <% list_story_ids_for(current_user).each do |id| %>
+  <p class="mt-3">Are you ready? Click here to <a href="javascript:void(0)" onclick="publishStory(<%= id %>);" class="font-weight-bold badge badge-info">publish your story below</a></p>
   <div class="card mt-4">
     <div class="card-body">
       <div class="story-title">
@@ -16,8 +16,17 @@
     <div class="card-footer">
       <div class="story-buttons d-flex align-middle">
         <%= link_to("Edit", edit_story_path(id), class: "btn btn-primary") %>
-        <%= link_to("Delete", story_path(id), method: :delete, class: "text-danger ml-auto align-self-center", data: {confirm: "Are you sure?"}) %>
+        <%= link_to("Delete", story_path(id), method: :delete, class: "text-danger ml-auto align-self-center", data: { confirm: "Are you sure?" }) %>
       </div>
     </div>
   </div>
 <% end %>
+
+<script type="text/javascript" charset="utf-8">
+    function publishStory(story_id) {
+        $.ajax({
+            url: "/stories/" + story_id + "/publish",
+            type: "GET"
+        })
+    }
+</script>
