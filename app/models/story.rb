@@ -58,8 +58,9 @@ class Story < ApplicationRecord
       file.write(xml)
       file.close
     end
-    # Move file into IDML folder
+    # Move file into IDML folder, and delete original template file
     FileUtils.cp("#{user_folder_path_versioned}/InDesign/Story_u2fc1.xml", "#{user_folder_path_versioned}/InDesign/mystorybooklet-#{user_id}-#{version_number}/Stories")
+    FileUtils.rm(template)
   end
 
   # take story content and add it to the content template
@@ -96,8 +97,9 @@ class Story < ApplicationRecord
       file.write(xml)
       file.close
     end
-    # Move file into IDML folder
+    # Move file into IDML folder, and delete original template file
     FileUtils.cp("#{user_folder_path_versioned}/InDesign/Story_u32b4.xml", "#{user_folder_path_versioned}/InDesign/mystorybooklet-#{user_id}-#{version_number}/Stories")
+    FileUtils.rm(drop_cap_template)
 
     ##### story content #####
     # pass template and content to ERB
@@ -107,8 +109,9 @@ class Story < ApplicationRecord
       file.write(xml)
       file.close
     end
-    # Move file into IDML folder
+    # Move file into IDML folder, and delete original template file
     FileUtils.cp("#{user_folder_path_versioned}/InDesign/Story_u326e.xml", "#{user_folder_path_versioned}/InDesign/mystorybooklet-#{user_id}-#{version_number}/Stories")
+    FileUtils.rm(story_content_template)
   end
 
   private
