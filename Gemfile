@@ -26,6 +26,7 @@ gem "gon"
 gem "smusher"
 gem "tinymce-rails", "5.2.1"
 gem "toastr-rails"
+gem "loofah"
 
 group :development do
   gem "web-console", ">= 3.3.0"
