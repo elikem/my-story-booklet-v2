@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_20_051616) do
+ActiveRecord::Schema.define(version: 2020_05_18_043634) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "publications", force: :cascade do |t|
+    t.string "publication_status"
+    t.bigint "story_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "publication_number"
+    t.index ["publication_number"], name: "index_publications_on_publication_number", unique: true
+    t.index ["story_id"], name: "index_publications_on_story_id"
+  end
 
   create_table "stories", force: :cascade do |t|
     t.string "language"
@@ -23,7 +33,6 @@ ActiveRecord::Schema.define(version: 2020_04_20_051616) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "title"
-    t.string "version_number", default: "0"
     t.index ["user_id"], name: "index_stories_on_user_id"
   end
 
@@ -57,5 +66,6 @@ ActiveRecord::Schema.define(version: 2020_04_20_051616) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
+  add_foreign_key "publications", "stories"
   add_foreign_key "stories", "users"
 end
