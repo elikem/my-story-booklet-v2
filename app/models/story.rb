@@ -6,7 +6,7 @@ class Story < ApplicationRecord
   before_save :story_title_should_be_uppercase
 
   belongs_to :user
-  has_many :publications
+  has_many :publications, dependent: :destroy
 
   validates_presence_of :title, :content, :language
   validates :title, length: { maximum: 100 }
