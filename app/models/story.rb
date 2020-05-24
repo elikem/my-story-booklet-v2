@@ -13,23 +13,27 @@ class Story < ApplicationRecord
   validates :content, length: { maximum: 3000 }
   validate :one_story_per_language, on: :create
 
-
-
   # publishing steps to create idml file
   # you can only have a single story in the publication pipeline
   # as such references to a publication will also point to the most recent one
   def publish
-    # create a publication for user story, the publication auto-generates the publication number (which should be unique)
-    Publication.create!(story_id: id)
-
-    create_user_folder
-    create_user_story_template
-    write_title_to_template
-    write_drop_cap_to_template
-    write_content_to_template
+    set_publication_number # step 1
+    create_user_folder # step 2
+    create_user_story_template # step 3
+    write_title_to_template # step 4
+    write_drop_cap_to_template # step 5
+    write_content_to_template # step 6
   end
 
   private
+
+  def set_publication_number
+    # create a publication for user story, the publication auto-generates the publication number (which should be unique)
+    Publication.create!(story_id: id)
+
+    # update the publication status to register completion of method task
+    Publication.update_publication_status(publications.last.id, "1. set_publication_number")
+  end
 
   # story title should be upper case
   def story_title_should_be_uppercase
@@ -52,6 +56,9 @@ class Story < ApplicationRecord
       file.write("#{user.email}")
       file.close
     end
+
+    # update the publication status to register completion of method task
+    Publication.update_publication_status(publications.last.id, "2. create_user_folder")
   end
 
   # create a template for the user's story
@@ -62,6 +69,9 @@ class Story < ApplicationRecord
 
     # rename idml folder w/ publication timestamp and number
     FileUtils.mv("#{user_template_folder_path}/mystorybooklet-english", user_idml_folder_path)
+
+    # update the publication status to register completion of method task
+    Publication.update_publication_status(publications.last.id, "3. create_user_story_template")
   end
 
   # take story title and adds it to the title template
@@ -79,6 +89,9 @@ class Story < ApplicationRecord
     # move file into idml folder, and delete original template file
     FileUtils.cp("#{user_template_folder_path}/#{title_xml_filename}", "#{user_idml_folder_path}/Stories/#{title_xml_filename}")
     FileUtils.rm(template)
+
+    # update the publication status to register completion of method task
+    Publication.update_publication_status(publications.last.id, "4. write_title_to_template")
   end
 
   # take drop cap and add it to the drop cap template
@@ -100,6 +113,9 @@ class Story < ApplicationRecord
     # Move file into idml folder, and delete original template file
     FileUtils.cp("#{user_template_folder_path}/#{drop_cap_xml_filename}", "#{user_idml_folder_path}/Stories/#{drop_cap_xml_filename}")
     FileUtils.rm(drop_cap_template)
+
+    # update the publication status to register completion of method task
+    Publication.update_publication_status(publications.last.id, "5. write_drop_cap_to_template")
   end
 
   # take story content and add it to the content template
@@ -133,7 +149,12 @@ class Story < ApplicationRecord
     # Move file into idml folder, and delete original template file
     FileUtils.cp("#{user_template_folder_path}/#{story_content_xml_filename}", "#{user_idml_folder_path}/Stories/#{story_content_xml_filename}")
     FileUtils.rm(story_content_template)
+
+    # update the publication status to register completion of method task
+    Publication.update_publication_status(publications.last.id, "6. write_content_to_template")
   end
+
+
 
   # accommodate drop cap logic and story content
   # split content based on newlines while replace p tags with content tags, and a br tag at the end of each element except the
@@ -169,7 +190,7 @@ class Story < ApplicationRecord
     "#{user_folder_path}/#{timestamp_and_publication_number}-idml-assets"
   end
 
-  # name and location of the idml template folder after it is renamed to include publication timestamp and numnber
+  # name and location of the idml template folder after it is renamed to include publication timestamp and number
   def user_idml_folder_path
     "#{user_template_folder_path}/#{timestamp_and_publication_number}"
   end
