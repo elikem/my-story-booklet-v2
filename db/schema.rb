@@ -16,10 +16,10 @@ ActiveRecord::Schema.define(version: 2020_05_24_212830) do
   enable_extension "plpgsql"
 
   create_table "publications", force: :cascade do |t|
+    t.string "publication_number"
     t.bigint "story_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "publication_number"
     t.text "publication_status", default: [], array: true
     t.index ["publication_number"], name: "index_publications_on_publication_number", unique: true
     t.index ["story_id"], name: "index_publications_on_story_id"
