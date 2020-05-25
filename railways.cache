@@ -1,10 +1,8 @@
                    Prefix Verb   URI Pattern                                                                              Controller#Action
-                  stories GET    /stories(.:format)                                                                       stories#index
-                          POST   /stories(.:format)                                                                       stories#create
-                new_story GET    /stories/new(.:format)                                                                   stories#new
+            publish_story GET    /stories/:id/publish(.:format)                                                           stories#publish
+                  stories POST   /stories(.:format)                                                                       stories#create
                edit_story GET    /stories/:id/edit(.:format)                                                              stories#edit
-                    story GET    /stories/:id(.:format)                                                                   stories#show
-                          PATCH  /stories/:id(.:format)                                                                   stories#update
+                    story PATCH  /stories/:id(.:format)                                                                   stories#update
                           PUT    /stories/:id(.:format)                                                                   stories#update
                           DELETE /stories/:id(.:format)                                                                   stories#destroy
          new_user_session GET    /users/sign_in(.:format)                                                                 devise/sessions#new
