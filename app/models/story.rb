@@ -166,6 +166,9 @@ class Story < ApplicationRecord
 
     # update the publication status to register completion of method task
     Publication.update_publication_status(publications.last.id, "7. create_idml")
+    # this status change is more for semantic reasons. it is at this point that publication is ready for pdf conversion.
+    # the mystorybooklet companion app will be notified of an available publication and pull them down into a hot folder for conversion.
+    Publication.update_publication_status(publications.last.id, "8. ready for pdf conversion")
   end
 
   # accommodate drop cap logic and story content
