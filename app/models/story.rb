@@ -23,6 +23,7 @@ class Story < ApplicationRecord
     write_title_to_template # step 4
     write_drop_cap_to_template # step 5
     write_content_to_template # step 6
+    create_idml # step 7
   end
 
   private
@@ -68,7 +69,7 @@ class Story < ApplicationRecord
     FileUtils.cp_r(mystorybooklet_template_folder, user_template_folder_path)
 
     # rename idml folder w/ publication timestamp and number
-    FileUtils.mv("#{user_template_folder_path}/mystorybooklet-english", user_idml_folder_path)
+    FileUtils.mv("#{user_template_folder_path}/mystorybooklet-english", user_template_idml_folder_path)
 
     # update the publication status to register completion of method task
     Publication.update_publication_status(publications.last.id, "3. create_user_story_template")
@@ -87,7 +88,7 @@ class Story < ApplicationRecord
     end
 
     # move file into idml folder, and delete original template file
-    FileUtils.cp("#{user_template_folder_path}/#{title_xml_filename}", "#{user_idml_folder_path}/Stories/#{title_xml_filename}")
+    FileUtils.cp("#{user_template_folder_path}/#{title_xml_filename}", "#{user_template_idml_folder_path}/Stories/#{title_xml_filename}")
     FileUtils.rm(template)
 
     # update the publication status to register completion of method task
@@ -111,7 +112,7 @@ class Story < ApplicationRecord
     end
 
     # Move file into idml folder, and delete original template file
-    FileUtils.cp("#{user_template_folder_path}/#{drop_cap_xml_filename}", "#{user_idml_folder_path}/Stories/#{drop_cap_xml_filename}")
+    FileUtils.cp("#{user_template_folder_path}/#{drop_cap_xml_filename}", "#{user_template_idml_folder_path}/Stories/#{drop_cap_xml_filename}")
     FileUtils.rm(drop_cap_template)
 
     # update the publication status to register completion of method task
@@ -147,14 +148,25 @@ class Story < ApplicationRecord
     end
 
     # Move file into idml folder, and delete original template file
-    FileUtils.cp("#{user_template_folder_path}/#{story_content_xml_filename}", "#{user_idml_folder_path}/Stories/#{story_content_xml_filename}")
+    FileUtils.cp("#{user_template_folder_path}/#{story_content_xml_filename}", "#{user_template_idml_folder_path}/Stories/#{story_content_xml_filename}")
     FileUtils.rm(story_content_template)
 
     # update the publication status to register completion of method task
     Publication.update_publication_status(publications.last.id, "6. write_content_to_template")
   end
 
+  # create idml file in the user's idml folder
+  def create_idml
+    # go into the user's idml folder path and create a zip file with the mimetype without compressing the mimetype. this will allow InDesign to recognize it as a valid InDesign file
+    %x( cd "#{user_template_idml_folder_path}" && zip -X0 "#{timestamp_and_publication_number}.idml" mimetype  )
+    # add all the other files into the previously create zip file except DS_Store and mimetype
+    %x( cd "#{user_template_idml_folder_path}" && zip -rDX9 "#{timestamp_and_publication_number}.idml" * -x '*.DS_Store' -x mimetype  )
+    # move the idml file up a level
+    %x( cd "#{user_template_idml_folder_path}" && mv "#{timestamp_and_publication_number}.idml" ..  )
 
+    # update the publication status to register completion of method task
+    Publication.update_publication_status(publications.last.id, "7. create_idml")
+  end
 
   # accommodate drop cap logic and story content
   # split content based on newlines while replace p tags with content tags, and a br tag at the end of each element except the
@@ -185,13 +197,14 @@ class Story < ApplicationRecord
   end
 
   # user story folder path
-  # format: /storage/users/elikem@gmail.com/[timestamp (utc)]_[publication_number]
+  # this folder contains the user idml folder path
   def user_template_folder_path
     "#{user_folder_path}/#{timestamp_and_publication_number}-idml-assets"
   end
 
   # name and location of the idml template folder after it is renamed to include publication timestamp and number
-  def user_idml_folder_path
+  # the user idml folder is located inside the user template folder
+  def user_template_idml_folder_path
     "#{user_template_folder_path}/#{timestamp_and_publication_number}"
   end
 
