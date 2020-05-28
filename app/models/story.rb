@@ -191,7 +191,7 @@ class Story < ApplicationRecord
   # split content based on newlines while replace p tags with content tags, and a br tag at the end of each element except the
   # first and last element.
   def formatted_story_content
-    story_content = content.split("\n").map { |e| e.sub!("<p>", "<Content>"); e.sub!("</p>", "</Content><Br />")}
+    story_content = content.split("\n").map { |e| e.sub!("<p>", "<Content>"); e.sub!("</p>", "</Content><Br />") }
     story_content[-1].remove!("<Br />")
     story_content
   end
