@@ -37,7 +37,10 @@ class StoriesController < ApplicationController
 
   def publish
     @story = Story.find(params[:id])
-    render "publish", locals: { story: @story }
+    # create a publication for user story, the publication auto-generates the publication number (which should be unique)
+    @publication = Publication.create!(story_id: @story.id)
+
+    render "publish", locals: { story: @story, publication: @publication }
   end
 
   private

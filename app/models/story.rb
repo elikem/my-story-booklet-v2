@@ -16,25 +16,20 @@ class Story < ApplicationRecord
   # publishing steps to create idml file
   # you can only have a single story in the publication pipeline
   # as such references to a publication will also point to the most recent one
-  def publish
-    set_publication_number # step 1
-    create_user_folder # step 2
-    create_user_story_template # step 3
-    write_title_to_template # step 4
-    write_drop_cap_to_template # step 5
-    write_content_to_template # step 6
-    create_idml # step 7
+  def publish(publication)
+    # the "publication" variable holds the current publication associated with the story object. this supports having multiple
+    # publish requests on the same story.
+    create_user_folder(publication) # step 1
+    create_user_story_template(publication) # step 2
+    write_title_to_template(publication) # step 3
+    write_drop_cap_to_template(publication) # step 4
+    write_content_to_template(publication) # step 5
+    create_idml(publication) # step 6
+    # step 7 - ready for pdf conversion
+    # is a ghost step purely for semantic reasons
   end
 
   private
-
-  def set_publication_number
-    # create a publication for user story, the publication auto-generates the publication number (which should be unique)
-    Publication.create!(story_id: id)
-
-    # update the publication status to register completion of method task
-    Publication.update_publication_status(publications.last.id, "1. set_publication_number")
-  end
 
   # story title should be upper case
   def story_title_should_be_uppercase
@@ -50,7 +45,7 @@ class Story < ApplicationRecord
 
   # create folder w/ README.txt containing user's full name, country of residence and email address for a story is published
   # format: elikem@gmail.com (the folder name is the email address of the user)
-  def create_user_folder
+  def create_user_folder(publication)
     FileUtils.mkdir_p(user_folder_path) unless Dir.exists?(user_folder_path)
     File.open("#{user_folder_path}/README.txt", "w") do |file|
       file.write("#{user.first_name}, #{user.last_name} (#{user.country_of_residence}) \n")
@@ -59,45 +54,45 @@ class Story < ApplicationRecord
     end
 
     # update the publication status to register completion of method task
-    Publication.update_publication_status(publications.last.id, "2. create_user_folder")
+    Publication.update_publication_status(publication.id, "1. create_user_folder")
   end
 
   # create a template for the user's story
   # format: /storage/users/elikem@gmail.com/[timestamp]_[publication_number] e.g. 2020-05-19-03-26-23-lZAo3JDDYJGkbnqtcycGyg
-  def create_user_story_template
+  def create_user_story_template(publication)
     # copy template folder to user's folder with timestamp
-    FileUtils.cp_r(mystorybooklet_template_folder, user_template_folder_path)
+    FileUtils.cp_r(mystorybooklet_template_folder, user_template_folder_path(publication))
 
     # rename idml folder w/ publication timestamp and number
-    FileUtils.mv("#{user_template_folder_path}/mystorybooklet-english", user_template_idml_folder_path)
+    FileUtils.mv("#{user_template_folder_path(publication)}/mystorybooklet-english", user_template_idml_folder_path(publication))
 
     # update the publication status to register completion of method task
-    Publication.update_publication_status(publications.last.id, "3. create_user_story_template")
+    Publication.update_publication_status(publication.id, "2. create_user_story_template")
   end
 
   # take story title and adds it to the title template
-  def write_title_to_template
-    template = "#{user_template_folder_path}/#{title_erb_filename}"
+  def write_title_to_template(publication)
+    template = "#{user_template_folder_path(publication)}/#{title_erb_filename}"
     # pass template and content to ERB
     xml = parse_erb(template, title)
 
     # create an xml file based on template and contents
-    File.open("#{user_template_folder_path}/#{title_xml_filename}", "w") do |file|
+    File.open("#{user_template_folder_path(publication)}/#{title_xml_filename}", "w") do |file|
       file.write(xml)
       file.close
     end
 
     # move file into idml folder, and delete original template file
-    FileUtils.cp("#{user_template_folder_path}/#{title_xml_filename}", "#{user_template_idml_folder_path}/Stories/#{title_xml_filename}")
+    FileUtils.cp("#{user_template_folder_path(publication)}/#{title_xml_filename}", "#{user_template_idml_folder_path(publication)}/Stories/#{title_xml_filename}")
     FileUtils.rm(template)
 
     # update the publication status to register completion of method task
-    Publication.update_publication_status(publications.last.id, "4. write_title_to_template")
+    Publication.update_publication_status(publication.id, "3. write_title_to_template")
   end
 
   # take drop cap and add it to the drop cap template
-  def write_drop_cap_to_template
-    drop_cap_template = "#{user_template_folder_path}/#{drop_cap_erb_filename}"
+  def write_drop_cap_to_template(publication)
+    drop_cap_template = "#{user_template_folder_path(publication)}/#{drop_cap_erb_filename}"
 
     # drop cap is the first letter of the first worked
     drop_cap = Loofah.xml_fragment(formatted_story_content[0]).text.first
@@ -106,22 +101,22 @@ class Story < ApplicationRecord
     xml = parse_erb(drop_cap_template, drop_cap)
 
     # Create an xml file based on template and contents
-    File.open("#{user_template_folder_path}/#{drop_cap_xml_filename}", "w") do |file|
+    File.open("#{user_template_folder_path(publication)}/#{drop_cap_xml_filename}", "w") do |file|
       file.write(xml)
       file.close
     end
 
     # Move file into idml folder, and delete original template file
-    FileUtils.cp("#{user_template_folder_path}/#{drop_cap_xml_filename}", "#{user_template_idml_folder_path}/Stories/#{drop_cap_xml_filename}")
+    FileUtils.cp("#{user_template_folder_path(publication)}/#{drop_cap_xml_filename}", "#{user_template_idml_folder_path(publication)}/Stories/#{drop_cap_xml_filename}")
     FileUtils.rm(drop_cap_template)
 
     # update the publication status to register completion of method task
-    Publication.update_publication_status(publications.last.id, "5. write_drop_cap_to_template")
+    Publication.update_publication_status(publication.id, "4. write_drop_cap_to_template")
   end
 
   # take story content and add it to the content template
-  def write_content_to_template
-    story_content_template = "#{user_template_folder_path}/#{story_content_erb_filename}"
+  def write_content_to_template(publication)
+    story_content_template = "#{user_template_folder_path(publication)}/#{story_content_erb_filename}"
 
     if (Loofah.xml_fragment(formatted_story_content[0]).text.length == 1)
       # if the first letter is also a word... e.g "I"
@@ -142,33 +137,33 @@ class Story < ApplicationRecord
     xml = parse_erb(story_content_template, story_content)
 
     # Create an XML file based on template and contents
-    File.open("#{user_template_folder_path}/#{story_content_xml_filename}", "w") do |file|
+    File.open("#{user_template_folder_path(publication)}/#{story_content_xml_filename}", "w") do |file|
       file.write(xml)
       file.close
     end
 
     # Move file into idml folder, and delete original template file
-    FileUtils.cp("#{user_template_folder_path}/#{story_content_xml_filename}", "#{user_template_idml_folder_path}/Stories/#{story_content_xml_filename}")
+    FileUtils.cp("#{user_template_folder_path(publication)}/#{story_content_xml_filename}", "#{user_template_idml_folder_path(publication)}/Stories/#{story_content_xml_filename}")
     FileUtils.rm(story_content_template)
 
     # update the publication status to register completion of method task
-    Publication.update_publication_status(publications.last.id, "6. write_content_to_template")
+    Publication.update_publication_status(publication.id, "5. write_content_to_template")
   end
 
   # create idml file in the user's idml folder
-  def create_idml
+  def create_idml(publication)
     # go into the user's idml folder path and create a zip file with the mimetype without compressing the mimetype. this will allow InDesign to recognize it as a valid InDesign file
-    %x( cd "#{user_template_idml_folder_path}" && zip -X0 "#{timestamp_and_publication_number}.idml" mimetype  )
+    %x( cd "#{user_template_idml_folder_path(publication)}" && zip -X0 "#{timestamp_and_publication_number(publication)}.idml" mimetype  )
     # add all the other files into the previously create zip file except DS_Store and mimetype
-    %x( cd "#{user_template_idml_folder_path}" && zip -rDX9 "#{timestamp_and_publication_number}.idml" * -x '*.DS_Store' -x mimetype  )
+    %x( cd "#{user_template_idml_folder_path(publication)}" && zip -rDX9 "#{timestamp_and_publication_number(publication)}.idml" * -x '*.DS_Store' -x mimetype  )
     # move the idml file up a level
-    %x( cd "#{user_template_idml_folder_path}" && mv "#{timestamp_and_publication_number}.idml" ..  )
+    %x( cd "#{user_template_idml_folder_path(publication)}" && mv "#{timestamp_and_publication_number(publication)}.idml" ..  )
 
     # update the publication status to register completion of method task
-    Publication.update_publication_status(publications.last.id, "7. create_idml")
+    Publication.update_publication_status(publication.id, "6. create_idml")
     # this status change is more for semantic reasons. it is at this point that publication is ready for pdf conversion.
     # the mystorybooklet companion app will be notified of an available publication and pull them down into a hot folder for conversion.
-    Publication.update_publication_status(publications.last.id, "8. ready for pdf conversion")
+    Publication.update_publication_status(publication.id, "7. ready for pdf conversion")
   end
 
   # accommodate drop cap logic and story content
@@ -201,22 +196,22 @@ class Story < ApplicationRecord
 
   # user story folder path
   # this folder contains the user idml folder path
-  def user_template_folder_path
-    "#{user_folder_path}/#{timestamp_and_publication_number}-idml-assets"
+  def user_template_folder_path(publication)
+    "#{user_folder_path}/#{timestamp_and_publication_number(publication)}-idml-assets"
   end
 
   # name and location of the idml template folder after it is renamed to include publication timestamp and number
   # the user idml folder is located inside the user template folder
-  def user_template_idml_folder_path
-    "#{user_template_folder_path}/#{timestamp_and_publication_number}"
+  def user_template_idml_folder_path(publication)
+    "#{user_template_folder_path(publication)}/#{timestamp_and_publication_number(publication)}"
   end
 
   # timestamp and publication number used for the publication folders and the idml folder and filename
   # timestamp is derived from the time publication was created
   # format: 2020-05-19-03-26-23-lZAo3JDDYJGkbnqtcycGyg
-  def timestamp_and_publication_number
-    timestamp = publications.last.created_at.strftime("%Y-%m-%d-%H-%-M-%S")
-    publication_number = publications.last.publication_number
+  def timestamp_and_publication_number(publication)
+    timestamp = publication.created_at.strftime("%Y-%m-%d-%H-%-M-%S")
+    publication_number = publication.publication_number
 
     "#{timestamp}-#{publication_number}"
   end
