@@ -1,3 +1,23 @@
+# == Schema Information
+#
+# Table name: publications
+#
+#  id                 :bigint           not null, primary key
+#  publication_number :string
+#  publication_status :text             default([]), is an Array
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  story_id           :bigint
+#
+# Indexes
+#
+#  index_publications_on_publication_number  (publication_number) UNIQUE
+#  index_publications_on_story_id            (story_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (story_id => stories.id)
+#
 class Publication < ApplicationRecord
   before_create :set_publication_number
 
