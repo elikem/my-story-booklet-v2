@@ -27,6 +27,7 @@ gem "smusher"
 gem "tinymce-rails", "5.2.1"
 gem "toastr-rails"
 gem "loofah"
+gem "typhoeus"
 
 group :development do
   gem "pry-rails"
