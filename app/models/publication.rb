@@ -35,4 +35,16 @@ class Publication < ApplicationRecord
     publication_status = publication.publication_status << status
     publication.update_attributes(publication_status: publication_status)
   end
+
+  # makes a request to the companion app indicating that there's a job to be retrieved
+  # failed requests get logged
+  def self.ready_for_pdf_conversion
+    url = "#{CONFIG["companion_app_base_url"]}/start-pdf-conversion-process"
+    response = Typhoeus.get(url)
+
+    unless response.code == "200"
+      # log response
+      Rails.logger.error "Request to companion app failed - returned status code #{response.code} at #{Time.now}"
+    end
+  end
 end

@@ -57,6 +57,7 @@ At the end of each step, the `publication_status` on the `publication` is update
 
 * Step 7 - Ready for PDF conversion. A largely semantic step that makes it easy to tell when an IDML file is ready for conversion. It is at this step where a message is sent to the companion app.
 
+The final step is a `GET` request to the companion app (to inform a pdf ready for conversion)...i.e. `/start-pdf-conversion-process`. 
 
 ### Code Annotations 
 `rake annotate_models`

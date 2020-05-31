@@ -1,0 +1,5 @@
+development:
+  companion_app_base_url: "http://localhost:3001"
+
+production:
+  companion_app_base_url: <%= ENV["COMPANION_APP_BASE_URL"] %>

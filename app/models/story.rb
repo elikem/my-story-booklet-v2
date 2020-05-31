@@ -45,9 +45,9 @@ class Story < ApplicationRecord
     write_title_to_template(publication) # step 3
     write_drop_cap_to_template(publication) # step 4
     write_content_to_template(publication) # step 5
-    create_idml(publication) # step 6
-    # step 7 - ready for pdf conversion
-    # is a ghost step purely for semantic reasons
+    create_idml(publication) # step 6 and # step 7 - ready for pdf conversion is a ghost step purely for semantic reasons
+    # inform companion app of a pdf ready for conversion.
+    Publication.ready_for_pdf_conversion
   end
 
   private
