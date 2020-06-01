@@ -28,6 +28,7 @@ gem "tinymce-rails", "5.2.1"
 gem "toastr-rails"
 gem "loofah"
 gem "typhoeus"
+gem "sidekiq"
 
 group :development do
   gem "pry-rails"

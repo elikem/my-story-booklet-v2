@@ -26,6 +26,8 @@ module MyStoryBooklet
       g.helper_specs false
     end
 
+    config.active_job.queue_adapter = :sidekiq
     config.eager_load_paths << Rails.root.join("lib")
+    config.eager_load_paths << Rails.root.join("workers")
   end
 end
