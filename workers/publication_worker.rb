@@ -1,5 +1,4 @@
 class PublicationWorker
-  require "ap"
   include Sidekiq::Worker
   sidekiq_options retry: false
 

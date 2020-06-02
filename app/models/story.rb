@@ -40,6 +40,9 @@ class Story < ApplicationRecord
   def publish(publication)
     # the "publication" variable holds the current publication associated with the story object. this supports having multiple
     # publish requests on the same story.
+    # reset the publishing status if it is not an empty array (default status). this means that future attempts to republish the same
+    # story start with a clean slate (in terms of the publishing status).
+    Publication.find(publication.id).update(publication_status: []) unless publication.publication_status.empty?
     create_user_folder(publication) # step 1
     create_user_story_template(publication) # step 2
     write_title_to_template(publication) # step 3
@@ -82,10 +85,11 @@ class Story < ApplicationRecord
   # format: /storage/users/elikem@gmail.com/[timestamp]_[publication_number] e.g. 2020-05-19-03-26-23-lZAo3JDDYJGkbnqtcycGyg
   def create_user_story_template(publication)
     # copy template folder to user's folder with timestamp
-    FileUtils.cp_r(mystorybooklet_template_folder, user_template_folder_path(publication))
+    FileUtils.cp_r(mystorybooklet_idml_template_folder, user_template_folder_path(publication))
 
-    # rename idml folder w/ publication timestamp and number
-    FileUtils.mv("#{user_template_folder_path(publication)}/mystorybooklet-english", user_template_idml_folder_path(publication))
+    # rename idml template folder to include publication timestamp and number
+    # only this folder exists
+    FileUtils.mv("#{user_template_folder_path(publication)}/mystorybooklet-english", user_template_idml_folder_path(publication)) if Dir.exists?("#{user_template_folder_path(publication)}/mystorybooklet-english")
 
     # update the publication status to register completion of method task
     Publication.update_publication_status(publication.id, "2. create_user_story_template")
@@ -93,7 +97,8 @@ class Story < ApplicationRecord
 
   # take story title and adds it to the title template
   def write_title_to_template(publication)
-    template = "#{user_template_folder_path(publication)}/#{title_erb_filename}"
+    template = "#{mystorybooklet_english_template_files}/#{title_erb_filename}"
+
     # pass template and content to ERB
     xml = parse_erb(template, title)
 
@@ -103,9 +108,8 @@ class Story < ApplicationRecord
       file.close
     end
 
-    # move file into idml folder, and delete original template file
+    # move file into idml folder
     FileUtils.cp("#{user_template_folder_path(publication)}/#{title_xml_filename}", "#{user_template_idml_folder_path(publication)}/Stories/#{title_xml_filename}")
-    FileUtils.rm(template)
 
     # update the publication status to register completion of method task
     Publication.update_publication_status(publication.id, "3. write_title_to_template")
@@ -113,7 +117,7 @@ class Story < ApplicationRecord
 
   # take drop cap and add it to the drop cap template
   def write_drop_cap_to_template(publication)
-    drop_cap_template = "#{user_template_folder_path(publication)}/#{drop_cap_erb_filename}"
+    drop_cap_template = "#{mystorybooklet_english_template_files}/#{drop_cap_erb_filename}"
 
     # drop cap is the first letter of the first worked
     drop_cap = Loofah.xml_fragment(formatted_story_content[0]).text.first
@@ -127,9 +131,8 @@ class Story < ApplicationRecord
       file.close
     end
 
-    # Move file into idml folder, and delete original template file
+    # move file into idml folder
     FileUtils.cp("#{user_template_folder_path(publication)}/#{drop_cap_xml_filename}", "#{user_template_idml_folder_path(publication)}/Stories/#{drop_cap_xml_filename}")
-    FileUtils.rm(drop_cap_template)
 
     # update the publication status to register completion of method task
     Publication.update_publication_status(publication.id, "4. write_drop_cap_to_template")
@@ -137,7 +140,7 @@ class Story < ApplicationRecord
 
   # take story content and add it to the content template
   def write_content_to_template(publication)
-    story_content_template = "#{user_template_folder_path(publication)}/#{story_content_erb_filename}"
+    story_content_template = "#{mystorybooklet_english_template_files}/#{story_content_erb_filename}"
 
     if (Loofah.xml_fragment(formatted_story_content[0]).text.length == 1)
       # if the first letter is also a word... e.g "I"
@@ -163,9 +166,8 @@ class Story < ApplicationRecord
       file.close
     end
 
-    # Move file into idml folder, and delete original template file
+    # Move file into idml folder
     FileUtils.cp("#{user_template_folder_path(publication)}/#{story_content_xml_filename}", "#{user_template_idml_folder_path(publication)}/Stories/#{story_content_xml_filename}")
-    FileUtils.rm(story_content_template)
 
     # update the publication status to register completion of method task
     Publication.update_publication_status(publication.id, "5. write_content_to_template")
@@ -204,9 +206,15 @@ class Story < ApplicationRecord
   end
 
   # mystorybooklet template folder path
-  # /lib/assets/mystorybooklet-english
-  def mystorybooklet_template_folder
-    "#{Rails.root}/lib/assets/mystorybooklet-english"
+  # /lib/indesign-assets/mystorybooklet-english-idml
+  def mystorybooklet_idml_template_folder
+    "#{Rails.root}/lib/indesign-assets/mystorybooklet-english-idml"
+  end
+
+  # mystorybooklet template files
+  # refers to the exact xml files that make up the title, drop cap, and content of the story
+  def mystorybooklet_english_template_files
+    "#{Rails.root}/lib/indesign-assets/mystorybooklet-english-template-files"
   end
 
   # user folder path

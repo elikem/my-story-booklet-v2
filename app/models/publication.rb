@@ -44,7 +44,7 @@ class Publication < ApplicationRecord
 
     unless response.code == "200"
       # log response
-      Rails.logger.error "Request to companion app failed - returned status code #{response.code} at #{Time.now}"
+      Rails.logger.error "ERROR: Request to companion app failed (GET #{url}). HTTP Status Code #{response.code} at #{Time.now}"
     end
   end
 end
