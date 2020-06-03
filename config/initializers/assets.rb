@@ -15,6 +15,7 @@ Rails.application.config.assets.paths << Rails.root.join("node_modules")
 
 # these layouts have its own unique setup (js/css etc)
 Rails.application.config.assets.precompile += %w( devise.js )
+Rails.application.config.assets.precompile += %w( devise.js )
 Rails.application.config.assets.precompile += %w( pages.css )
 Rails.application.config.assets.precompile += %w( dashboard.css )
 Rails.application.config.assets.precompile += %w( stories.css )
@@ -24,7 +25,7 @@ Rails.application.config.assets.precompile += %w( devise/passwords.css )
 Rails.application.config.assets.precompile += %w( devise/confirmations.css )
 Rails.application.config.assets.precompile += %w( devise/mailer.css )
 Rails.application.config.assets.precompile += %w( devise/registrations.css )
-Rails.application.config.assets.precompile += %w( devise/unlocks.css )
+Rails.application.config.assets.precompile += %w( publications.css )
 
 # https://makandracards.com/makandra/29567-managing-vendor-libraries-with-the-rails-asset-pipeline
 Rails.application.config.assets.paths += Dir["#{Rails.root}/vendor/asset-libs/*"].sort_by { |dir| -dir.size }

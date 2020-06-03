@@ -41,7 +41,7 @@ class StoriesController < ApplicationController
     @publication = Publication.create!(story_id: @story.id)
 
     PublicationWorker.perform_async(@story.id, @publication.id)
-    
+
     render "publish"
   end
 

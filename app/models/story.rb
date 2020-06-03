@@ -42,7 +42,7 @@ class Story < ApplicationRecord
     # publish requests on the same story.
     # reset the publishing status if it is not an empty array (default status). this means that future attempts to republish the same
     # story start with a clean slate (in terms of the publishing status).
-    Publication.find(publication.id).update(publication_status: []) unless publication.publication_status.empty?
+    publication.update(publication_status: "") unless publication.publication_status.empty?
     create_user_folder(publication) # step 1
     create_user_story_template(publication) # step 2
     write_title_to_template(publication) # step 3
@@ -78,7 +78,7 @@ class Story < ApplicationRecord
     end
 
     # update the publication status to register completion of method task
-    Publication.update_publication_status(publication.id, "1. create_user_folder")
+    publication.update(publication_status: "1_create_user_folder")
   end
 
   # create a template for the user's story
@@ -92,7 +92,7 @@ class Story < ApplicationRecord
     FileUtils.mv("#{user_template_folder_path(publication)}/mystorybooklet-english", user_template_idml_folder_path(publication)) if Dir.exists?("#{user_template_folder_path(publication)}/mystorybooklet-english")
 
     # update the publication status to register completion of method task
-    Publication.update_publication_status(publication.id, "2. create_user_story_template")
+    publication.update(publication_status: "2_create_user_story_template")
   end
 
   # take story title and adds it to the title template
@@ -112,7 +112,7 @@ class Story < ApplicationRecord
     FileUtils.cp("#{user_template_folder_path(publication)}/#{title_xml_filename}", "#{user_template_idml_folder_path(publication)}/Stories/#{title_xml_filename}")
 
     # update the publication status to register completion of method task
-    Publication.update_publication_status(publication.id, "3. write_title_to_template")
+    publication.update(publication_status: "3_write_title_to_template")
   end
 
   # take drop cap and add it to the drop cap template
@@ -135,7 +135,7 @@ class Story < ApplicationRecord
     FileUtils.cp("#{user_template_folder_path(publication)}/#{drop_cap_xml_filename}", "#{user_template_idml_folder_path(publication)}/Stories/#{drop_cap_xml_filename}")
 
     # update the publication status to register completion of method task
-    Publication.update_publication_status(publication.id, "4. write_drop_cap_to_template")
+    publication.update(publication_status: "4_write_drop_cap_to_template")
   end
 
   # take story content and add it to the content template
@@ -170,7 +170,7 @@ class Story < ApplicationRecord
     FileUtils.cp("#{user_template_folder_path(publication)}/#{story_content_xml_filename}", "#{user_template_idml_folder_path(publication)}/Stories/#{story_content_xml_filename}")
 
     # update the publication status to register completion of method task
-    Publication.update_publication_status(publication.id, "5. write_content_to_template")
+    publication.update(publication_status: "5_write_content_to_template")
   end
 
   # create idml file in the user's idml folder
@@ -183,10 +183,10 @@ class Story < ApplicationRecord
     %x( cd "#{user_template_idml_folder_path(publication)}" && mv "#{timestamp_and_publication_number(publication)}.idml" ..  )
 
     # update the publication status to register completion of method task
-    Publication.update_publication_status(publication.id, "6. create_idml")
+    publication.update(publication_status: "6_create_idml")
     # this status change is more for semantic reasons. it is at this point that publication is ready for pdf conversion.
     # the mystorybooklet companion app will be notified of an available publication and pull them down into a hot folder for conversion.
-    Publication.update_publication_status(publication.id, "7. ready for pdf conversion")
+    publication.update(publication_status: "7_ready_for_pdf_conversion")
   end
 
   # accommodate drop cap logic and story content
