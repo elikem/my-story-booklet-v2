@@ -180,16 +180,16 @@ sequence|table|50207|50209|1
     <language id="37" parent="7" name="sql"/>
     <sequence id="38" parent="26" name="stories_id_seq">
       <ObjectId>50207</ObjectId>
-      <StateNumber>1090</StateNumber>
       <Owner>Eli</Owner>
+      <StateNumber>1090</StateNumber>
       <SequenceIdentity>1</SequenceIdentity>
       <CacheSize>1</CacheSize>
       <DataType>bigint|0s</DataType>
     </sequence>
     <sequence id="39" parent="26" name="users_id_seq">
       <ObjectId>50095</ObjectId>
-      <StateNumber>1057</StateNumber>
       <Owner>Eli</Owner>
+      <StateNumber>1057</StateNumber>
       <SequenceIdentity>1</SequenceIdentity>
       <CacheSize>1</CacheSize>
       <DataType>bigint|0s</DataType>
@@ -206,6 +206,7 @@ sequence|table|50207|50209|1
     </table>
     <table id="42" parent="26" name="stories">
       <ObjectId>50209</ObjectId>
+      <Outdated>1</Outdated>
       <Owner>Eli</Owner>
       <StateNumber>1090</StateNumber>
     </table>

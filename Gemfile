@@ -14,7 +14,6 @@ gem "turbolinks", "~> 5"
 gem "jbuilder", "~> 2.5"
 gem "bootsnap", ">= 1.1.0", require: false
 gem "high_voltage", "~> 3.1"
-gem "slim-rails"
 gem "bootstrap", "~> 4.3.1"
 gem "friendly_id"
 gem "excon"

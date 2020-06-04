@@ -5,6 +5,7 @@
 #  id                 :bigint           not null, primary key
 #  publication_number :string
 #  publication_status :string           default("")
+#  publication_url    :string           default("")
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  story_id           :bigint

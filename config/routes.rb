@@ -38,17 +38,14 @@
 #      rails_direct_uploads POST   /rails/active_storage/direct_uploads(.:format)                                           active_storage/direct_uploads#create
 
 Rails.application.routes.draw do
-  require "sidekiq/web"
-  mount Sidekiq::Web => "/sidekiq"
+  namespace :publications do
+    get 'ready_for_pdf_conversion'
+  end
 
   resources :stories, except: [:index, :new, :show] do
     member do
       get "publish"
     end
-  end
-
-  scope :publications do
-    get "ready_for_pdf_conversion", to: "publications#ready_for_pdf_conversion"
   end
 
   devise_for :users
@@ -64,4 +61,7 @@ Rails.application.routes.draw do
   # HighVoltage
   # See PagesController and app/views/pages/*
   get "*id" => "pages#show", as: :page, format: false
+
+  require "sidekiq/web"
+  mount Sidekiq::Web => "/sidekiq"
 end

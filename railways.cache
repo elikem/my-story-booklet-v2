@@ -1,10 +1,13 @@
                    Prefix Verb   URI Pattern                                                                              Controller#Action
+              sidekiq_web        /sidekiq                                                                                 Sidekiq::Web
             publish_story GET    /stories/:id/publish(.:format)                                                           stories#publish
                   stories POST   /stories(.:format)                                                                       stories#create
                edit_story GET    /stories/:id/edit(.:format)                                                              stories#edit
                     story PATCH  /stories/:id(.:format)                                                                   stories#update
                           PUT    /stories/:id(.:format)                                                                   stories#update
                           DELETE /stories/:id(.:format)                                                                   stories#destroy
+  publications_idml_ready GET    /publications/idml_ready(.:format)                                                       publications/publications#idml_ready
+             publications GET    /publications/:id/idml(.:format)                                                         publications/publications#idml_url
          new_user_session GET    /users/sign_in(.:format)                                                                 devise/sessions#new
              user_session POST   /users/sign_in(.:format)                                                                 devise/sessions#create
      destroy_user_session DELETE /users/sign_out(.:format)                                                                devise/sessions#destroy
