@@ -183,7 +183,9 @@ class Story < ApplicationRecord
     %x( cd "#{user_template_idml_folder_path(publication)}" && mv "#{timestamp_and_publication_number(publication)}.idml" ..  )
 
     # update the publication status to register completion of method task
-    publication.update(publication_status: "6_create_idml")
+    # update the publication url as well
+    publication.update(publication_status: "6_create_idml", publication_url: "")
+
     # this status change is more for semantic reasons. it is at this point that publication is ready for pdf conversion.
     # the mystorybooklet companion app will be notified of an available publication and pull them down into a hot folder for conversion.
     publication.update(publication_status: "7_ready_for_pdf_conversion")

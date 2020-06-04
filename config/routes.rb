@@ -38,9 +38,9 @@
 #      rails_direct_uploads POST   /rails/active_storage/direct_uploads(.:format)                                           active_storage/direct_uploads#create
 
 Rails.application.routes.draw do
-  namespace :publications do
-    get 'ready_for_pdf_conversion'
-  end
+  get "publications/ready_for_pdf_conversion" => "publications#ready_for_pdf_conversion"
+  get "publications/:id/json" => "publications#show_json"
+  get "publications/:id/idml" => "publications#get_idml"
 
   resources :stories, except: [:index, :new, :show] do
     member do
