@@ -20,6 +20,8 @@
 #  fk_rails_...  (story_id => stories.id)
 #
 class Publication < ApplicationRecord
+  require "loofah"
+
   before_create :set_publication_number
 
   belongs_to :story
@@ -31,6 +33,27 @@ class Publication < ApplicationRecord
     self.update(publication_status: "") unless self.publication_status.blank?
     create_home_folder # step 1
     create_publication_folder # step 2
+    write_title_to_publication # step 3
+  end
+
+  # take story title and adds it to the title publication
+  def write_title_to_publication
+    template = "#{mystorybooklet_english_template_files}/#{title_erb_filename}"
+
+    # pass template and content to ERB
+    xml = parse_erb(template, story.title)
+
+    # create an xml file based on template and contents
+    File.open("#{template_folder_path}/#{title_xml_filename}", "w") do |file|
+      file.write(xml)
+      file.close
+    end
+
+    # move file into idml folder
+    FileUtils.cp("#{publication_folder_path}/#{title_xml_filename}", "#{idml_folder_path}/Stories/#{title_xml_filename}")
+
+    # update the publication status to register completion of method task
+    self.update(publication_status: "3_write_title_to_template")
   end
 
   # create user's folder w/ README.txt containing user's full name, country of residence and email address for a story is published
@@ -56,7 +79,7 @@ class Publication < ApplicationRecord
 
     # rename idml template folder to include publication timestamp and number only if this folder does not exists
     # format: /storage/users/elikem@gmail.com/2020-05-19-03-26-23-lZAo3JDDYJGkbnqtcycGyg/2020-05-19-03-26-23-lZAo3JDDYJGkbnqtcycGyg-mystorybooklet-english
-    FileUtils.mv("#{publication_folder_path}/#{template_idml_folder_name}", "#{publication_folder_path}/#{idml_folder_name}") if Dir.exists?("#{publication_folder_path}/#{template_folder_name}")
+    FileUtils.mv("#{publication_folder_path}/#{template_idml_folder_name}", "#{publication_folder_path}/#{idml_folder_name}") if Dir.exists?("#{publication_folder_path}/#{template_idml_folder_name}")
 
     # update the publication status to register completion of method task
     self.update(publication_status: "2_create_user_story_template")
@@ -107,6 +130,12 @@ class Publication < ApplicationRecord
     "#{timestamp_and_publication_number}-mystorybooklet-english"
   end
 
+  # the path to the idml folder
+  def idml_folder_path
+    "#{publication_folder_path}/#{idml_folder_name}"
+  end
+
+  # the name of the publication folder
   def publication_folder_name
     timestamp_and_publication_number
   end
@@ -120,5 +149,28 @@ class Publication < ApplicationRecord
     publication_number = self.publication_number
 
     "#{timestamp}-#{publication_number}"
+  end
+
+  # mystorybooklet template files
+  # refers to the exact xml files that make up the title, drop cap, and content of the story
+  def mystorybooklet_english_template_files
+    "#{Rails.root}/lib/indesign-assets/mystorybooklet-english-template-files"
+  end
+
+  # add content to erb template and return processed erb file
+  def parse_erb(template, content)
+    # process html entities (e.g. &ldquo;) with Loofah, and pass content to ERB template
+    content = Loofah.xml_fragment(content).to_s
+    ERB.new(File.read("#{template}")).result(binding)
+  end
+
+  # filename for title erb file
+  def title_erb_filename
+    "Story_u2fc1.xml.erb"
+  end
+
+  # filename for the title xml file
+  def title_xml_filename
+    "Story_u2fc1.xml"
   end
 end

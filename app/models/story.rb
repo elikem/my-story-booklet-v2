@@ -38,7 +38,7 @@ class Story < ApplicationRecord
   def publish(publication)
 
 
-    write_title_to_template(publication) # step 3
+
     write_drop_cap_to_template(publication) # step 4
     write_content_to_template(publication) # step 5
     create_idml(publication) # step 6 and # step 7 - ready for pdf conversion is a ghost step purely for semantic reasons
@@ -70,25 +70,7 @@ class Story < ApplicationRecord
     end
   end
 
-  # take story title and adds it to the title template
-  def write_title_to_template(publication)
-    template = "#{mystorybooklet_english_template_files}/#{title_erb_filename}"
 
-    # pass template and content to ERB
-    xml = parse_erb(template, title)
-
-    # create an xml file based on template and contents
-    File.open("#{user_template_folder_path(publication)}/#{title_xml_filename}", "w") do |file|
-      file.write(xml)
-      file.close
-    end
-
-    # move file into idml folder
-    FileUtils.cp("#{user_template_folder_path(publication)}/#{title_xml_filename}", "#{user_template_idml_folder_path(publication)}/Stories/#{title_xml_filename}")
-
-    # update the publication status to register completion of method task
-    publication.update(publication_status: "3_write_title_to_template")
-  end
 
   # take drop cap and add it to the drop cap template
   def write_drop_cap_to_template(publication)
@@ -175,20 +157,11 @@ class Story < ApplicationRecord
     story_content
   end
 
-  # add content to erb template and return processed erb file
-  def parse_erb(template, content)
-    # process html entities (e.g. &ldquo;) with Loofah, and pass content to ERB template
-    content = Loofah.xml_fragment(content).to_s
-    ERB.new(File.read("#{template}")).result(binding)
-  end
 
 
 
-  # mystorybooklet template files
-  # refers to the exact xml files that make up the title, drop cap, and content of the story
-  def mystorybooklet_english_template_files
-    "#{Rails.root}/lib/indesign-assets/mystorybooklet-english-template-files"
-  end
+
+
 
   # user folder path
   # format: storage/users/elikem@gmail.com
@@ -206,15 +179,9 @@ class Story < ApplicationRecord
 
 
 
-  # filename for title erb file
-  def title_erb_filename
-    "Story_u2fc1.xml.erb"
-  end
 
-  # filename for the title xml file
-  def title_xml_filename
-    "Story_u2fc1.xml"
-  end
+
+
 
   # filename for drop cap erb file
   def drop_cap_erb_filename
