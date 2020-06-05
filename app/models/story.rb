@@ -53,7 +53,17 @@ class Story < ApplicationRecord
     Publication.ready_for_pdf_conversion
   end
 
-  private
+  # idml file path
+  def idml_file_path(publication)
+    "#{user_template_folder_path(publication)}/#{timestamp_and_publication_number(publication)}.idml"
+  end
+
+  # filename of the idml file
+  def idml_filename(publication)
+    "#{timestamp_and_publication_number(publication)}.idml"
+  end
+
+  # private
 
   # story title should be upper case
   def story_title_should_be_uppercase
@@ -157,7 +167,7 @@ class Story < ApplicationRecord
       story_content
     end
 
-    # pass template and content to erb
+    # pass template and content to e
     xml = parse_erb(story_content_template, story_content)
 
     # Create an XML file based on template and contents
@@ -183,8 +193,8 @@ class Story < ApplicationRecord
     %x( cd "#{user_template_idml_folder_path(publication)}" && mv "#{timestamp_and_publication_number(publication)}.idml" ..  )
 
     # update the publication status to register completion of method task
-    # update the publication url as well
-    publication.update(publication_status: "6_create_idml", publication_url: "")
+    # update the publication url - GET /publications/:id/idml(.:format)
+    publication.update(publication_status: "6_create_idml", publication_url: "#{CONFIG["base_url"]}/publications/#{publication.id}/idml")
 
     # this status change is more for semantic reasons. it is at this point that publication is ready for pdf conversion.
     # the mystorybooklet companion app will be notified of an available publication and pull them down into a hot folder for conversion.

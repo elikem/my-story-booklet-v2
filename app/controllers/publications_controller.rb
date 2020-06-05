@@ -14,6 +14,6 @@ class PublicationsController < ApplicationController
   def get_idml
     @publication = Publication.find(params[:id])
 
-    send_file( @publication.story.idml_file_path(@publication), type: 'application/x-indesign', disposition: 'attachment', stream: true, status: 200 )
+    send_file("#{@publication.story.idml_file_path(@publication)}", type: "application/x-indesign", disposition: "attachment", stream: true, status: 200)
   end
 end
