@@ -34,17 +34,10 @@ class Story < ApplicationRecord
   validates :content, length: { maximum: 3000 }
   validate :one_story_per_language, on: :create
 
-  # publishing steps to create idml file
-  # you can only have a single story in the publication pipeline
-  # as such references to a publication will also point to the most recent one
+
   def publish(publication)
-    # the "publication" variable holds the current publication associated with the story object. this supports having multiple
-    # publish requests on the same story.
-    # reset the publishing status if it is not an empty array (default status). this means that future attempts to republish the same
-    # story start with a clean slate (in terms of the publishing status).
-    publication.update(publication_status: "") unless publication.publication_status.empty?
-    create_user_folder(publication) # step 1
-    create_user_story_template(publication) # step 2
+
+
     write_title_to_template(publication) # step 3
     write_drop_cap_to_template(publication) # step 4
     write_content_to_template(publication) # step 5
@@ -75,34 +68,6 @@ class Story < ApplicationRecord
     if Story.where(user_id: user_id).pluck(:language).include?(language)
       errors.add(:language, "error. An #{language} story already exists, you can only have one language per story")
     end
-  end
-
-  # create folder w/ README.txt containing user's full name, country of residence and email address for a story is published
-  # format: elikem@gmail.com (the folder name is the email address of the user)
-  def create_user_folder(publication)
-    FileUtils.mkdir_p(user_folder_path) unless Dir.exists?(user_folder_path)
-    File.open("#{user_folder_path}/README.txt", "w") do |file|
-      file.write("#{user.first_name}, #{user.last_name} (#{user.country_of_residence}) \n")
-      file.write("#{user.email}")
-      file.close
-    end
-
-    # update the publication status to register completion of method task
-    publication.update(publication_status: "1_create_user_folder")
-  end
-
-  # create a template for the user's story
-  # format: /storage/users/elikem@gmail.com/[timestamp]_[publication_number] e.g. 2020-05-19-03-26-23-lZAo3JDDYJGkbnqtcycGyg
-  def create_user_story_template(publication)
-    # copy template folder to user's folder with timestamp
-    FileUtils.cp_r(mystorybooklet_idml_template_folder, user_template_folder_path(publication))
-
-    # rename idml template folder to include publication timestamp and number
-    # only this folder exists
-    FileUtils.mv("#{user_template_folder_path(publication)}/mystorybooklet-english", user_template_idml_folder_path(publication)) if Dir.exists?("#{user_template_folder_path(publication)}/mystorybooklet-english")
-
-    # update the publication status to register completion of method task
-    publication.update(publication_status: "2_create_user_story_template")
   end
 
   # take story title and adds it to the title template
@@ -217,11 +182,7 @@ class Story < ApplicationRecord
     ERB.new(File.read("#{template}")).result(binding)
   end
 
-  # mystorybooklet template folder path
-  # /lib/indesign-assets/mystorybooklet-english-idml
-  def mystorybooklet_idml_template_folder
-    "#{Rails.root}/lib/indesign-assets/mystorybooklet-english-idml"
-  end
+
 
   # mystorybooklet template files
   # refers to the exact xml files that make up the title, drop cap, and content of the story
@@ -241,21 +202,9 @@ class Story < ApplicationRecord
     "#{user_folder_path}/#{timestamp_and_publication_number(publication)}-idml-assets"
   end
 
-  # name and location of the idml template folder after it is renamed to include publication timestamp and number
-  # the user idml folder is located inside the user template folder
-  def user_template_idml_folder_path(publication)
-    "#{user_template_folder_path(publication)}/#{timestamp_and_publication_number(publication)}"
-  end
 
-  # timestamp and publication number used for the publication folders and the idml folder and filename
-  # timestamp is derived from the time publication was created
-  # format: 2020-05-19-03-26-23-lZAo3JDDYJGkbnqtcycGyg
-  def timestamp_and_publication_number(publication)
-    timestamp = publication.created_at.strftime("%Y-%m-%d-%H-%-M-%S")
-    publication_number = publication.publication_number
 
-    "#{timestamp}-#{publication_number}"
-  end
+
 
   # filename for title erb file
   def title_erb_filename

@@ -52,6 +52,9 @@ Rails.application.routes.draw do
     end
   end
 
+  require "sidekiq/web"
+  mount Sidekiq::Web => "/sidekiq"
+
   devise_for :users
 
   unauthenticated do
@@ -65,7 +68,4 @@ Rails.application.routes.draw do
   # HighVoltage
   # See PagesController and app/views/pages/*
   get "*id" => "pages#show", as: :page, format: false
-
-  require "sidekiq/web"
-  mount Sidekiq::Web => "/sidekiq"
 end
