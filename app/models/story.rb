@@ -72,28 +72,7 @@ class Story < ApplicationRecord
 
 
 
-  # take drop cap and add it to the drop cap template
-  def write_drop_cap_to_template(publication)
-    drop_cap_template = "#{mystorybooklet_english_template_files}/#{drop_cap_erb_filename}"
 
-    # drop cap is the first letter of the first worked
-    drop_cap = Loofah.xml_fragment(formatted_story_content[0]).text.first
-
-    # pass template and content to erb
-    xml = parse_erb(drop_cap_template, drop_cap)
-
-    # Create an xml file based on template and contents
-    File.open("#{user_template_folder_path(publication)}/#{drop_cap_xml_filename}", "w") do |file|
-      file.write(xml)
-      file.close
-    end
-
-    # move file into idml folder
-    FileUtils.cp("#{user_template_folder_path(publication)}/#{drop_cap_xml_filename}", "#{user_template_idml_folder_path(publication)}/Stories/#{drop_cap_xml_filename}")
-
-    # update the publication status to register completion of method task
-    publication.update(publication_status: "4_write_drop_cap_to_template")
-  end
 
   # take story content and add it to the content template
   def write_content_to_template(publication)
@@ -148,14 +127,7 @@ class Story < ApplicationRecord
     publication.update(publication_status: "7_ready_for_pdf_conversion")
   end
 
-  # accommodate drop cap logic and story content
-  # split content based on newlines while replace p tags with content tags, and a br tag at the end of each element except the
-  # first and last element.
-  def formatted_story_content
-    story_content = content.split("\n").map { |e| e.sub!("<p>", "<Content>"); e.sub!("</p>", "</Content><Br />") }
-    story_content[-1].remove!("<Br />")
-    story_content
-  end
+
 
 
 
@@ -183,15 +155,9 @@ class Story < ApplicationRecord
 
 
 
-  # filename for drop cap erb file
-  def drop_cap_erb_filename
-    "Story_u32b4.xml.erb"
-  end
 
-  # filename for the drop cap xml file
-  def drop_cap_xml_filename
-    "Story_u32b4.xml"
-  end
+
+
 
   # filename for story content erb file
   def story_content_erb_filename

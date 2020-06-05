@@ -34,6 +34,30 @@ class Publication < ApplicationRecord
     create_home_folder # step 1
     create_publication_folder # step 2
     write_title_to_publication # step 3
+    write_drop_cap_to_publication # step 4
+  end
+
+  # take drop cap and add it to the drop cap template
+  def write_drop_cap_to_publication
+    drop_cap_template = "#{mystorybooklet_english_template_files}/#{drop_cap_erb_filename}"
+
+    # drop cap is the first letter of the first worked
+    drop_cap = Loofah.xml_fragment(formatted_story_content[0]).text.first
+
+    # pass template and content to erb
+    xml = parse_erb(drop_cap_template, drop_cap)
+
+    # Create an xml file based on template and contents
+    File.open("#{template_folder_path}/#{drop_cap_xml_filename}", "w") do |file|
+      file.write(xml)
+      file.close
+    end
+
+    # move file into idml folder
+    FileUtils.cp("#{publication_folder_path}/#{drop_cap_xml_filename}", "#{idml_folder_path}/Stories/#{drop_cap_xml_filename}")
+
+    # update the publication status to register completion of method task
+    self.update(publication_status: "4_write_drop_cap_to_template")
   end
 
   # take story title and adds it to the title publication
@@ -101,6 +125,15 @@ class Publication < ApplicationRecord
     end
   end
 
+  # accommodate drop cap logic and story content
+  # split content based on newlines while replace p tags with content tags, and a br tag at the end of each element except the
+  # first and last element.
+  def formatted_story_content
+    story_content = story.content.split("\n").map { |e| e.sub!("<p>", "<Content>"); e.sub!("</p>", "</Content><Br />") }
+    story_content[-1].remove!("<Br />")
+    story_content
+  end
+
   # user folder path
   # format: /storage/users/elikem@gmail.com
   def home_folder_path
@@ -121,16 +154,19 @@ class Publication < ApplicationRecord
 
   # name and location of the idml template folder after it is renamed to include publication timestamp and publication number
   # the user idml template folder is located inside the publication folder
+  # format: /storage/users/elikem@gmail.com/2020-05-19-03-26-23-lZAo3JDDYJGkbnqtcycGyg
   def publication_folder_path
     "#{home_folder_path}/#{publication_folder_name}"
   end
 
   # the name of the idml folder within the publication folder in the user's home folder
+  # format: 2020-05-19-03-26-23-lZAo3JDDYJGkbnqtcycGyg-mystorybooklet-english
   def idml_folder_name
     "#{timestamp_and_publication_number}-mystorybooklet-english"
   end
 
   # the path to the idml folder
+  # format: /storage/users/elikem@gmail.com/2020-05-19-03-26-23-lZAo3JDDYJGkbnqtcycGyg/2020-05-19-03-26-23-lZAo3JDDYJGkbnqtcycGyg-mystorybooklet-english
   def idml_folder_path
     "#{publication_folder_path}/#{idml_folder_name}"
   end
@@ -172,5 +208,15 @@ class Publication < ApplicationRecord
   # filename for the title xml file
   def title_xml_filename
     "Story_u2fc1.xml"
+  end
+
+  # filename for drop cap erb file
+  def drop_cap_erb_filename
+    "Story_u32b4.xml.erb"
+  end
+
+  # filename for the drop cap xml file
+  def drop_cap_xml_filename
+    "Story_u32b4.xml"
   end
 end
