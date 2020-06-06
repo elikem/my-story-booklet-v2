@@ -1,11 +1,9 @@
 class PublicationWorker
   include Sidekiq::Worker
-  sidekiq_options retry: false
+  sidekiq_options queue: "idml_publications"
 
-  def perform(story_id, publication_id)
-    story = Story.find(story_id)
+  def perform(publication_id)
     publication = Publication.find(publication_id)
-
-    story.publish(publication)
+    publication.start
   end
 end

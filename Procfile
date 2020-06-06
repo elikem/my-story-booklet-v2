@@ -1,3 +1,5 @@
 web: bundle exec guard
 redis: redis-server
-worker: bundle exec sidekiq
+idml_publications_worker: bundle exec sidekiq -q idml_publications
+pdf_downloads_worker: bundle exec sidekiq -q pdf_downloads
+default_worker: bundle exec sidekiq -q default

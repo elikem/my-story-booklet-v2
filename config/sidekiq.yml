@@ -1,0 +1,3 @@
+:verbose: false
+:timeout: 25
+:max_retries: 1

@@ -40,7 +40,7 @@ class StoriesController < ApplicationController
     # create a publication for user story, the publication auto-generates the publication number (which should be unique)
     @publication = Publication.create!(story_id: @story.id)
 
-    PublicationWorker.perform_async(@story.id, @publication.id)
+    PublicationWorker.perform_async(@publication.id)
 
     render "publish"
   end

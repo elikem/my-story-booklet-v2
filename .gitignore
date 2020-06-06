@@ -27,4 +27,4 @@
 /config/master.key
 
 # Ignore redis persistence file
-dump.rdb
+*.rdb
