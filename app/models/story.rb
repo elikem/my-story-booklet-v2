@@ -20,10 +20,6 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Story < ApplicationRecord
-  require "erb"
-  require "fileutils"
-  require "loofah"
-
   before_save :story_title_should_be_uppercase
 
   belongs_to :user
@@ -34,23 +30,7 @@ class Story < ApplicationRecord
   validates :content, length: { maximum: 3000 }
   validate :one_story_per_language, on: :create
 
-
-  def publish(publication)
-
-
-
-
-
-  end
-
-
-
-  # filename of the idml file
-  def idml_filename(publication)
-    "#{timestamp_and_publication_number(publication)}.idml"
-  end
-
-  # private
+  private
 
   # story title should be upper case
   def story_title_should_be_uppercase
@@ -63,48 +43,4 @@ class Story < ApplicationRecord
       errors.add(:language, "error. An #{language} story already exists, you can only have one language per story")
     end
   end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  # user folder path
-  # format: storage/users/elikem@gmail.com
-  def user_folder_path
-    "#{Rails.root}/storage/users/#{user.email}"
-  end
-
-  # user story folder path
-  # this folder contains the user idml folder path
-  def user_template_folder_path(publication)
-    "#{user_folder_path}/#{timestamp_and_publication_number(publication)}-idml-assets"
-  end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 end
