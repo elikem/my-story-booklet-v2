@@ -35,6 +35,42 @@ class Publication < ApplicationRecord
     create_publication_folder # step 2
     write_title_to_publication # step 3
     write_drop_cap_to_publication # step 4
+    write_content_to_publication # step 5
+  end
+
+  # take story content and add it to the content template
+  def write_content_to_publication
+    story_content_template = "#{mystorybooklet_english_template_files}/#{story_content_erb_filename}"
+
+    if (Loofah.xml_fragment(formatted_story_content[0]).text.length == 1)
+      # if the first letter is also a word... e.g "I"
+      # drop the first element in the array, join array back into a string, ignore the first character of the string, and add a space
+      story_content = formatted_story_content.drop(1).join(" ").prepend("", " ")
+    else
+      # if the first word has more than a single letter... e.g. "Hello" (length > 1 is assumed based on falseness of the if statement above)
+      # remove the first character after the <Content> tag (representing the drop cap), and do not add a space - drop cap and first word are the same word
+      # "<Content>Paragraphs are the building blocks of papers.</Content><Br />"
+      story_content = formatted_story_content.join(" ")
+      # Remove the first character of the first word
+      story_content[9] = ""
+      # output revised story content
+      story_content
+    end
+
+    # pass template and content to e
+    xml = parse_erb(story_content_template, story_content)
+
+    # Create an XML file based on template and contents
+    File.open("#{template_folder_path}/#{story_content_xml_filename}", "w") do |file|
+      file.write(xml)
+      file.close
+    end
+
+    # copy file into idml folder
+    FileUtils.cp("#{publication_folder_path}/#{story_content_xml_filename}", "#{idml_folder_path}/Stories/#{story_content_xml_filename}")
+
+    # update the publication status to register completion of method task
+    self.update(publication_status: "5_write_content_to_template")
   end
 
   # take drop cap and add it to the drop cap template
@@ -53,7 +89,7 @@ class Publication < ApplicationRecord
       file.close
     end
 
-    # move file into idml folder
+    # copy file into idml folder
     FileUtils.cp("#{publication_folder_path}/#{drop_cap_xml_filename}", "#{idml_folder_path}/Stories/#{drop_cap_xml_filename}")
 
     # update the publication status to register completion of method task
@@ -73,7 +109,7 @@ class Publication < ApplicationRecord
       file.close
     end
 
-    # move file into idml folder
+    # copy file into idml folder
     FileUtils.cp("#{publication_folder_path}/#{title_xml_filename}", "#{idml_folder_path}/Stories/#{title_xml_filename}")
 
     # update the publication status to register completion of method task
@@ -218,5 +254,15 @@ class Publication < ApplicationRecord
   # filename for the drop cap xml file
   def drop_cap_xml_filename
     "Story_u32b4.xml"
+  end
+
+  # filename for story content erb file
+  def story_content_erb_filename
+    "Story_u326e.xml.erb"
+  end
+
+  # filename for the story content xml file
+  def story_content_xml_filename
+    "Story_u326e.xml"
   end
 end

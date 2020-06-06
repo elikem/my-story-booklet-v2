@@ -39,8 +39,7 @@ class Story < ApplicationRecord
 
 
 
-    write_drop_cap_to_template(publication) # step 4
-    write_content_to_template(publication) # step 5
+
     create_idml(publication) # step 6 and # step 7 - ready for pdf conversion is a ghost step purely for semantic reasons
     # inform companion app of a pdf ready for conversion.
     Publication.ready_for_pdf_conversion
@@ -74,40 +73,7 @@ class Story < ApplicationRecord
 
 
 
-  # take story content and add it to the content template
-  def write_content_to_template(publication)
-    story_content_template = "#{mystorybooklet_english_template_files}/#{story_content_erb_filename}"
 
-    if (Loofah.xml_fragment(formatted_story_content[0]).text.length == 1)
-      # if the first letter is also a word... e.g "I"
-      # drop the first element in the array, join array back into a string, ignore the first character of the string, and add a space
-      story_content = formatted_story_content.drop(1).join(" ").prepend("", " ")
-    else
-      # if the first word has more than a single letter... e.g. "Hello" (length > 1 is assumed based on falseness of the if statement above)
-      # remove the first character after the <Content> tag (representing the drop cap), and do not add a space - drop cap and first word are the same word
-      # "<Content>Paragraphs are the building blocks of papers.</Content><Br />"
-      story_content = formatted_story_content.join(" ")
-      # Remove the first character of the first word
-      story_content[9] = ""
-      # output revised story content
-      story_content
-    end
-
-    # pass template and content to e
-    xml = parse_erb(story_content_template, story_content)
-
-    # Create an XML file based on template and contents
-    File.open("#{user_template_folder_path(publication)}/#{story_content_xml_filename}", "w") do |file|
-      file.write(xml)
-      file.close
-    end
-
-    # Move file into idml folder
-    FileUtils.cp("#{user_template_folder_path(publication)}/#{story_content_xml_filename}", "#{user_template_idml_folder_path(publication)}/Stories/#{story_content_xml_filename}")
-
-    # update the publication status to register completion of method task
-    publication.update(publication_status: "5_write_content_to_template")
-  end
 
   # create idml file in the user's idml folder
   def create_idml(publication)
@@ -159,13 +125,7 @@ class Story < ApplicationRecord
 
 
 
-  # filename for story content erb file
-  def story_content_erb_filename
-    "Story_u326e.xml.erb"
-  end
 
-  # filename for the story content xml file
-  def story_content_xml_filename
-    "Story_u326e.xml"
-  end
+
+
 end
