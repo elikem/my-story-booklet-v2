@@ -42,7 +42,7 @@
 #                  rails_direct_uploads POST   /rails/active_storage/direct_uploads(.:format)                                           active_storage/direct_uploads#create
 
 Rails.application.routes.draw do
-  get "publications/companion_app_has_pdfs_to_download" => "publications#"
+  get "publications/companion_app_has_pdfs_to_download" => "publications#companion_app_has_pdfs_to_download"
   get "publications/ready_for_pdf_conversion" => "publications#ready_for_pdf_conversion"
   get "publications/:id/json" => "publications#show_json"
   get "publications/:id/idml" => "publications#get_idml"

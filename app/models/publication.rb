@@ -82,7 +82,7 @@ class Publication < ApplicationRecord
     xml = parse_erb(story_content_template, story_content)
 
     # Create an XML file based on template and contents
-    File.open("#{template_folder_path}/#{story_content_xml_filename}", "w") do |file|
+    File.open("#{publication_folder_path}/#{story_content_xml_filename}", "w") do |file|
       file.write(xml)
       file.close
     end
@@ -105,7 +105,7 @@ class Publication < ApplicationRecord
     xml = parse_erb(drop_cap_template, drop_cap)
 
     # Create an xml file based on template and contents
-    File.open("#{template_folder_path}/#{drop_cap_xml_filename}", "w") do |file|
+    File.open("#{publication_folder_path}/#{drop_cap_xml_filename}", "w") do |file|
       file.write(xml)
       file.close
     end
@@ -125,7 +125,7 @@ class Publication < ApplicationRecord
     xml = parse_erb(template, story.title)
 
     # create an xml file based on template and contents
-    File.open("#{template_folder_path}/#{title_xml_filename}", "w") do |file|
+    File.open("#{publication_folder_path}/#{title_xml_filename}", "w") do |file|
       file.write(xml)
       file.close
     end
