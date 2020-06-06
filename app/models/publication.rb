@@ -36,6 +36,27 @@ class Publication < ApplicationRecord
     write_title_to_publication # step 3
     write_drop_cap_to_publication # step 4
     write_content_to_publication # step 5
+    create_idml # step 6 and # step 7 - ready for pdf conversion is a ghost step purely for semantic reasons
+    # inform companion app of a pdf ready for conversion.
+    Publication.ready_for_pdf_conversion
+  end
+
+  # create idml file in the user's idml folder
+  def create_idml
+    # go into the user's idml folder path and create a zip file with the mimetype without compressing the mimetype. this will allow InDesign to recognize it as a valid InDesign file
+    %x( cd "#{idml_folder_path}" && zip -X0 "#{idml_folder_path}/#{idml_folder_name}.idml" mimetype  )
+    # add all the other files into the previously create zip file except DS_Store and mimetype
+    %x( cd "#{idml_folder_path}" && zip -rDX9 "#{idml_folder_path}/#{idml_folder_name}.idml" * -x '*.DS_Store' -x mimetype  )
+    # move the idml file up a level
+    %x( cd "#{idml_folder_path}" && mv "#{idml_folder_path}/#{idml_folder_name}.idml" .. )
+
+    # update the publication status to register completion of method task
+    # update the publication url - GET /publications/:id/idml(.:format)
+    self.update(publication_status: "6_create_idml", publication_url: "#{CONFIG["base_url"]}/publications/#{self.id}/idml")
+
+    # this status change is more for semantic reasons. it is at this point that publication is ready for pdf conversion.
+    # the mystorybooklet companion app will be notified of an available publication and pull them down into a hot folder for conversion.
+    self.update(publication_status: "7_ready_for_pdf_conversion")
   end
 
   # take story content and add it to the content template
@@ -168,6 +189,11 @@ class Publication < ApplicationRecord
     story_content = story.content.split("\n").map { |e| e.sub!("<p>", "<Content>"); e.sub!("</p>", "</Content><Br />") }
     story_content[-1].remove!("<Br />")
     story_content
+  end
+
+  # idml file path
+  def idml_file_path
+    "#{publication_folder_path}/#{idml_folder_name}.idml"
   end
 
   # user folder path
