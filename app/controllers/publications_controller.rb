@@ -1,7 +1,7 @@
 class PublicationsController < ApplicationController
   # these are the publications that are "ready for pdf conversion"
-  def ready_for_pdf_conversion
-    @publications = Publication.where(publication_status: "7_ready_for_pdf_conversion")
+  def waiting_for_pdf_conversion
+    @publications = Publication.where("publication_status = '7_ready_for_pdf_conversion' AND conversion_status = 'pending'")
 
     render json: @publications
   end
@@ -14,14 +14,9 @@ class PublicationsController < ApplicationController
   end
 
   # provide idml download link for a publication
-  def get_idml
+  def show_idml
     @publication = Publication.find(params[:id])
 
     send_file("#{@publication.idml_file_path}", type: "application/x-indesign", disposition: "attachment", stream: true, status: 200)
-  end
-
-  # notification from the companion app...there are pdfs to download
-  def companion_app_has_pdfs_to_download
-    # call service to get pdfs from companion app
   end
 end

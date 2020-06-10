@@ -2,13 +2,15 @@
 #
 # Table name: publications
 #
-#  id                 :bigint           not null, primary key
-#  publication_number :string
-#  publication_status :string           default("")
-#  publication_url    :string           default("")
-#  created_at         :datetime         not null
-#  updated_at         :datetime         not null
-#  story_id           :bigint
+#  id                   :bigint           not null, primary key
+#  conversion_status    :string           default("pending")
+#  publication_filename :string           default("")
+#  publication_number   :string
+#  publication_status   :string           default("")
+#  publication_url      :string           default("")
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
+#  story_id             :bigint
 #
 # Indexes
 #
@@ -38,25 +40,27 @@ class Publication < ApplicationRecord
     write_content_to_publication # step 5
     create_idml # step 6 and # step 7 - ready for pdf conversion is a ghost step purely for semantic reasons
     # inform companion app of a pdf ready for conversion.
-    Publication.ready_for_pdf_conversion
   end
 
   # create idml file in the user's idml folder
   def create_idml
     # go into the user's idml folder path and create a zip file with the mimetype without compressing the mimetype. this will allow InDesign to recognize it as a valid InDesign file
-    %x( cd "#{idml_folder_path}" && zip -X0 "#{idml_folder_path}/#{idml_folder_name}.idml" mimetype  )
+    %x( cd "#{idml_folder_path}" && zip -X0 "#{idml_folder_path}/#{publication_filename}" mimetype  )
     # add all the other files into the previously create zip file except DS_Store and mimetype
-    %x( cd "#{idml_folder_path}" && zip -rDX9 "#{idml_folder_path}/#{idml_folder_name}.idml" * -x '*.DS_Store' -x mimetype  )
+    %x( cd "#{idml_folder_path}" && zip -rDX9 "#{idml_folder_path}/#{publication_filename}" * -x '*.DS_Store' -x mimetype  )
     # move the idml file up a level
-    %x( cd "#{idml_folder_path}" && mv "#{idml_folder_path}/#{idml_folder_name}.idml" .. )
+    %x( cd "#{idml_folder_path}" && mv "#{idml_folder_path}/#{publication_filename}" .. )
 
     # update the publication status to register completion of method task
     # update the publication url - GET /publications/:id/idml(.:format)
-    self.update(publication_status: "6_create_idml", publication_url: "#{CONFIG["base_url"]}/publications/#{self.id}/idml")
+    self.update(publication_status: "6_create_idml", publication_url: "#{CONFIG["base_url"]}/publications/#{self.id}/idml", publication_filename: publication_filename)
 
     # this status change is more for semantic reasons. it is at this point that publication is ready for pdf conversion.
     # the mystorybooklet companion app will be notified of an available publication and pull them down into a hot folder for conversion.
     self.update(publication_status: "7_ready_for_pdf_conversion")
+
+    # pass idml publication details to companion app
+    post_idml_publication_to_companion
   end
 
   # take story content and add it to the content template
@@ -171,15 +175,23 @@ class Publication < ApplicationRecord
     self.publication_number = SecureRandom.urlsafe_base64
   end
 
-  # this triggers a process on the companion app to start pulling publications that are ready to converted from idml to pdf
-  def self.ready_for_pdf_conversion
-    url = "#{CONFIG["companion_app_base_url"]}/start-pdf-conversion-process"
-    response = Typhoeus.get(url)
+  # this triggers a process on the companion app to start pulling the publication that is ready to convert from idml to pdf
+  # the companion server will receive this request and download the idml
+  # the response should have a parameter that indicates successful download
+  # this should be offloaded to another Sidekiq worker - this request will wait for the companion app to download and respond w/ 200 and some other parameter
+  def post_idml_publication_to_companion
+    response = HTTParty.post(publish_idml_publication, query: {publication: { publication_url: publication_url, publication_filename: publication_filename }})
 
-    unless response.code == "200"
+    # Status Code 204 - No Content
+    unless response.code == "204"
       # log response
-      Rails.logger.error "ERROR: Request to companion app failed (GET #{url}). HTTP Status Code #{response.code} at #{Time.now}"
+      Rails.logger.error "ERROR: (GET #{publish_idml_publication}). HTTP Status Code #{response.code} at #{Time.now}"
     end
+  end
+
+  # url to post idml publication
+  def publish_idml_publication
+    "#{CONFIG["companion_app_base_url"]}/publish-idml-publication"
   end
 
   # accommodate drop cap logic and story content
@@ -260,6 +272,11 @@ class Publication < ApplicationRecord
     # process html entities (e.g. &ldquo;) with Loofah, and pass content to ERB template
     content = Loofah.xml_fragment(content).to_s
     ERB.new(File.read("#{template}")).result(binding)
+  end
+
+  # set the publication filename
+  def publication_filename
+    "#{idml_folder_name}.idml"
   end
 
   # filename for title erb file

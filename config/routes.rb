@@ -1,7 +1,7 @@
 # == Route Map
 #
 #                                Prefix Verb   URI Pattern                                                                              Controller#Action
-# publications_ready_for_pdf_conversion GET    /publications/ready_for_pdf_conversion(.:format)                                         publications#ready_for_pdf_conversion
+# publications_ready_for_pdf_conversion GET    /publications/waiting_for_pdf_conversion(.:format)                                         publications#ready_for_pdf_conversion
 #                                       GET    /publications/:id/json(.:format)                                                         publications#show_json
 #                                       GET    /publications/:id/idml(.:format)                                                         publications#get_idml
 #                         publish_story GET    /stories/:id/publish(.:format)                                                           stories#publish
@@ -42,10 +42,9 @@
 #                  rails_direct_uploads POST   /rails/active_storage/direct_uploads(.:format)                                           active_storage/direct_uploads#create
 
 Rails.application.routes.draw do
-  get "publications/companion_app_has_pdfs_to_download" => "publications#companion_app_has_pdfs_to_download"
-  get "publications/ready_for_pdf_conversion" => "publications#ready_for_pdf_conversion"
+  get "publications/waiting-for-pdf-conversion" => "publications#waiting_for_pdf_conversion"
   get "publications/:id/json" => "publications#show_json"
-  get "publications/:id/idml" => "publications#get_idml"
+  get "publications/:id/idml" => "publications#show_idml"
 
   resources :stories, except: [:index, :new, :show] do
     member do

@@ -26,7 +26,7 @@ We capture basic demographic information the user. Name(s), the language they sp
 ```
 A user can have several stories. A story represents content for a booklet in a language. You cannot have more than one story share the same language. There's a future where we will support other booklets and languages. 
 
-### Publication
+### Publication Lifecycle
 ```
 # Table name: publications
 #
@@ -58,6 +58,12 @@ At the end of each step, the `publication_status` on the `publication` is update
 * Step 7 - Ready for PDF conversion. A largely semantic step that makes it easy to tell when an IDML file is ready for conversion. It is at this step where a message is sent to the companion app.
 
 The final step is a `GET` request to the companion app (to inform a pdf ready for conversion)...i.e. `/start-pdf-conversion-process`. 
+
+### Interactions between (companion)[] and the (main)[] app 
+
+After Step 7, in the create_idml method (See publication.rb), we call `post_idml_publication_to_companion` to post the publication object the companion.
+
+The companion app will trigger a process after insertion to download the idml file into the hot folder for conversion.
 
 ### Code Annotations 
 `rake annotate_models`
