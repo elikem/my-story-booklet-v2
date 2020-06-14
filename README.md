@@ -59,7 +59,7 @@ At the end of each step, the `publication_status` on the `publication` is update
 
 The final step is a `GET` request to the companion app (to inform a pdf ready for conversion)...i.e. `/start-pdf-conversion-process`. 
 
-### Interactions between (companion)[] and the (main)[] app 
+### Interactions between (companion)[] and the (core)[] app 
 
 After Step 7, in the create_idml method (See publication.rb), we call `post_idml_publication_to_companion` to post the publication object the companion.
 

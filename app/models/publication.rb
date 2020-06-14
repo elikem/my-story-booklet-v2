@@ -53,7 +53,7 @@ class Publication < ApplicationRecord
 
     # update the publication status to register completion of method task
     # update the publication url - GET /publications/:id/idml(.:format)
-    self.update(publication_status: "6_create_idml", publication_url: "#{CONFIG["base_url"]}/publications/#{self.id}/idml", publication_filename: publication_filename)
+    self.update(publication_status: "6_create_idml", publication_url: "#{CONFIG["core_app_url"]}/publications/#{self.id}/idml", publication_filename: publication_filename)
 
     # this status change is more for semantic reasons. it is at this point that publication is ready for pdf conversion.
     # the mystorybooklet companion app will be notified of an available publication and pull them down into a hot folder for conversion.
@@ -180,7 +180,7 @@ class Publication < ApplicationRecord
   # the response should have a parameter that indicates successful download
   # this should be offloaded to another Sidekiq worker - this request will wait for the companion app to download and respond w/ 200 and some other parameter
   def post_idml_publication_to_companion
-    response = HTTParty.post(publish_idml_publication, query: {publication: { publication_url: publication_url, publication_filename: publication_filename }})
+    response = HTTParty.post(publish_idml_publication, query: { publication: { publication_number: publication_number, publication_url: publication_url, publication_filename: publication_filename }})
 
     # Status Code 204 - No Content
     unless response.code == "204"
@@ -191,7 +191,7 @@ class Publication < ApplicationRecord
 
   # url to post idml publication
   def publish_idml_publication
-    "#{CONFIG["companion_app_base_url"]}/publish-idml-publication"
+    "#{CONFIG["companion_app_url"]}/publish-idml-publication"
   end
 
   # accommodate drop cap logic and story content

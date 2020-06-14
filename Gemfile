@@ -18,7 +18,6 @@ gem "bootstrap", "~> 4.3.1"
 gem "friendly_id"
 gem "excon"
 gem "active_link_to"
-gem "fog-aws"
 gem "devise"
 gem "jquery-rails"
 gem "gon"
@@ -50,7 +49,6 @@ group :development do
   gem "guard-bundler"
   gem "terminal-notifier-guard"
   gem "mailcatcher", require: false
-  gem "foreman", require: false
   gem "byebug", platforms: [:mri, :mingw, :x64_mingw]
 end
 
