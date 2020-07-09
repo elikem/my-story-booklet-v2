@@ -4,6 +4,7 @@
 #
 #  id                   :bigint           not null, primary key
 #  conversion_status    :string           default("pending")
+#  pdf_file             :binary
 #  publication_filename :string           default("")
 #  publication_number   :string
 #  publication_status   :string           default("")
@@ -53,7 +54,7 @@ class Publication < ApplicationRecord
 
     # update the publication status to register completion of method task
     # update the publication url - GET /publications/:id/idml(.:format)
-    self.update(publication_status: "6_create_idml", publication_url: "#{CONFIG["core_app_url"]}/publications/#{self.id}/idml", publication_filename: publication_filename)
+    self.update(publication_status: "6_create_idml", publication_url: "#{CONFIG["core_app_domain"]}/publications/#{self.id}/idml", publication_filename: publication_filename)
 
     # this status change is more for semantic reasons. it is at this point that publication is ready for pdf conversion.
     # the mystorybooklet companion app will be notified of an available publication and pull them down into a hot folder for conversion.
@@ -191,7 +192,7 @@ class Publication < ApplicationRecord
 
   # url to post idml publication
   def publish_idml_publication
-    "#{CONFIG["companion_app_url"]}/publish-idml-publication"
+    "#{CONFIG["companion_app_domain"]}/publish-idml-publication"
   end
 
   # accommodate drop cap logic and story content

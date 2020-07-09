@@ -28,3 +28,6 @@
 
 # Ignore redis persistence file
 *.rdb
+
+# Ignore macOS system file
+.DS_Store
