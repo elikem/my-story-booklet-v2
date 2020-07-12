@@ -233,6 +233,8 @@ GEM
     rack (2.2.2)
     rack-contrib (2.2.0)
       rack (~> 2.0)
+    rack-cors (1.1.1)
+      rack (>= 2.0.0)
     rack-protection (2.0.8.1)
       rack
     rack-test (1.1.0)
@@ -412,6 +414,7 @@ DEPENDENCIES
   prettier
   pry-rails
   puma (>= 3.12.6)
+  rack-cors
   rails (= 5.2.4.3)
   rails-erd
   rufo

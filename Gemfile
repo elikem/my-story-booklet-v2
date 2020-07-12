@@ -27,6 +27,7 @@ gem "toastr-rails"
 gem "loofah"
 gem "httparty"
 gem "sidekiq"
+gem 'rack-cors'
 
 group :development do
   gem "pry-rails"

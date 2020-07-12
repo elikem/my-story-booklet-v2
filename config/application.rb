@@ -16,6 +16,13 @@ module MyStoryBooklet
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
 
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins "*"
+        resource "*", headers: :any, methods: [:get, :post, :put, :patch, :delete, :options]
+      end
+    end
+
     config.generators do |g|
       g.view_specs false
       g.stylesheets false

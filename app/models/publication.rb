@@ -179,7 +179,7 @@ class Publication < ApplicationRecord
   # this triggers a process on the companion app to start pulling the publication that is ready to convert from idml to pdf
   # the companion server will receive this request and download the idml
   # the response should have a parameter that indicates successful download
-  # this should be offloaded to another Sidekiq worker - this request will wait for the companion app to download and respond w/ 200 and some other parameter
+  # TODO: this should be offloaded to another Sidekiq worker - this request will wait for the companion app to download and respond w/ 200 and some other parameter
   def post_idml_publication_to_companion
     response = HTTParty.post(publish_idml_publication, query: { publication: { publication_number: publication_number, publication_url: publication_url, publication_filename: publication_filename }})
 
