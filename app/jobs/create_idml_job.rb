@@ -1,6 +1,6 @@
-class PublicationWorker
-  include Sidekiq::Worker
-  sidekiq_options queue: "idml_publications"
+class CreateIdmlJob < ApplicationJob
+  queue_as :create_idml
+  sidekiq_options retry: 5
 
   def perform(publication_id)
     publication = Publication.find(publication_id)
