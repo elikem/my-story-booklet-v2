@@ -25,6 +25,7 @@ class PublicationsController < ApplicationController
 
     # TODO: Sidekiq job to email the pdf to the user
     # This method receives the post request from the companion app.
+    EmailPdfToUserJob.perform_later(@publication.id)
   end
 
   private
