@@ -5,3 +5,4 @@
   - default
   - create_idml
   - email_pdf_to_user
+  - download_pdf_from_companion

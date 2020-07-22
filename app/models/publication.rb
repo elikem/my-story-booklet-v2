@@ -280,6 +280,11 @@ class Publication < ApplicationRecord
     "#{idml_folder_name}.idml"
   end
 
+  # get the pdf publication filename
+  def pdf_publication_filename
+    "#{idml_folder_name}.pdf"
+  end
+
   # filename for title erb file
   def title_erb_filename
     "Story_u2fc1.xml.erb"

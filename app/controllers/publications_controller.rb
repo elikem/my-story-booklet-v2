@@ -28,6 +28,7 @@ class PublicationsController < ApplicationController
     # This method receives the post request from the companion app.
     EmailPdfToUserJob.perform_later(@publication.id)
     # TODO: Download pdf file  using pdf url to /Out folder
+    DownloadPdfFromCompanionJob.perform_later(@publication.id)
   end
 
   private
