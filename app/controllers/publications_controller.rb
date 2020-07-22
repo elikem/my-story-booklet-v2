@@ -19,18 +19,20 @@ class PublicationsController < ApplicationController
     send_file("#{@publication.idml_file_path}", type: "application/x-indesign", disposition: "attachment", stream: true, status: 200)
   end
 
+  # update publication record with pdf url and publication number from companion app
   def update_publication_with_pdf
     @publication = Publication.find_by_publication_number(publication_params[:publication_number])
-    @publication.update(publication_status: "8_pdf_conversion_complete", pdf_file: publication_params[:pdf_file])
+    @publication.update(publication_status: "8_pdf_conversion_complete", pdf_url: publication_params[:pdf_url])
 
     # TODO: Sidekiq job to email the pdf to the user
     # This method receives the post request from the companion app.
     EmailPdfToUserJob.perform_later(@publication.id)
+    # TODO: Download pdf file  using pdf url to /Out folder
   end
 
   private
 
   def publication_params
-    params.require(:publication).permit(:pdf_file, :conversion_status, :publication_filename, :publication_number, :publication_status, :publication_url, :story_id)
+    params.require(:publication).permit(:conversion_status, :publication_filename, :publication_number, :publication_status, :publication_url, :story_id, :pdf_url)
   end
 end
