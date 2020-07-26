@@ -24,30 +24,6 @@
             <% end %>
           </div>
 
-          <div class="mt-5">
-            <p>Leave these fields blank if you don't want to change your password.</p>
-            <label class="font-weight-bold text-dark small">NEW PASSWORD</label>
-            <% if @minimum_password_length %>
-              <em>(<%= @minimum_password_length %> characters minimum)</em><br />
-            <% end %>
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text"><i data-feather="lock"></i></span>
-              </div>
-              <%= f.password_field :password, class: "form-control" %>
-            </div>
-          </div>
-
-          <div>
-            <label class="font-weight-bold text-dark small">CONFIRM NEW PASSWORD</label>
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text"><i data-feather="lock"></i></span>
-              </div>
-              <%= f.password_field :password_confirmation, class: "form-control" %>
-            </div>
-          </div>
-
           <div class="mt-4">
             <label class="font-weight-bold text-dark small">FIRST NAME</label>
             <div class="input-group mb-3">
@@ -76,13 +52,37 @@
           </div>
 
           <div class="mt-5">
-            <p class="text-info">You must enter your current password to make changes.</p>
+            <p class="text-info">You must enter your current password to create a new password.</p>
             <label class="font-weight-bold text-dark small">CURRENT PASSWORD</label>
             <div class="input-group mb-3">
               <div class="input-group-prepend">
                 <span class="input-group-text"><i data-feather="lock"></i></span>
               </div>
               <%= f.password_field :current_password, placeholder: "Password", class: "form-control" %>
+            </div>
+          </div>
+
+          <div class="mt-5">
+            <p>Leave these fields blank if you don't want to change your password.</p>
+            <label class="font-weight-bold text-dark small">NEW PASSWORD</label>
+            <% if @minimum_password_length %>
+              <em>(<%= @minimum_password_length %> characters minimum)</em><br />
+            <% end %>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i data-feather="lock"></i></span>
+              </div>
+              <%= f.password_field :password, class: "form-control", placeholder: "New Password" %>
+            </div>
+          </div>
+
+          <div>
+            <label class="font-weight-bold text-dark small">CONFIRM NEW PASSWORD</label>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i data-feather="lock"></i></span>
+              </div>
+              <%= f.password_field :password_confirmation, class: "form-control", placeholder: "Confirm New Password" %>
             </div>
           </div>
 
