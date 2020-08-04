@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_26_161938) do
+ActiveRecord::Schema.define(version: 2020_07_31_050644) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 2020_07_26_161938) do
     t.string "publication_filename", default: ""
     t.string "conversion_status", default: "pending"
     t.string "pdf_url"
+    t.string "pdf_file_path"
     t.index ["publication_number"], name: "index_publications_on_publication_number", unique: true
     t.index ["story_id"], name: "index_publications_on_story_id"
   end

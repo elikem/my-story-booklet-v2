@@ -53,6 +53,8 @@ Rails.application.routes.draw do
     end
   end
 
+  get "/story/:username" => "stories#show_latest_publication"
+
   require "sidekiq/web"
   mount Sidekiq::Web => "/sidekiq"
 
@@ -65,7 +67,7 @@ Rails.application.routes.draw do
   authenticated do
     get "/" => "dashboard#show"
   end
-
+  
   # HighVoltage
   # See PagesController and app/views/pages/*
   get "*id" => "pages#show", as: :page, format: false

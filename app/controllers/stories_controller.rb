@@ -45,10 +45,19 @@ class StoriesController < ApplicationController
     render "publish"
   end
 
+  def show_latest_publication
+    @user = User.find_by_username(params[:username])
+    # TODO: the line below does not accomodate multiple stories/templates
+    @pdf_file_path = @user.stories.first.publications.order(:updated_at).last.pdf_file_path
+
+    send_file("#{@pdf_file_path}", type: "application/pdf", disposition: "inline", stream: true, status: 200, filename: "mystorybooklet.pdf")
+  end
+
   private
 
+  # TODO: remove :username when refactoring profile controller
   def story_params
-    params.require(:story).permit(:content, :language, :status, :user_id, :title, :version_number)
+    params.require(:story).permit(:content, :language, :status, :user_id, :title, :version_number, :username)
   end
 
   # Ensures that the user story being saved belongs to the authenticated user. If not, redirect to new_story_path.

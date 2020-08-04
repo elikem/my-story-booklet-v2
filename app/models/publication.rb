@@ -4,6 +4,7 @@
 #
 #  id                   :bigint           not null, primary key
 #  conversion_status    :string           default("pending")
+#  pdf_file_path        :string
 #  pdf_url              :string
 #  publication_filename :string           default("")
 #  publication_number   :string
