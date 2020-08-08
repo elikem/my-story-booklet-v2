@@ -44,5 +44,17 @@ class User < ApplicationRecord
 
   validates :username, presence: true, uniqueness: true
 
+  after_create :create_users_public_profile
+  after_save :update_profile_friendly_id_with_username, if: :saved_change_to_username?
+
   has_many :stories
+  has_one :profile
+
+  def create_users_public_profile
+    self.build_profile(username: self.username)
+  end
+
+  def update_profile_friendly_id_with_username
+    self.profile.update(username: self.username)
+  end
 end
