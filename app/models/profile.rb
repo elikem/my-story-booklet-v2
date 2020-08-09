@@ -19,6 +19,8 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Profile < ApplicationRecord
+    after_save :update_profile_friendly_id_with_username, if: :saved_change_to_username?
+
     extend FriendlyId
     friendly_id :username, use: :slugged
 
@@ -26,7 +28,7 @@ class Profile < ApplicationRecord
 
     private
 
-    def find_publication
-        binding.pry
+    def update_profile_friendly_id_with_username
+        self.update(slug: self.username.downcase)
     end
 end

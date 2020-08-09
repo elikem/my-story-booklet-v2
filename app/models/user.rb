@@ -44,6 +44,7 @@ class User < ApplicationRecord
 
   validates :username, presence: true, uniqueness: true
 
+  before_create :username_should_be_lowercase
   after_create :create_users_public_profile
   after_save :update_profile_friendly_id_with_username, if: :saved_change_to_username?
 
@@ -51,10 +52,14 @@ class User < ApplicationRecord
   has_one :profile
 
   def create_users_public_profile
-    self.build_profile(username: self.username)
+    self.build_profile(username: self.username.downcase)
   end
 
   def update_profile_friendly_id_with_username
-    self.profile.update(username: self.username)
+    self.profile.update(username: self.username.downcase)
+  end
+
+  def username_should_be_lowercase
+    self.username = self.username.downcase
   end
 end
