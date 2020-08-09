@@ -44,8 +44,11 @@ class User < ApplicationRecord
 
   validates :username, presence: true, uniqueness: true
 
+  # new registration usernames should be lowercase
   before_create :username_should_be_lowercase
+  # when a new user is created a Profile should be created as well
   after_create :create_users_public_profile
+  # when the username on the User is updated, so is the Profile's username and slug (friendly_id)
   after_save :update_profile_friendly_id_with_username, if: :saved_change_to_username?
 
   has_many :stories

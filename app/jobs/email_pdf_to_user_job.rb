@@ -3,7 +3,6 @@ class EmailPdfToUserJob < ApplicationJob
 
   def perform(publication_id)
     # send the publication_id to the email action for processing
-    # UserMailer.email_pdf_to_user(publication_id).deliver_now
-    UserMailer.email_pdf_to_user(publication_id).deliver
+    UserMailer.email_pdf_to_user(publication_id).deliver_now
   end
 end

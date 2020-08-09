@@ -10,7 +10,7 @@ class DownloadPdfFromCompanionJob < ApplicationJob
     
     pdf_file_path = "#{@publication.publication_folder_path}/#{@publication.pdf_publication_filename}"
 
-    File.open(@pdf_file_path, "wb") do |file|
+    File.open(pdf_file_path, "wb") do |file|
       file.write HTTParty.get(@publication.pdf_url).body
     end
 

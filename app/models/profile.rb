@@ -19,6 +19,7 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Profile < ApplicationRecord
+    # everytime the username is updated, so is the slug
     after_save :update_profile_friendly_id_with_username, if: :saved_change_to_username?
 
     extend FriendlyId
