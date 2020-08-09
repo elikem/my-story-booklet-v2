@@ -13,6 +13,6 @@ class ProfilesController < ApplicationController
         # end
         render plain: "user profile not found" unless @profile = Profile.friendly.find(params[:id])
         render plain: "user not found" unless @user = Profile.find(@profile.id).user
-        render plain: "publication not found" unless @publication = Publication.where(story_id: @story).order(:updated_at).last
+        render plain: "publication not found" unless @publication = Publication.where(story_id: @user.stories.first.id).order(:updated_at).last
     end
 end
