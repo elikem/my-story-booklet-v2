@@ -1,6 +1,17 @@
 <div class="mt-4">
   <div class="row">
-    <div class="col-md-9 col-sm-12">
+    <%# This commented out tags support a sidebar that could provide contextual information %>
+    <!--<div class="col-md-9 col-sm-12">-->
+    <div class="col-12">
+      <div>
+        <span>Enable public profile:</span>
+        <label class="switch s-outline s-outline-default mr-2">
+          <input type="checkbox" <%= "checked" if @profile.public_access %>>
+          <span class="slider round"></span>
+        </label>
+        <span><i class="bs-tooltip" data-feather="info" style="margin-bottom: 5px; width: 15px; height: 15px;" title="Enable if you want your profile to be publically accessible" data-placement="top" data-toggle="tooltip" data-html="true"></i></span>
+      </div>
+      <p>Share your profile: <a href="<%= CONFIG["core_app_domain"] %>/profiles/<%= @user.username %>" target="_blank"><%= CONFIG["core_app_domain"] %>/profiles/<%= @user.username %></a></p>
       <div class="card">
         <div class="card-body">
           <%= render(partial: "dashboard/story/show_user_stories") %>
@@ -8,8 +19,8 @@
       </div>
     </div>
 
-    <div class="col-md-3 col-sm-12">
-      <%= render(partial: "dashboard/sidebar/sidebar") %>
-    </div>
+    <!--<div class="col-md-3 col-sm-12">
+      <%#= render(partial: "dashboard/sidebar/sidebar") %>
+    </div> -->
   </div>
 </div>

@@ -1,6 +1,6 @@
 development:
-  core_app_domain: "http://localhost:3000"
-  companion_app_domain: "http://localhost:3001"
+  core_app_domain: "localhost:3000"
+  companion_app_domain: "localhost:3001"
 
 production:
   core_app_domain: <%= ENV["CORE_APP_DOMAIN"] %>
