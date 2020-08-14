@@ -12,9 +12,9 @@
 //
 //= require rails-ujs
 //= require activestorage
-//= require popper
 //= require turbolinks
 //= require jquery
+//= require popper
 
 // required by the cork theme
 //= require cork/bootstrap
@@ -28,7 +28,8 @@
 //= require toastr
 
 // initializers and quick add-ons
-document.addEventListener("turbolinks:load", function() {
-    App.init();
-    feather.replace();
+document.addEventListener("turbolinks:load", function () {
+  App.init();
+  feather.replace();
+  $('[data-toggle="tooltip"]').tooltip();
 });

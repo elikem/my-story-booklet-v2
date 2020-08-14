@@ -14,7 +14,8 @@ gem "turbolinks", "~> 5"
 gem "jbuilder", "~> 2.5"
 gem "bootsnap", ">= 1.1.0", require: false
 gem "high_voltage", "~> 3.1"
-gem "bootstrap", "~> 4.3.1"
+# gem "bootstrap", "~> 4.3.1"
+gem 'popper_js', '~> 1.14.5'
 gem "friendly_id"
 gem "excon"
 gem "active_link_to"
