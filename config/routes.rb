@@ -47,7 +47,11 @@ Rails.application.routes.draw do
   get "publications/:id/json" => "publications#show_json"
   get "publications/:id/idml" => "publications#show_idml"
 
-  resources :profiles, only: [:show, :edit, :update]
+  resources :profiles, only: [:show, :edit, :update] do
+    member do
+      get "pdf"
+    end
+  end
 
   resources :stories, except: [:index, :new, :show] do
     member do

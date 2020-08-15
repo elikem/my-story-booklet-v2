@@ -182,7 +182,7 @@ class Publication < ApplicationRecord
   # the response should have a parameter that indicates successful download
   # TODO: this should be offloaded to another Sidekiq worker - this request will wait for the companion app to download and respond w/ 200 and some other parameter
   def post_idml_publication_to_companion
-    response = HTTParty.post(publish_idml_publication, query: { publication: { publication_number: publication_number, publication_url: publication_url, publication_filename: publication_filename }})
+    response = HTTParty.post(publish_idml_publication, query: { publication: { publication_number: publication_number, publication_url: publication_url, publication_filename: publication_filename } })
 
     # Status Code 204 - No Content
     unless response.code == "204"
@@ -257,7 +257,7 @@ class Publication < ApplicationRecord
   # publication number is a unique number
   # format: 2020-05-19-03-26-23-lZAo3JDDYJGkbnqtcycGyg
   def timestamp_and_publication_number
-    timestamp = self .created_at.strftime("%Y-%m-%d-%H-%-M-%S")
+    timestamp = self.created_at.strftime("%Y-%m-%d-%H-%-M-%S")
     publication_number = self.publication_number
 
     "#{timestamp}-#{publication_number}"
@@ -314,5 +314,10 @@ class Publication < ApplicationRecord
   # filename for the story content xml file
   def story_content_xml_filename
     "Story_u326e.xml"
+  end
+
+  def self.get_lastest_publication(username)
+    user = User.find_by_username(username)
+    latest_publication = user.stories.first.publications.order(:updated_at).last
   end
 end

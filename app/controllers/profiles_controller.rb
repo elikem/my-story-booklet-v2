@@ -1,16 +1,6 @@
 class ProfilesController < ApplicationController
   def show
-    # @profile = Profile.friendly.find(params[:id])
-    # @user = Profile.find(@profile.id).user
-    # # assumes a single story...find returns a single record
-    # @story = Story.find(@user.stories)
-    # @publication = Publication.where(story_id: story).order(:updated_at).last
-
-    # if (@profile && @user && @publication)
-    #     return publication
-    # else
-    #     raise ActiveRecord::RecordNotFound
-    # end
+    #TODO: build a 404 page and pass the appropriate error messages to this page. look into flash messages or raise custom error messages
     render plain: "user profile not found" unless @profile = Profile.friendly.find(params[:id])
     render plain: "user not found" unless @user = Profile.find(@profile.id).user
     render plain: "publication not found" unless @publication = Publication.where(story_id: @user.stories.first.id).order(:updated_at).last
@@ -18,6 +8,7 @@ class ProfilesController < ApplicationController
 
   def update
     @profile = Profile.find_by_username(params[:id])
+    @user = @profile.user
 
     respond_to do |format|
       if @profile.update_attributes(profile_params)
@@ -26,6 +17,12 @@ class ProfilesController < ApplicationController
         format.js
       end
     end
+  end
+
+  def pdf
+    @latest_publication = Publication.get_lastest_publication(params[:id])
+
+    send_file("#{@latest_publication.pdf_file_path}", type: "application/pdf", disposition: "attachment", stream: true, status: 200, filename: "mystorybooklet.pdf")
   end
 
   private

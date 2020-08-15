@@ -20,6 +20,7 @@ class PublicationsController < ApplicationController
   end
 
   # update publication record with pdf url and publication number from companion app
+  # TODO: refactor the method name to "update_publication_with_pdf_url"
   def update_publication_with_pdf
     @publication = Publication.find_by_publication_number(publication_params[:publication_number])
     @publication.update(publication_status: "8_pdf_conversion_complete", pdf_url: publication_params[:pdf_url])
