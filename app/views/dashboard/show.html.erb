@@ -4,7 +4,7 @@
       <div>
         <%= render partial: "profiles/form" %>
       </div>
-      <p>Share your profile: <a href="//<%= CONFIG["core_app_domain"] + '/profiles/' + @user.username %>" target="_blank"><%= CONFIG["core_app_domain"] + '/profiles/' + @user.username %></a></p>
+      <p>Share your profile: <a href="//<%= @user.public_profile_url %>" target="_blank"><%= @user.public_profile_url %></a></p>
       <div class="card">
         <div class="card-body">
           <%= render(partial: "dashboard/story/show_user_stories") %>

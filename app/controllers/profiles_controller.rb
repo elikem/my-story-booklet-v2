@@ -21,8 +21,9 @@ class ProfilesController < ApplicationController
 
   def pdf
     @latest_publication = Publication.get_lastest_publication(params[:id])
+    @user = @latest_publication.story.user
 
-    send_file("#{@latest_publication.pdf_file_path}", type: "application/pdf", disposition: "attachment", stream: true, status: 200, filename: "mystorybooklet.pdf")
+    send_file("#{@latest_publication.pdf_file_path}", type: "application/pdf", disposition: "attachment", stream: true, status: 200, filename: "#{@user.first_name.downcase}-#{@user.last_name.downcase}-mystorybooklet-#{@latest_publication.publication_number}.pdf")
   end
 
   private

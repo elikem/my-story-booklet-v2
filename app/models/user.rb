@@ -65,4 +65,8 @@ class User < ApplicationRecord
   def username_should_be_lowercase
     self.username = self.username.downcase
   end
+
+  def public_profile_url
+    "#{CONFIG["core_app_domain"]}/profiles/#{self.username}"
+  end
 end

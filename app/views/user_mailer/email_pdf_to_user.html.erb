@@ -6,6 +6,6 @@
   </head>
   <body>
     <p>Your story is ready!
-    <p>To view the latest publication of your story on your online, click here "@user.profile_path".</p>
+    <p>To view the latest publication of your story on your online, click here <%= @user.public_profile_url %>  (requires the public profile feature to be turned on).</p>
   </body>
 </html>
