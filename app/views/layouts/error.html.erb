@@ -15,24 +15,15 @@
 
     <!-- BEGIN GLOBAL STYLES AND SCRIPTS -->
     <%= stylesheet_link_tag("application", media: "all", "data-turbolinks-track": "reload") %>
-    <%= stylesheet_link_tag "pages" %>
+    <%= stylesheet_link_tag "errors" %>
     <%= stylesheet_link_tag("//fonts.googleapis.com/css?family=Quicksand:400,500,600,700&display=swap") %>
     <%= javascript_include_tag("application", "data-turbolinks-track": "reload") %>
     <!-- END GLOBAL STYLES AND SCRIPTS -->
   </head>
 
-  <body class="<%= controller_name %> <%= action_name %> alt-menu sidebar-noneoverflow">
-    <%= render(partial: "shared/layout/navigation/top-navigation") %>
-
+  <body id="error_page" class="<%= controller_name %> <%= action_name %> alt-menu sidebar-noneoverflow">
     <!--  BEGIN MAIN CONTAINER  -->
     <div class="main-container" id="container">
-
-      <div class="overlay"></div>
-      <div class="search-overlay"></div>
-
-      <!--  BEGIN MAIN NAVIGATION  -->
-      <%#= render(partial: "shared/layout/navigation/main-navigation") %>
-      <!--  END MAIN NAVIGATION  -->
 
       <!--  BEGIN CONTENT PART  -->
       <div id="content" class="main-content">

@@ -35,5 +35,8 @@ module MyStoryBooklet
 
     config.active_job.queue_adapter = :sidekiq
     config.eager_load_paths << Rails.root.join("lib")
+
+    # tell rails to use the routes for error handling
+    config.exceptions_app = self.routes
   end
 end

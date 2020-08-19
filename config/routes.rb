@@ -76,5 +76,8 @@ Rails.application.routes.draw do
 
   # HighVoltage
   # See PagesController and app/views/pages/*
-  get "*id" => "pages#show", as: :page, format: false
+  # get "*id" => "pages#show", as: :page, format: false
+
+  # display errors
+  match ":status", to: "errors#show", constraints: { status: /\d{3}/ }, via: :all
 end

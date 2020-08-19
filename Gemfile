@@ -31,6 +31,7 @@ gem "sidekiq"
 gem 'rack-cors'
 
 group :development do
+  gem "amazing_print"
   gem "pry-rails"
   gem "pry-byebug"
   gem "web-console", ">= 3.3.0"
