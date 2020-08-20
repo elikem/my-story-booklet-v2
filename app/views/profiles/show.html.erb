@@ -9,7 +9,16 @@
     </div>
 
     <div class="col-12 mt-3">
-      <p>serve pdf here</p>
+      <div id="flipbook"></div>
     </div>
   </div>
 </div>
+
+<%# TODO: resolve flipbook pdf not showing %>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#flipbook").flipBook({
+            pdfUrl:"<%= @publication.pdf_file_path %>",
+        });
+    })
+</script>

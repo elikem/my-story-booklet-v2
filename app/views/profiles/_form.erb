@@ -1,6 +1,6 @@
 <%= form_with model: @profile, id: "public-access" do |f| %>
     <%= f.label :blank, class: "switch s-outline s-outline-default mr-2" do %>
-        <span>Enable your public profile:</span>
+        <span class="font-weight-bold">Enable your public profile:</span>
         <%= f.check_box :public_access %>
         
     <% end %>

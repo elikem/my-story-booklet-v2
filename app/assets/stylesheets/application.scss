@@ -18,6 +18,7 @@
 @import "bootstrap-select.min";
 @import "cork/cork";
 @import "toastr";
+@import "css/flipbook.css";
 
 // adds padding to both the left and right of a container
 // this might not be a necessary style
@@ -35,14 +36,18 @@ a {
     text-decoration: underline;
 
     &.disabled {
-      > *, span, svg {
+      > *,
+      span,
+      svg {
         color: gray !important;
       }
     }
   }
 
   &.disabled {
-    > *, span, svg {
+    > *,
+    span,
+    svg {
       color: gray !important;
     }
   }
@@ -56,7 +61,6 @@ nav a:hover {
     text-decoration: none;
   }
 }
-
 
 // Devise adds this div wrapper around inputs. This wrapper wreaks havoc on the input and label styles for input groups.
 .field_with_errors {

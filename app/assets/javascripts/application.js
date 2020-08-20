@@ -26,6 +26,7 @@
 // project add-ons
 //= require tinymce
 //= require toastr
+//= require js/flipbook.min.js
 
 // initializers and quick add-ons
 document.addEventListener("turbolinks:load", function () {
