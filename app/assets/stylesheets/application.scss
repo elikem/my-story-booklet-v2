@@ -20,6 +20,10 @@
 @import "toastr";
 @import "css/flipbook.css";
 
+body {
+  font-size: 1rem;
+}
+
 // adds padding to both the left and right of a container
 // this might not be a necessary style
 .layout-side-spacing {

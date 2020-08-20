@@ -1,6 +1,5 @@
 class ProfilesController < ApplicationController
   def show
-    #TODO: build a 404 page and pass the appropriate error messages to this page. look into flash messages or raise custom error messages
     render plain: "user profile not found" unless @profile = Profile.friendly.find(params[:id])
     render plain: "user not found" unless @user = Profile.find(@profile.id).user
     render plain: "publication not found" unless @publication = Publication.where(story_id: @user.stories.first.id).order(:updated_at).last
