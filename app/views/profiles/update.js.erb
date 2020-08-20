@@ -1,0 +1,7 @@
+toastr.success("We've updated your public profile status");
+
+<% if @profile.public_access %>
+    $("#profile-link").css("display", "block")
+<% else %>
+    $("#profile-link").css("display", "none")
+<% end %>

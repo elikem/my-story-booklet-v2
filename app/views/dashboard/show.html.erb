@@ -4,7 +4,7 @@
       <div>
         <%= render partial: "profiles/form" %>
       </div>
-      <p>Share your profile: <a href="//<%= @user.public_profile_url %>" target="_blank"><%= @user.public_profile_url %></a> (<a href="mailto:?subject=Share with a friend">share</a>)</p>
+      <p id="profile-link">Share your profile: <a href="//<%= @user.public_profile_url %>" target="_blank"><%= @user.public_profile_url %></a> (<a href="mailto:?subject=Here's my personal story&body=http://<%= @user.public_profile_url %>">share</a>)</p>
       <div class="card">
         <div class="card-body">
           <%= render(partial: "dashboard/story/show_user_stories") %>
