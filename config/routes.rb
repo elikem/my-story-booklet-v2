@@ -59,8 +59,6 @@ Rails.application.routes.draw do
     end
   end
 
-  get "/story/:username" => "stories#show_latest_publication"
-
   require "sidekiq/web"
   mount Sidekiq::Web => "/sidekiq"
 

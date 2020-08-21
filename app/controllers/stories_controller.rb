@@ -45,14 +45,6 @@ class StoriesController < ApplicationController
     render "publish"
   end
 
-  def show_latest_publication
-    @user = User.find_by_username(params[:username])
-    # TODO: the line below does not accomodate multiple stories/templates
-    @pdf_file_path = @user.stories.first.publications.order(:updated_at).last.pdf_file_path
-
-    send_file("#{@pdf_file_path}", type: "application/pdf", disposition: "inline", stream: true, status: 200, filename: "mystorybooklet.pdf")
-  end
-
   private
 
   # TODO: remove :username when refactoring profile controller
