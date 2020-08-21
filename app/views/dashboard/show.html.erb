@@ -4,7 +4,8 @@
       <div>
         <%= render partial: "profiles/form" %>
       </div>
-      <p id="profile-link">Share your profile: <a href="//<%= @user.public_profile_url %>" target="_blank" style="padding-right: 5px;"><%= @user.public_profile_url %></a> (<a href="mailto:?subject=Here's my personal story&body=http://<%= @user.public_profile_url %>" style="font-weight: bold;"><i data-feather="share-2" style="height:16px;"></i>share</a> )</p>
+      <%# TODO: confirm that public url works as expect i.e. http is present in url %>
+      <p id="profile-link">Share your profile: <a href="<%= @user.public_profile_url %>" target="_blank" style="padding-right: 5px;"><%= @user.public_profile_url %></a> (<a href="mailto:?subject=Here's my personal story&body=<%= @user.public_profile_url %>" style="font-weight: bold;"><i data-feather="share-2" style="height:16px;"></i>share</a> )</p>
       <div class="card mt-4">
         <div class="card-body">
           <%= render(partial: "dashboard/story/show_user_stories") %>
