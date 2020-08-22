@@ -78,4 +78,5 @@ Rails.application.routes.draw do
 
   # display errors
   match ":status", to: "errors#show", constraints: { status: /\d{3}/ }, via: :all
+  get "errors/:id" => "errors#show"
 end
