@@ -318,11 +318,17 @@ class Publication < ApplicationRecord
 
   def self.get_lastest_publication(username)
     user = User.find_by_username(username)
-    latest_publication = user.stories.first.publications.order(:updated_at).last
+
+    if user.stories.first
+      return latest_publication = user.stories.first.publications.order(:updated_at).last
+    end
   end
 
   def self.get_latest_publication_with_pdf(username)
     user = User.find_by_username(username)
-    latest_publication = user.stories.first.publications.where(conversion_status: "complete").order(:updated_at).last
+
+    if user.stories.first
+      return latest_publication = user.stories.first.publications.where(conversion_status: "complete").order(:updated_at).last
+    end
   end
 end
