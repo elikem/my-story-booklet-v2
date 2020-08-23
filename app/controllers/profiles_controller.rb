@@ -1,8 +1,8 @@
 class ProfilesController < ApplicationController
   def show
-    render plain: "user profile not found" unless @profile = Profile.friendly.find(params[:id])
-    render plain: "user not found" unless @user = Profile.find(@profile.id).user
-    render plain: "publication not found" unless @publication = Publication.get_lastest_publication(params[:id])
+    flash[:alert] = "User profile not found"; redirect_to controller: "errors", action: "show" unless @profile = Profile.friendly.find(params[:id])
+    flash[:alert] = "User not found"; redirect_to controller: "errors", action: "show" unless @user = Profile.find(@profile.id).user
+    flash[:alert] = "Publication not found"; redirect_to controller: "errors", action: "show" unless @publication = Publication.get_latest_publication_with_pdf(params[:id])
 
     flash[:alert] = "This profile is not public"; redirect_to controller: "errors", action: "show" unless @profile.public_access
   end
