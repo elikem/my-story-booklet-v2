@@ -4,7 +4,12 @@
       <div>
         <%= render partial: "profiles/form" %>
       </div>
-      <p id="profile-link" style="<%= 'display: none;' unless @profile.public_access %>">Share your profile: <a href="<%= @user.public_profile_url %>" target="_blank" style="padding-right: 5px;"><%= @user.public_profile_url %></a> (<a href="mailto:?subject=Here's my personal story&body=<%= @user.public_profile_url %>" style="font-weight: bold;"><i data-feather="share-2" style="height:16px;"></i>share</a> )</p>
+      
+      <% if @publication %>
+        <%= render partial: "dashboard/profile_links" %>
+      <% else %>
+        <p class="small">You'll see your profile link here after successful publication :).</p>
+      <% end %>
       
       <div class="card mt-4">
         <div class="card-body">
