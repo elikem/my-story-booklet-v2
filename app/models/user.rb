@@ -67,6 +67,6 @@ class User < ApplicationRecord
   end
 
   def public_profile_url
-    "#{CONFIG["core_app_url"]}/profiles/#{self.username}"
+    "#{ENV["CORE_APP_URL"]}/profiles/#{self.username}"
   end
 end
