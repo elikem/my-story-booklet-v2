@@ -51,6 +51,9 @@ class User < ApplicationRecord
   end
 
   def update_profile_username
+    # the problem is here!
+    # a profile needs to be created for a username
+    # if that profile exists simply ignore it
     self.profile.update(username: self.username.downcase)
   end
 

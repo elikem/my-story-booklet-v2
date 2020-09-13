@@ -2,12 +2,13 @@
 #
 # Table name: profiles
 #
-#  id         :bigint           not null, primary key
-#  slug       :string
-#  username   :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  user_id    :bigint
+#  id            :bigint           not null, primary key
+#  public_access :boolean          default(FALSE)
+#  slug          :string
+#  username      :string
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  user_id       :bigint
 #
 # Foreign Keys
 #
