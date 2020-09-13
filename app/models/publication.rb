@@ -14,14 +14,9 @@
 #  updated_at           :datetime         not null
 #  story_id             :bigint
 #
-# Indexes
-#
-#  index_publications_on_publication_number  (publication_number) UNIQUE
-#  index_publications_on_story_id            (story_id)
-#
 # Foreign Keys
 #
-#  fk_rails_...  (story_id => stories.id)
+#  publications_story_id_fkey  (story_id => stories.id)
 #
 class Publication < ApplicationRecord
   require "loofah"

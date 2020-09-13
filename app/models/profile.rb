@@ -2,35 +2,29 @@
 #
 # Table name: profiles
 #
-#  id            :bigint           not null, primary key
-#  public_access :boolean          default(FALSE)
-#  slug          :string
-#  username      :string
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  user_id       :bigint
-#
-# Indexes
-#
-#  index_profiles_on_slug     (slug) UNIQUE
-#  index_profiles_on_user_id  (user_id)
+#  id         :bigint           not null, primary key
+#  slug       :string
+#  username   :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  user_id    :bigint
 #
 # Foreign Keys
 #
-#  fk_rails_...  (user_id => users.id)
+#  profiles_user_id_fkey  (user_id => users.id)
 #
 class Profile < ApplicationRecord
-    # everytime the username is updated, so is the slug
-    after_save :update_profile_friendly_id_with_username, if: :saved_change_to_username?
+  # everytime the username is updated, so is the slug
+  after_save :update_profile_friendly_id_with_username, if: :saved_change_to_username?
 
-    extend FriendlyId
-    friendly_id :username, use: :slugged
+  extend FriendlyId
+  friendly_id :username, use: :slugged
 
-    belongs_to :user 
+  belongs_to :user
 
-    private
+  private
 
-    def update_profile_friendly_id_with_username
-        self.update(slug: self.username.downcase)
-    end
+  def update_profile_friendly_id_with_username
+    self.update(slug: self.username.downcase)
+  end
 end

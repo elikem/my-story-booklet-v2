@@ -28,14 +28,6 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #
-# Indexes
-#
-#  index_users_on_confirmation_token    (confirmation_token) UNIQUE
-#  index_users_on_email                 (email) UNIQUE
-#  index_users_on_reset_password_token  (reset_password_token) UNIQUE
-#  index_users_on_unlock_token          (unlock_token) UNIQUE
-#  index_users_on_username              (username) UNIQUE
-#
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :timeoutable
@@ -49,7 +41,7 @@ class User < ApplicationRecord
   # when a new user is created a Profile should be created as well
   after_create :create_users_public_profile
   # when the username on the User is updated, so is the Profile's username and slug (friendly_id)
-  after_save :update_profile_friendly_id_with_username, if: :saved_change_to_username?
+  after_save :update_profile_username, if: :saved_change_to_username?
 
   has_many :stories
   has_one :profile
@@ -58,7 +50,7 @@ class User < ApplicationRecord
     self.build_profile(username: self.username.downcase)
   end
 
-  def update_profile_friendly_id_with_username
+  def update_profile_username
     self.profile.update(username: self.username.downcase)
   end
 
