@@ -34,3 +34,8 @@
 
 # Ignore VS Code
 .vscode
+
+# Ignore tags file from Vim
+tags
+tags.lock
+tags.temp
