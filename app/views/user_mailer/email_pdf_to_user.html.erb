@@ -7,6 +7,9 @@
   <body>
     <p>Your story is ready!
     <p>Download and your story and share the PDF file with your friends</p>
-    <p>To view the latest publication of your story on your online, click here <%= @user.public_profile_url %>  (requires your public profile to be enabled).</p>
+
+    <% if @profile.public_access %>
+      <p>You can view and share the latest publication of your story online. Click here <%= @user.public_profile_url %>.</p>
+    <% end %>
   </body>
 </html>

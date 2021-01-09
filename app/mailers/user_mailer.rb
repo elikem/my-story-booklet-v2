@@ -4,6 +4,7 @@ class UserMailer < ApplicationMailer
     def email_pdf_to_user(publication_id)
         @publication = Publication.find(publication_id)
         @user = @publication.story.user
+        @profile = @user.profile
         
         attachments[@publication.pdf_publication_filename] = File.read("#{@publication.publication_folder_path}/#{@publication.pdf_publication_filename}")
         mail(to: @user.email, subject: "My Story Booklet: Your Story is Ready!")
