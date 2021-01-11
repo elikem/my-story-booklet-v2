@@ -7,8 +7,10 @@
       
       <% if @publication %>
         <%= render partial: "dashboard/profile_links" %>
+        <p class="small font-weight-bold text-danger">Your public profile is a page with your story that the world can see. Share your link with others.</p>
       <% else %>
         <p class="small">You'll see your profile link here after successful publication :).</p>
+        <p class="small font-weight-bold text-danger">Your public profile is a page with your story that the world can see. Share your link with others.</p>
       <% end %>
       
       <div class="card mt-4">
