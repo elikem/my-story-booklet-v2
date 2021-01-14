@@ -9,6 +9,17 @@
 
         <div class="mb-4">
           <%= render(partial: "shared/flash_messages") %>
+
+          <% if flash.count > 0 %>
+            <div id="error_explanation">
+              <h2><%= pluralize(flash.count, 'error') %> prohibited sign in</h2>
+              <ul>
+                <% flash.each do |name, msg| -%>
+                  <li><%= msg %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
         </div>
 
         <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>

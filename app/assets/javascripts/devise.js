@@ -22,6 +22,9 @@
 
 //= require cork/app
 
+//project add-ons
+//= require toastr
+
 document.addEventListener("turbolinks:load", function() {
     // initialize cork theme js
     App.init();
