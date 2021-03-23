@@ -1,8 +1,16 @@
 body.pages {
   #landing-page {
+    background-image: url(asset_path("megha-ajith-birds-background-unsplash.jpg"));
+    background-position: center;
+    background-size: cover;
+
+
     #hero-container {
       background: image_url("landing-bg.svg") no-repeat center right;
       background-size: contain;
+
+      background: image_url("landing-bg.svg") no-repeat left top;
+      background-size: auto;
     }
 
     @media (min-width: 1200px) {
@@ -26,6 +34,15 @@ body.pages {
     @media (max-width: 767.8px) {
       #hero-container {
         height: 300px;
+      }
+    }
+
+    #soaring-booklet {
+      opacity: 0.9;
+
+      &:hover {
+        border: 2px solid #3c405c;
+        opacity: 1;
       }
     }
   }

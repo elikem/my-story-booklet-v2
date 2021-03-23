@@ -33,3 +33,5 @@ Rails.application.config.assets.precompile += %w( errors.css )
 
 # https://makandracards.com/makandra/29567-managing-vendor-libraries-with-the-rails-asset-pipeline
 Rails.application.config.assets.paths += Dir["#{Rails.root}/vendor/asset-libs/*"].sort_by { |dir| -dir.size }
+
+Rails.application.config.assets.precompile += %w( Soaring.pdf )

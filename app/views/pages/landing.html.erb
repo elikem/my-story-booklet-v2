@@ -1,17 +1,13 @@
-<div id="landing-page" class="row align-items-center layout-top-spacing layout-spacing">
-  <div class="col-12 col-xl-6">
-    <h1 class="font-weight-bolder">Let your story be a vessel that leads people to Christ.</h1>
+<div id="landing-page" class="row align-items-center layout-top-spacing layout-spacing"> <div class="col-12 col-xl-6"> <h1 class="font-weight-bolder">Let your story be a vessel that leads people to Christ.</h1>
     <p class="lead mt-4">Build a personalized booklet that includes your story and the Gospel. Create, print or post to share with those around you.</p>
-    <p class="lead mt-4"><blockquote class="text-center" style="font-size:1.25rem">I was thanking the van driver at the airport and as I tipped him I said I have this copy of my story of how I made the most important decision of my life when I came to know God personally. I showed him the booklet turned to the page with my story and asked him if he would like to have 
+    <p class="lead mt-4"><blockquote class="text-left" style="font-size:1.25rem">
+      <%= link_to(asset_path("Soaring.pdf"), target: "_blank") do  %> 
+        <%= image_tag("my-story-booklet.png", class: "mr-3 float-left", id: "soaring-booklet", width: "231") %>
+      <% end %>
+      I was thanking the van driver at the airport and as I tipped him I said I have this copy of my story of how I made the most important decision of my life when I came to know God personally. I showed him the booklet turned to the page with my story and asked him if he would like to have 
       the booklet. He said “yes and would there be any chance he could have a second booklet for his wife.</blockquote></p>
   </div>
-
-  <div id="hero-container" class="col-12 col-xl-5 ml-auto">
-    <div>
-      <!-- TODO: Add an image here on the right. -->
-      <% #= image_tag("hero.png", class: "img-fluid w-100") %>
-    </div>
-  </div>
+<div id="hero-container" class="col-12 col-xl-5 ml-auto"></div>
 </div>
 
 <hr style="border:1px solid; color: #acb0c3">

@@ -52,8 +52,8 @@ group :development do
   gem "guard-shell"
   gem "guard-bundler"
   gem "terminal-notifier-guard"
-  gem "mailcatcher", require: false
   gem "byebug", platforms: [:mri, :mingw, :x64_mingw]
+  gem "letter_opener", :group => :development
 end
 
 gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
