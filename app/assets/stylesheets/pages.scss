@@ -40,10 +40,26 @@ body.pages {
     #soaring-booklet {
       opacity: 0.9;
 
+      @media (max-width: 576px) {
+        display: block;
+        width: 100%;
+      }
+
       &:hover {
         border: 2px solid #3c405c;
         opacity: 1;
       }
+    }
+  }
+
+  .registration-links {
+    @media (min-width: 576px) {
+      font-size: 2.5rem;
+      margin-bottom: .5rem;
+      font-family: inherit;
+      font-weight: 500;
+      line-height: 1.2;
+      color: inherit;
     }
   }
 }
