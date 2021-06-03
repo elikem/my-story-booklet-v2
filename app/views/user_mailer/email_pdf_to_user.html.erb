@@ -8,8 +8,6 @@
     <p>Your story is ready, see the attached PDF.
     <p>Download print or share your story with your friends</p>
 
-    <% if @profile.public_access %>
-      <p>You can view and share the latest publication of your story online. Click here <%= @user.public_profile_url %>.</p>
-    <% end %>
+    <p>You can view and share the latest publication of your story online. Click here <%= @user.public_profile_url %>.</p>
   </body>
 </html>

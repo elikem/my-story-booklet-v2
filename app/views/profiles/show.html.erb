@@ -3,24 +3,15 @@
     <div class="col-12">
       <div class="card">
         <div class="card-body">
-           <p><a href="<%= pdf_profile_path %>" target="_blank">Download <%= @user.first_name %>'s story</a><span class="small"> <i data-feather="book-open" style="height: 14px;"></i>(PDF)</span></p>
-
-           <p>When you download your booklet, you can share it with others by email or print.</p>
+          <% if @publication %>
+            <p><a href="<%= pdf_profile_path %>" target="_blank">Download <%= @user.first_name %>'s story</a><span class="small"> <i data-feather="book-open" style="height: 14px;"></i>(PDF)</span></p>
+            <p>When you download your booklet, you can share it with others by email or print.</p>
+          <% else %>
+            <h4><b><%= @user.first_name %> does not have story at this time.</b> Please come back later. <i data-feather="watch"></i></h4>
+          <% end %>
+          
         </div>
       </div>
     </div>
-
-    <div class="col-12 mt-3">
-      <div id="flipbook"></div>
-    </div>
   </div>
 </div>
-
-<%# TODO: resolve flipbook pdf not showing %>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $("#flipbook").flipBook({
-            pdfUrl:"<%= @publication.pdf_file_path %>",
-        });
-    })
-</script>

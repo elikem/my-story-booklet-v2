@@ -1,18 +1,8 @@
 <div class="mt-4">
   <div class="row">
     <div class="col-12">
-      <div>
-        <%= render partial: "profiles/form" %>
-      </div>
-      
-      <% if @publication %>
-        <%= render partial: "dashboard/profile_links" %>
-        <p class="small font-weight-bold text-danger">Click the share link above to print, download and email your story.</p>
-      <% else %>
-        <p class="small">You'll see your profile link here after successful publication :).</p>
-        <p class="small font-weight-bold text-danger">Your public profile is a page with your story that the world can see. Share your link with others.</p>
-        <!-- remove this else block when every user gets a public profile -->
-      <% end %>
+      <%= render partial: "dashboard/profile_links" %>  
+      <p class="small font-weight-bold text-danger">Click the share link above to print, download and email your story.</p>
       
       <div class="card mt-4">
         <div class="card-body">
