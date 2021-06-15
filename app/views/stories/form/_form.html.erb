@@ -13,28 +13,33 @@
 <% end %>
 
 <script type="text/javascript" charset="utf-8">
-    // TinyMCE initialization
-    tinymce.init({
-        selector: '#js-my-story-textarea',
-        placeholder: 'Tell your story...',
-        paste_as_text: true,
-        plugins: "paste",
-        paste_data_images: true,
-        valid_elements: "p",
-        menubar: '',
-        toolbar: '',
-        allow_conditional_comments: false,
-        allow_html_in_named_anchor: false,
-        convert_fonts_to_spans : false,
+  // TinyMCE initialization
+  tinymce.init({
+      selector: '#js-my-story-textarea',
+      placeholder: 'Tell your story...',
+      paste_as_text: true,
+      plugins: "paste",
+      paste_data_images: true,
+      valid_elements: "p",
+      menubar: '',
+      toolbar: '',
+      allow_conditional_comments: false,
+      allow_html_in_named_anchor: false,
+      convert_fonts_to_spans : false,
 
-        init_instance_callback: function (editor) {
-            // display save button on textarea change or keyup
-            editor.on('Change', function (e) {
-                showOrHideSaveButton();
+      init_instance_callback: function (editor) {
+          // display save button on textarea change or keyup
+          editor.on('Change', function (e) {
+              showOrHideSaveButton();
             });
-            editor.on('keyup', function(e) {
-                showOrHideSaveButton();
+          editor.on('keyup', function(e) {
+              showOrHideSaveButton();
+              storyCounter(this);
             });
+          // load character count on editor load
+          editor.on('load', function(e) {
+              $("#characterCounter span").html(tinymce.get("js-my-story-textarea").getContent().length);
+            })
         }
     });
 
@@ -45,14 +50,26 @@
         if (saveButton.length) {
             if (tinymce.get("js-my-story-textarea").getContent().length === 0 || $("#js-my-story-title").val().length ===0) {
                 saveButton.attr("disabled", "disabled")
-            } else {
-              saveButton.removeAttr("disabled");
-            }
-        }
-    }
+              } else {
+                  saveButton.removeAttr("disabled");
+                }
+          }
+      }
 
-    // check for keyup event on story title
-    $("#js-my-story-title").keyup(function() {
-        showOrHideSaveButton();
-    })
+    // counts the number of characters in the text editor.
+    function storyCounter(Editor) {
+        var text = Editor.getContent();
+        var textLength = text.length;
+        var minCharacters = 2500;
+        var maxCharacters = 3000;
+        characterCounterDOM = $("#characterCounter span");
+
+        // show current count
+        characterCounterDOM.html(textLength)
+
+        // write character length to DOM
+        // display message for acceptable range
+        // display message for exceeding acceptable range
+      }
+
 </script>
