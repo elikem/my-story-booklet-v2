@@ -34,7 +34,7 @@
             });
           editor.on('keyup', function(e) {
               showOrHideSaveButton();
-              storyCounter(this);
+              //storyCounter(this);
             });
           // load character count on editor load
           editor.on('load', function(e) {
@@ -60,8 +60,6 @@
     function storyCounter(Editor) {
         var text = Editor.getContent();
         var textLength = text.length;
-        var minCharacters = 2500;
-        var maxCharacters = 3000;
         characterCounterDOM = $("#characterCounter span");
 
         // show current count
